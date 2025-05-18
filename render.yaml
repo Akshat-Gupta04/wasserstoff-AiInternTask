@@ -3,7 +3,7 @@ services:
     name: document-research-chatbot
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app --bind=0.0.0.0:$PORT
+    startCommand: gunicorn app:app
     plan: standard # Use standard plan for better resources
     envVars:
       - key: OPENAI_API_KEY
@@ -22,8 +22,6 @@ services:
         value: static
       - key: PYTHON_VERSION
         value: 3.11.0
-      - key: PORT
-        value: 10000
     healthCheckPath: /health
     autoDeploy: true
     disk:

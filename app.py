@@ -76,6 +76,7 @@ import io  # For BytesIO
 from PIL import Image
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain.prompts import PromptTemplate
+from flask_cors import CORS
 from rank_bm25 import BM25Okapi
 from sklearn.decomposition import NMF
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -145,6 +146,7 @@ logger.addHandler(file_handler)
 
 # Flask app setup
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Load environment variables
 load_dotenv()
