@@ -69,6 +69,7 @@ Frontend Architecture:
             border-right: 1px solid #dee2e6;
             overflow-y: auto;
             padding: 1rem;
+            transition: all 0.3s ease;
         }
         .session-item {
             padding: 0.5rem;
@@ -91,8 +92,9 @@ Frontend Architecture:
             opacity: 1;
         }
         .welcome-container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
+            padding: 0 15px;
         }
         .feature-card {
             height: 100%;
@@ -113,16 +115,88 @@ Frontend Architecture:
             border-radius: var(--border-radius);
             margin-bottom: 3rem;
         }
+
+        /* Improved responsive design */
+        @media (max-width: 1199.98px) {
+            .welcome-container {
+                max-width: 100%;
+            }
+            .hero-section {
+                padding: 2rem 0;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .chat-layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: fixed;
+                top: 70px;
+                left: -250px;
+                height: calc(100vh - 70px);
+                width: 250px;
+                z-index: 1000;
+                box-shadow: none;
+            }
+            .sidebar-mobile-open {
+                left: 0;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            }
+            .mobile-sidebar-toggle {
+                display: block;
+            }
+            .app-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .hero-section {
+                padding: 1.5rem 0;
+            }
+            .card-body {
+                padding: 1rem;
+            }
+            .feature-icon {
+                font-size: 2rem;
+            }
+            .app-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .app-title {
+                font-size: 1.1rem;
+            }
+            .hero-section {
+                padding: 1rem 0;
+            }
+            .upload-container, .query-container {
+                padding: 0.75rem !important;
+            }
+            .form-control-lg {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.75rem;
+            }
+            .btn-lg {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header class="app-header">
         <div class="container-fluid">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1 class="app-title">Document Research & Theme Identification</h1>
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <h1 class="app-title mb-2 mb-md-0">Document Research & Theme Identification</h1>
                 <div class="d-flex align-items-center">
-                    <!-- Reset All Data button removed -->
+                    <button type="button" id="help-btn" class="btn btn-sm btn-info me-2" data-bs-toggle="modal" data-bs-target="#helpModal">
+                        <i class="fas fa-question-circle me-1"></i> <span class="d-none d-sm-inline">Help & Tips</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -204,11 +278,11 @@ Frontend Architecture:
                                         <div class="input-group mb-3">
                                             <input type="file" class="form-control form-control-lg" id="file" name="file" accept=".pdf,.png,.jpg,.jpeg" multiple required data-tippy-content="Upload PDF, PNG, JPG, or JPEG files. Hold Ctrl/Cmd to select multiple files.">
                                             <label class="input-group-text" for="file">
-                                                <i class="fas fa-file-upload"></i> Browse
+                                                <i class="fas fa-file-upload"></i> <span class="d-none d-sm-inline">Browse</span>
                                             </label>
                                         </div>
                                         <div class="form-text mb-2">
-                                            <i class="fas fa-info-circle me-1 text-primary"></i> Select multiple files by holding Ctrl/Cmd while selecting. Supported formats: PDF, PNG, JPG, JPEG.
+                                            <i class="fas fa-info-circle me-1 text-primary"></i> <span class="d-none d-md-inline">Select multiple files by holding Ctrl/Cmd while selecting.</span> Supported formats: PDF, PNG, JPG, JPEG.
                                         </div>
                                         <div id="selected-files" class="mt-3 mb-2"></div>
                                     </div>
@@ -220,7 +294,7 @@ Frontend Architecture:
                                     <div class="query-container p-3 border rounded">
                                         <input type="text" class="form-control form-control-lg" name="query" placeholder="Ask a question about the document..." required data-tippy-content="Ask specific questions for better results. Try 'What are the main themes?' or 'Summarize the key points about [topic]'">
                                         <div class="form-text mt-2">
-                                            <i class="fas fa-lightbulb me-1 text-warning"></i> Try questions like "What are the main themes?" or "Summarize the key points about [topic]"
+                                            <i class="fas fa-lightbulb me-1 text-warning"></i> Try questions like <span class="d-none d-md-inline">"What are the main themes?" or</span> "Summarize the key points about [topic]"
                                         </div>
                                     </div>
                                 </div>
@@ -283,29 +357,29 @@ Frontend Architecture:
                 <h3 class="text-center mb-4">How It Works</h3>
                 <div class="card mb-5">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3 text-center">
+                        <div class="row g-3">
+                            <div class="col-6 col-md-3 text-center">
                                 <div class="p-3 animate__animated animate__fadeInRight" style="animation-delay: 0.1s">
                                     <i class="fas fa-file-upload fa-3x mb-3 text-primary"></i>
                                     <h5>1. Upload</h5>
                                     <p class="small">Upload your PDF or image document</p>
                                 </div>
                             </div>
-                            <div class="col-md-3 text-center">
+                            <div class="col-6 col-md-3 text-center">
                                 <div class="p-3 animate__animated animate__fadeInRight" style="animation-delay: 0.3s">
                                     <i class="fas fa-question-circle fa-3x mb-3 text-primary"></i>
                                     <h5>2. Ask</h5>
                                     <p class="small">Ask a question about the document</p>
                                 </div>
                             </div>
-                            <div class="col-md-3 text-center">
+                            <div class="col-6 col-md-3 text-center">
                                 <div class="p-3 animate__animated animate__fadeInRight" style="animation-delay: 0.5s">
                                     <i class="fas fa-robot fa-3x mb-3 text-primary"></i>
                                     <h5>3. Analyze</h5>
                                     <p class="small">AI analyzes the content and finds answers</p>
                                 </div>
                             </div>
-                            <div class="col-md-3 text-center">
+                            <div class="col-6 col-md-3 text-center">
                                 <div class="p-3 animate__animated animate__fadeInRight" style="animation-delay: 0.7s">
                                     <i class="fas fa-lightbulb fa-3x mb-3 text-primary"></i>
                                     <h5>4. Discover</h5>
@@ -522,20 +596,7 @@ Frontend Architecture:
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="app-footer py-3 mt-4">
-        <div class="container-fluid">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="footer-text">
-                    <p class="mb-0 text-muted">© 2023 Document Research & Theme Identification Chatbot</p>
-                </div>
-                <div class="developer-credit">
-                    <p class="mb-0 text-muted">Developed by <a href="https://github.com/Akshat-Gupta04" target="_blank" class="text-decoration-none">Akshat Gupta</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+   
     <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- No tour functionality -->
@@ -779,5 +840,82 @@ Frontend Architecture:
             // No need to add another tour button as we already have one in the header
         });
     </script>
+
+    <!-- Help Modal -->
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="helpModalLabel">Help & Tips</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="accordion" id="helpAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Getting Started
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    <p>Welcome to the Document Research & Theme Identification Chatbot! Here's how to get started:</p>
+                                    <ol>
+                                        <li>Upload one or more documents (PDF, images) using the file upload section</li>
+                                        <li>Ask a specific question about the content of your documents</li>
+                                        <li>Review the AI-generated response, which includes extracted answers with citations</li>
+                                        <li>Explore identified themes and the knowledge graph visualization</li>
+                                        <li>Ask follow-up questions to dive deeper into your documents</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Tips for Better Results
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    <p>To get the most out of the Document Research Chatbot:</p>
+                                    <ul>
+                                        <li>Ask specific, focused questions rather than broad ones</li>
+                                        <li>Upload multiple related documents to enable cross-document analysis</li>
+                                        <li>Use follow-up questions to refine and explore specific aspects</li>
+                                        <li>Check the "Themes" tab to discover key topics in your documents</li>
+                                        <li>Explore the knowledge graph to visualize relationships between concepts</li>
+                                        <li>Review the "Answers" tab to see specific extracts with citations</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Supported File Types
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    <p>The Document Research Chatbot supports the following file types:</p>
+                                    <ul>
+                                        <li><strong>PDF Documents</strong> - Text-based PDFs work best, but the system can also process scanned PDFs using OCR</li>
+                                        <li><strong>Images (JPG, PNG)</strong> - The system will use OCR to extract text from images</li>
+                                    </ul>
+                                    <p class="text-muted"><small>Note: Text extraction quality depends on the clarity and resolution of your documents. Clear, high-resolution documents yield the best results.</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
 </body>
 </html>

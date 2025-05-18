@@ -1266,3 +1266,70 @@ TypeError: Object of type Version is not JSON serializable
 2025-05-18 12:55:14,960 - document_research_app - INFO - Successfully deleted vector database collection for session 8aa8e877-e466-408c-8f2a-16dda82080ae
 2025-05-18 12:55:14,960 - document_research_app - INFO - Removed session 8aa8e877-e466-408c-8f2a-16dda82080ae from session_collections dictionary
 2025-05-18 12:55:14,973 - document_research_app - INFO - Created new session: 44a1d963-aea6-4275-a715-36eea5c0ad81
+2025-05-18 21:40:17,448 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 21:40:17,449 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 21:40:17,451 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 21:40:17,451 - document_research_app - INFO - Starting application in production mode
+2025-05-18 21:40:17,451 - document_research_app - INFO - Data folder: data
+2025-05-18 21:40:17,451 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 21:40:17,451 - document_research_app - INFO - Static folder: static
+2025-05-18 21:40:22,515 - document_research_app - INFO - Created new session: 2ea69700-7f97-4cbf-b2a8-a19f402fa5a1
+2025-05-18 21:40:35,152 - document_research_app - INFO - Created new session: 988272a5-da2d-4deb-8ccf-3d2216334e1c
+2025-05-18 21:40:43,409 - document_research_app - INFO - Created new session: 2268aca0-f46f-470d-9dc2-6b3620204c21
+2025-05-18 22:11:30,192 - document_research_app - INFO - Application shutting down, cleaning up resources...
+2025-05-18 22:11:30,200 - document_research_app - INFO - Closed shared SQLite connection
+2025-05-18 22:11:30,200 - document_research_app - INFO - Closed all database connections
+2025-05-18 22:11:30,200 - document_research_app - INFO - Cleared session collections
+2025-05-18 22:11:30,200 - document_research_app - INFO - Cleared caches: 0 embeddings and 0 LLM responses
+2025-05-18 22:11:42,422 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 22:11:42,423 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 22:11:42,424 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 22:11:42,424 - document_research_app - INFO - Starting application in production mode
+2025-05-18 22:11:42,424 - document_research_app - INFO - Data folder: data
+2025-05-18 22:11:42,424 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 22:11:42,424 - document_research_app - INFO - Static folder: static
+2025-05-18 22:11:45,774 - document_research_app - ERROR - Error creating session: cannot start a transaction within a transaction
+2025-05-18 22:11:50,747 - document_research_app - ERROR - Error creating session: cannot start a transaction within a transaction
+2025-05-18 22:12:11,618 - document_research_app - ERROR - Error creating session: cannot start a transaction within a transaction
+2025-05-18 22:12:12,587 - document_research_app - ERROR - Error creating session: cannot start a transaction within a transaction
+2025-05-18 22:12:48,500 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 22:12:48,501 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 22:12:48,502 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 22:12:48,502 - document_research_app - INFO - Starting application in production mode
+2025-05-18 22:12:48,502 - document_research_app - INFO - Data folder: data
+2025-05-18 22:12:48,502 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 22:12:48,502 - document_research_app - INFO - Static folder: static
+2025-05-18 22:12:52,709 - document_research_app - INFO - Created new session: 1335eefb-a274-4a2b-b917-cce78288d99e
+2025-05-18 22:12:59,072 - document_research_app - INFO - Deleted session 2ea69700-7f97-4cbf-b2a8-a19f402fa5a1 with 0 documents and 0 messages
+2025-05-18 22:12:59,231 - document_research_app - INFO - Deleting vector database collection for session 2ea69700-7f97-4cbf-b2a8-a19f402fa5a1
+2025-05-18 22:12:59,232 - document_research_app - ERROR - Error deleting collection documents_2ea69700-7f97-4cbf-b2a8-a19f402fa5a1: Collection documents_2ea69700-7f97-4cbf-b2a8-a19f402fa5a1 does not exist.
+2025-05-18 22:13:01,815 - document_research_app - INFO - Deleted session 988272a5-da2d-4deb-8ccf-3d2216334e1c with 0 documents and 0 messages
+2025-05-18 22:13:01,823 - document_research_app - INFO - Deleting vector database collection for session 988272a5-da2d-4deb-8ccf-3d2216334e1c
+2025-05-18 22:13:01,824 - document_research_app - ERROR - Error deleting collection documents_988272a5-da2d-4deb-8ccf-3d2216334e1c: Collection documents_988272a5-da2d-4deb-8ccf-3d2216334e1c does not exist.
+2025-05-18 22:13:05,166 - document_research_app - INFO - Deleted session 2268aca0-f46f-470d-9dc2-6b3620204c21 with 0 documents and 0 messages
+2025-05-18 22:13:05,173 - document_research_app - INFO - Deleting vector database collection for session 2268aca0-f46f-470d-9dc2-6b3620204c21
+2025-05-18 22:13:05,174 - document_research_app - ERROR - Error deleting collection documents_2268aca0-f46f-470d-9dc2-6b3620204c21: Collection documents_2268aca0-f46f-470d-9dc2-6b3620204c21 does not exist.
+2025-05-18 22:42:27,353 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 22:42:27,354 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 22:42:27,356 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 22:42:27,356 - document_research_app - INFO - Starting application in production mode
+2025-05-18 22:42:27,356 - document_research_app - INFO - Data folder: data
+2025-05-18 22:42:27,356 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 22:42:27,356 - document_research_app - INFO - Static folder: static
+2025-05-18 22:42:56,035 - document_research_app - INFO - Created new session: c30540a7-e470-4bf6-bb80-0fe8937cf111
+2025-05-18 22:43:52,655 - document_research_app - INFO - Created new session: 66c9a8d5-649c-49d2-bc5e-25d3249937db
+2025-05-18 22:44:48,565 - document_research_app - INFO - Created new session: 62baa4a4-f2a3-44ad-ad34-711d952312d8
+2025-05-18 22:44:57,306 - document_research_app - INFO - Deleted session 62baa4a4-f2a3-44ad-ad34-711d952312d8 with 0 documents and 0 messages
+2025-05-18 22:44:57,462 - document_research_app - INFO - Deleting vector database collection for session 62baa4a4-f2a3-44ad-ad34-711d952312d8
+2025-05-18 22:44:57,462 - document_research_app - ERROR - Error deleting collection documents_62baa4a4-f2a3-44ad-ad34-711d952312d8: Collection documents_62baa4a4-f2a3-44ad-ad34-711d952312d8 does not exist.
+2025-05-18 22:44:57,474 - document_research_app - INFO - Created new session: bcb93ac5-310d-493c-8dc9-e50f183d2f31
+2025-05-18 22:45:00,538 - document_research_app - INFO - Deleted session 66c9a8d5-649c-49d2-bc5e-25d3249937db with 0 documents and 0 messages
+2025-05-18 22:45:00,545 - document_research_app - INFO - Deleting vector database collection for session 66c9a8d5-649c-49d2-bc5e-25d3249937db
+2025-05-18 22:45:00,547 - document_research_app - ERROR - Error deleting collection documents_66c9a8d5-649c-49d2-bc5e-25d3249937db: Collection documents_66c9a8d5-649c-49d2-bc5e-25d3249937db does not exist.
+2025-05-18 22:45:04,170 - document_research_app - INFO - Deleted session c30540a7-e470-4bf6-bb80-0fe8937cf111 with 0 documents and 0 messages
+2025-05-18 22:45:04,176 - document_research_app - INFO - Deleting vector database collection for session c30540a7-e470-4bf6-bb80-0fe8937cf111
+2025-05-18 22:45:04,178 - document_research_app - ERROR - Error deleting collection documents_c30540a7-e470-4bf6-bb80-0fe8937cf111: Collection documents_c30540a7-e470-4bf6-bb80-0fe8937cf111 does not exist.
+2025-05-18 22:45:06,536 - document_research_app - INFO - Deleted session 1335eefb-a274-4a2b-b917-cce78288d99e with 0 documents and 0 messages
+2025-05-18 22:45:06,543 - document_research_app - INFO - Deleting vector database collection for session 1335eefb-a274-4a2b-b917-cce78288d99e
+2025-05-18 22:45:06,545 - document_research_app - ERROR - Error deleting collection documents_1335eefb-a274-4a2b-b917-cce78288d99e: Collection documents_1335eefb-a274-4a2b-b917-cce78288d99e does not exist.
+2025-05-18 22:45:33,784 - document_research_app - INFO - Created new session: 8bbf42de-d4c5-4465-8722-d15a234748e1
