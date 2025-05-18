@@ -24,9 +24,9 @@ RUN pip install --upgrade pip setuptools wheel && \
      (echo "Installing packages individually..." && \
       # Core packages first
       pip install flask==2.2.5 werkzeug==2.2.3 gunicorn==21.2.0 python-dotenv==1.0.0 && \
-      # OpenAI and LangChain (older versions for compatibility)
-      pip install openai==0.28.1 tiktoken==0.5.1 && \
-      pip install langchain==0.0.267 && \
+      # OpenAI and LangChain (newer versions for compatibility)
+      pip install openai==1.6.1 tiktoken==0.5.2 && \
+      pip install langchain==0.0.335 && \
       pip install langchain-openai==0.0.2 && \
       # Document processing
       pip install pdfplumber==0.10.2 pymupdf==1.23.5 pytesseract==0.3.10 pillow==10.0.1 && \

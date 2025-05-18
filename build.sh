@@ -14,10 +14,10 @@ echo "Installing Python dependencies..."
 echo "Installing core packages..."
 pip install flask==2.2.5 werkzeug==2.2.3 gunicorn==21.2.0 python-dotenv==1.0.0
 
-# OpenAI and LangChain (older versions for compatibility)
+# OpenAI and LangChain (newer versions for compatibility)
 echo "Installing OpenAI and LangChain..."
-pip install openai==0.28.1 tiktoken==0.5.1
-pip install langchain==0.0.267
+pip install openai==1.6.1 tiktoken==0.5.2
+pip install langchain==0.0.335
 pip install langchain-openai==0.0.2
 
 # Document processing
