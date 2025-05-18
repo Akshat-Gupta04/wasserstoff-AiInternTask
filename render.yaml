@@ -4,25 +4,20 @@ services:
     env: docker
     dockerfilePath: ./Dockerfile
     dockerContext: ./
+    plan: standard # Use standard plan for better resources
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.9.0
       - key: OPENAI_API_KEY
         sync: false
       - key: LLM_MODEL
         value: gpt-3.5-turbo
-      - key: FLASK_ENV
-        value: production
-      - key: FLASK_DEBUG
-        value: 0
+      - key: SECRET_KEY
+        generateValue: true
       - key: DATA_FOLDER
         value: /data
       - key: UPLOAD_FOLDER
         value: /data/uploads
       - key: STATIC_FOLDER
         value: static
-      - key: SECRET_KEY
-        generateValue: true
     healthCheckPath: /health
     autoDeploy: true
     disk:

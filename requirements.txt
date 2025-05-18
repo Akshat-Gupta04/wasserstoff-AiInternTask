@@ -1,20 +1,33 @@
-flask==2.3.3
-openai==1.3.0
-langchain-openai==0.0.2
-langchain==0.0.335
+# Core web framework
+flask==2.2.5
+werkzeug==2.2.3
+gunicorn==21.2.0
+
+# Environment and configuration
 python-dotenv==1.0.0
+
+# OpenAI and LangChain
+openai==0.28.1
+langchain==0.0.267
+langchain-openai==0.0.2
+tiktoken==0.5.1
+
+# Document processing
 pdfplumber==0.10.2
 pytesseract==0.3.10
 pillow==10.0.1
-chromadb==0.4.18
+pymupdf==1.23.5
+
+# Data processing
+numpy==1.24.3
+pandas==2.0.3
+scikit-learn==1.3.0
+networkx==3.1
+plotly==5.15.0
+
+# Vector database and search
+chromadb==0.4.13
 rank-bm25==0.2.2
-scikit-learn==1.3.2
-networkx==3.2.1
-plotly==5.18.0
-pandas==2.1.1
-numpy==1.26.1
-tiktoken==0.5.1
+
+# NLP
 nltk==3.8.1
-werkzeug==2.3.7
-pymupdf==1.23.5  # PyMuPDF for better PDF processing
-gunicorn==21.2.0  # For production deployment
