@@ -180,15 +180,8 @@ if not OPENAI_API_KEY:
     raise ValueError("OPENAI_API_KEY not found in .env file")
 
 # Initialize OpenAI and LangChain
-# Support both older and newer OpenAI client versions
-try:
-    # For openai>=1.0.0
-    openai_client = OpenAI(api_key=OPENAI_API_KEY)
-except Exception as e:
-    # For openai<1.0.0
-    import openai as openai_module
-    openai_module.api_key = OPENAI_API_KEY
-    openai_client = openai_module
+# Using OpenAI client v1.x
+openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Get LLM model from environment or use default
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-3.5-turbo")
@@ -988,23 +981,13 @@ def get_openai_embedding(text, session_id='default'):
         # Count tokens for tracking
         token_count = count_tokens(text, "text-embedding-3-small")
 
-        # Call OpenAI API with version compatibility
-        try:
-            # For openai>=1.0.0
-            response = openai_client.embeddings.create(
-                model="text-embedding-3-small",
-                input=text
-            )
-            # Get the embedding
-            embedding = response.data[0].embedding
-        except (AttributeError, TypeError):
-            # For openai<1.0.0
-            response = openai_client.Embedding.create(
-                model="text-embedding-ada-002",  # Older model for compatibility
-                input=text
-            )
-            # Get the embedding
-            embedding = response['data'][0]['embedding']
+        # Call OpenAI API with OpenAI client v1.x
+        response = openai_client.embeddings.create(
+            model="text-embedding-3-small",
+            input=text
+        )
+        # Get the embedding
+        embedding = response.data[0].embedding
 
         # Cache the result
         embedding_cache[text_hash] = embedding

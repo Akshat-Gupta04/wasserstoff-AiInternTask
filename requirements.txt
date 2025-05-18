@@ -6,9 +6,9 @@ gunicorn==21.2.0
 # Environment and configuration
 python-dotenv==1.0.0
 
-# OpenAI and LangChain
-openai==0.28.1
-langchain==0.0.267
+# OpenAI and LangChain - Updated for compatibility
+openai==1.6.1
+langchain==0.0.335
 langchain-openai==0.0.2
 tiktoken==0.5.1
 
