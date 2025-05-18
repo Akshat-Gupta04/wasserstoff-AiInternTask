@@ -1,9 +1,9 @@
 services:
   - type: web
     name: document-research-chatbot
-    env: docker
-    dockerfilePath: ./Dockerfile
-    dockerContext: ./
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
     plan: standard # Use standard plan for better resources
     envVars:
       - key: OPENAI_API_KEY
@@ -18,6 +18,8 @@ services:
         value: /data/uploads
       - key: STATIC_FOLDER
         value: static
+      - key: PYTHON_VERSION
+        value: 3.11.0
     healthCheckPath: /health
     autoDeploy: true
     disk:

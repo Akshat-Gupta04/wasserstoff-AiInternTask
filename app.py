@@ -180,12 +180,13 @@ if not OPENAI_API_KEY:
     raise ValueError("OPENAI_API_KEY not found in .env file")
 
 # Initialize OpenAI and LangChain
-# Using OpenAI client v1.x
-openai_client = OpenAI(api_key=OPENAI_API_KEY)
+# Using OpenAI client v1.x with simplified initialization
+# Avoid using any parameters that might cause compatibility issues
+openai_client = OpenAI()  # This will use OPENAI_API_KEY from environment
 
 # Get LLM model from environment or use default
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-3.5-turbo")
-llm = ChatOpenAI(model_name=LLM_MODEL, openai_api_key=OPENAI_API_KEY)
+llm = ChatOpenAI(model_name=LLM_MODEL)  # This will use OPENAI_API_KEY from environment
 
 # Database connection pool with thread safety
 class DBConnectionPool:
