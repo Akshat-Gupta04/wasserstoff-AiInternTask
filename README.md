@@ -1,5 +1,6 @@
 # Document Research & Theme Identification Chatbot
 
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
 ![Flask](https://img.shields.io/badge/flask-2.0%2B-green)
@@ -245,6 +246,26 @@ This repository includes a `render.yaml` file for Blueprint deployments:
 5. Add your `OPENAI_API_KEY` when prompted
 6. Click "Apply" to deploy
 
+### Data Persistence
+
+The application is configured to store all data in a persistent disk on Render:
+
+- **Disk Configuration**: A 10GB disk is mounted at `/data` to store:
+  - SQLite database (`documents.db`)
+  - ChromaDB vector database
+  - Uploaded documents
+  - Generated graphs
+
+- **Environment Variables**: The application uses these paths:
+  - `DATA_FOLDER=/data`: Main data directory
+  - `UPLOAD_FOLDER=/data/uploads`: Document storage
+  - `STATIC_FOLDER=static`: Static assets (CSS, JS, etc.)
+
+- **Backup Considerations**:
+  - The persistent disk is backed up according to your Render plan
+  - For additional safety, consider implementing scheduled backups
+  - Critical data is isolated in the `/data` directory for easy backup
+
 ### Verifying Deployment
 
 - The application includes a `/health` endpoint that checks:
@@ -252,6 +273,24 @@ This repository includes a `render.yaml` file for Blueprint deployments:
   - Vector database (ChromaDB) status
   - OpenAI API configuration
 - Use this endpoint to monitor the health of your deployment
+- Add this endpoint to your monitoring system for alerts
+
+### Scaling Considerations
+
+- **Worker Configuration**: The application uses Gunicorn with:
+  - 4 worker processes for handling concurrent requests
+  - 2 threads per worker for improved throughput
+  - 120-second timeout for long-running operations
+
+- **Memory Usage**:
+  - Each worker requires approximately 250-500MB of RAM
+  - Choose an instance with at least 2GB RAM for production use
+  - The application implements periodic cache clearing to manage memory
+
+- **Storage Requirements**:
+  - Start with 10GB disk and monitor usage
+  - Vector databases grow with document count
+  - Consider increasing disk size for large document collections
 
 ## 🛠 Technologies Used
 

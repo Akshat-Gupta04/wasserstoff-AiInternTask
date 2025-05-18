@@ -2,6 +2,12 @@
 
 This document provides instructions for deploying the Document Research & Theme Identification Chatbot in a production environment.
 
+## Repository Information
+
+- **GitHub Repository**: [https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask](https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask)
+- **Application Type**: Flask web application with Gunicorn WSGI server
+- **Python Version**: 3.9.0
+
 ## Prerequisites
 
 - Docker and Docker Compose
@@ -15,8 +21,8 @@ This document provides instructions for deploying the Document Research & Theme 
 
 1. Clone the repository:
    ```
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask.git
+   cd wasserstoff-AiInternTask
    ```
 
 2. Create environment file:
@@ -44,7 +50,30 @@ This document provides instructions for deploying the Document Research & Theme 
 
 3. Access the application at `http://your-server-ip:5000`
 
-### 3. Production Configuration
+### 3. Render Deployment (Recommended)
+
+The application is configured for easy deployment on Render.com:
+
+1. Sign up for a Render account at [render.com](https://render.com)
+
+2. Fork or clone the repository to your GitHub account:
+   ```
+   git clone https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask.git
+   ```
+
+3. In the Render dashboard, click "New" and select "Blueprint"
+
+4. Connect to your GitHub repository
+
+5. Render will detect the `render.yaml` file and configure the service automatically
+
+6. Add your `OPENAI_API_KEY` when prompted
+
+7. Click "Apply" to deploy
+
+8. Once deployed, access your application at the provided URL
+
+### 4. Production Configuration
 
 For a production environment, consider the following:
 
@@ -79,7 +108,7 @@ server {
 }
 ```
 
-### 4. Maintenance
+### 5. Maintenance
 
 1. Update the application:
    ```
@@ -98,7 +127,7 @@ server {
    curl http://localhost:5000/health
    ```
 
-### 5. Troubleshooting
+### 6. Troubleshooting
 
 1. Check application logs:
    ```
