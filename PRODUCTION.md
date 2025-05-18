@@ -52,7 +52,7 @@ This document provides instructions for deploying the Document Research & Theme 
 
 ### 3. Render Deployment (Recommended)
 
-The application is configured for easy deployment on Render.com:
+The application is configured for easy deployment on Render.com using Docker:
 
 1. Sign up for a Render account at [render.com](https://render.com)
 
@@ -71,11 +71,7 @@ The application is configured for easy deployment on Render.com:
    - Required variables:
      - `OPENAI_API_KEY`: Your OpenAI API key
      - `LLM_MODEL`: Set to `gpt-3.5-turbo`
-     - `DATA_FOLDER`: Set to `/data`
-     - `UPLOAD_FOLDER`: Set to `/data/uploads`
-     - `STATIC_FOLDER`: Set to `static`
-     - `FLASK_ENV`: Set to `production`
-     - `FLASK_DEBUG`: Set to `0`
+     - `PORT`: This will be set automatically by Render
      - `SECRET_KEY`: A random secure string (Render can generate this automatically)
 
 7. Click "Apply" to deploy
@@ -83,6 +79,15 @@ The application is configured for easy deployment on Render.com:
 8. Once deployed, access your application at the provided URL
 
 9. Check the build logs if you encounter any issues during deployment
+
+#### Why Docker Deployment?
+
+We're using Docker for deployment because:
+
+1. **Consistent Environment**: Docker ensures the application runs in the same environment regardless of where it's deployed
+2. **System Dependencies**: The Dockerfile includes all necessary system dependencies like Tesseract OCR
+3. **Build Reliability**: Avoids common build issues with Python dependencies
+4. **Simplified Configuration**: Environment variables are handled consistently
 
 ### 4. Production Configuration
 
@@ -163,24 +168,22 @@ server {
 
 #### Render Deployment Issues
 
-1. **Build Failures**:
+1. **Docker Build Failures**:
    - Check the build logs in the Render dashboard
    - Common issues include:
-     - Missing system dependencies (fixed by our `build.sh` script)
-     - Package conflicts in requirements.txt
-     - Memory limits during package installation
+     - Docker build context errors
+     - Network issues during package installation
+     - Memory limits during Docker build
 
 2. **Application Startup Failures**:
    - Check if all required environment variables are set
-   - Verify that the disk is properly mounted
+   - Verify that the `PORT` environment variable is being passed correctly
    - Check the application logs for specific error messages
 
 3. **Database or Vector Store Issues**:
-   - The application should automatically create necessary directories
-   - If you see database errors, you may need to manually create the database:
-     - SSH into your Render instance
-     - Navigate to the `/data` directory
-     - Run initialization commands manually
+   - The Docker container creates necessary directories automatically
+   - If you see database errors, check that the persistent disk is properly mounted
+   - Verify that the application has write permissions to the mounted volume
 
 4. **OpenAI API Issues**:
    - Verify your API key is correct
@@ -189,8 +192,13 @@ server {
 
 5. **Performance Issues**:
    - Consider scaling up your Render instance
-   - Reduce the number of workers if memory is limited
+   - Adjust the number of Gunicorn workers in the Dockerfile
    - Monitor CPU and memory usage in the Render dashboard
+
+6. **Debugging Docker Issues**:
+   - Use Render's Shell feature to access your running container
+   - Check logs with `docker logs <container_id>`
+   - Verify file permissions with `ls -la /data`
 
 ## Security Considerations
 
