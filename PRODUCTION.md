@@ -2,6 +2,14 @@
 
 This document provides instructions for deploying the Document Research & Theme Identification Chatbot in a production environment.
 
+## Developer
+
+This application was developed by **Akshat Gupta**.
+
+GitHub: [Akshat-Gupta04](https://github.com/Akshat-Gupta04)
+
+Repository: [wasserstoff-AiInternTask](https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask)
+
 ## Repository Information
 
 - **GitHub Repository**: [https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask](https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask)
@@ -52,7 +60,7 @@ This document provides instructions for deploying the Document Research & Theme 
 
 ### 3. Render Deployment (Recommended)
 
-The application is configured for easy deployment on Render.com using Docker:
+The application is configured for easy deployment on Render.com:
 
 1. Sign up for a Render account at [render.com](https://render.com)
 
@@ -71,7 +79,7 @@ The application is configured for easy deployment on Render.com using Docker:
    - Required variables:
      - `OPENAI_API_KEY`: Your OpenAI API key
      - `LLM_MODEL`: Set to `gpt-3.5-turbo`
-     - `PORT`: This will be set automatically by Render
+     - `EMBEDDING_MODEL`: Set to `text-embedding-3-small`
      - `SECRET_KEY`: A random secure string (Render can generate this automatically)
 
 7. Click "Apply" to deploy
@@ -80,14 +88,14 @@ The application is configured for easy deployment on Render.com using Docker:
 
 9. Check the build logs if you encounter any issues during deployment
 
-#### Why Docker Deployment?
+#### Memory-Efficient Processing
 
-We're using Docker for deployment because:
+The application has been optimized for deployment on platforms with limited storage:
 
-1. **Consistent Environment**: Docker ensures the application runs in the same environment regardless of where it's deployed
-2. **System Dependencies**: The Dockerfile includes all necessary system dependencies like Tesseract OCR
-3. **Build Reliability**: Avoids common build issues with Python dependencies
-4. **Simplified Configuration**: Environment variables are handled consistently
+1. **In-Memory File Processing**: Files are processed directly in memory without being saved to disk
+2. **Session Isolation**: Each user session has its own isolated vector database
+3. **Efficient Resource Usage**: Minimizes disk I/O operations for better performance
+4. **Reduced Storage Requirements**: No need for large persistent storage for uploaded files
 
 ### 4. Production Configuration
 
@@ -168,37 +176,38 @@ server {
 
 #### Render Deployment Issues
 
-1. **Docker Build Failures**:
+1. **Build Failures**:
    - Check the build logs in the Render dashboard
    - Common issues include:
-     - Docker build context errors
+     - Package dependency conflicts
      - Network issues during package installation
-     - Memory limits during Docker build
+     - Memory limits during build process
 
 2. **Application Startup Failures**:
    - Check if all required environment variables are set
-   - Verify that the `PORT` environment variable is being passed correctly
+   - Verify that the application is binding to the correct port
    - Check the application logs for specific error messages
 
 3. **Database or Vector Store Issues**:
-   - The Docker container creates necessary directories automatically
+   - The application creates necessary directories automatically
    - If you see database errors, check that the persistent disk is properly mounted
    - Verify that the application has write permissions to the mounted volume
 
 4. **OpenAI API Issues**:
    - Verify your API key is correct
    - Check if you have sufficient credits
-   - Ensure the model specified in `LLM_MODEL` is available to your account
+   - Ensure the models specified in `LLM_MODEL` and `EMBEDDING_MODEL` are available to your account
 
 5. **Performance Issues**:
    - Consider scaling up your Render instance
-   - Adjust the number of Gunicorn workers in the Dockerfile
+   - Adjust the number of Gunicorn workers in the start command
    - Monitor CPU and memory usage in the Render dashboard
 
-6. **Debugging Docker Issues**:
-   - Use Render's Shell feature to access your running container
-   - Check logs with `docker logs <container_id>`
-   - Verify file permissions with `ls -la /data`
+6. **Memory Management**:
+   - The application now processes files in memory without saving to disk
+   - Each user session has its own isolated vector database
+   - If you encounter memory issues, consider limiting the maximum file size
+   - Monitor memory usage during document processing
 
 ## Security Considerations
 

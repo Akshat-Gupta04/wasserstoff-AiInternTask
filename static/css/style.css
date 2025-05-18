@@ -937,6 +937,25 @@ body {
     transform: scale(1.1);
 }
 
+/* Footer Styles */
+.app-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+.developer-credit a {
+    color: var(--primary-color);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.developer-credit a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline !important;
+}
+
 /* Responsive Design Improvements */
 /* Mobile Sidebar Toggle */
 .mobile-sidebar-toggle {

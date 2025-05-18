@@ -1,6 +1,9 @@
 """
 Document Research & Theme Identification Chatbot
 ------------------------------------------------
+Developed by: Akshat Gupta
+GitHub: https://github.com/Akshat-Gupta04
+Repository: https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask
 
 This application implements a comprehensive document research system that allows users to:
 1. Upload and process multiple documents (PDF, images, etc.)
@@ -1004,8 +1007,11 @@ def get_openai_embedding(text, session_id='default'):
         # Return zeros as fallback
         return [0.0] * 1536
 
-def process_document(file_path, filename, session_id='default'):
-    """Process a document with multiple extraction methods for maximum reliability
+def process_document_from_memory(file_obj, filename, session_id='default'):
+    """Process a document from memory without saving to disk
+
+    This function processes a file object (BytesIO) directly in memory
+    without saving it to disk, which helps conserve storage space.
 
     Methodology:
     -----------
@@ -1036,7 +1042,7 @@ def process_document(file_path, filename, session_id='default'):
        - Ensures at least minimal functionality even with problematic documents
 
     Args:
-        file_path (str): Path to the document file
+        file_obj (BytesIO): File object in memory
         filename (str): Name of the document file
         session_id (str): ID of the current chat session
 
@@ -1047,102 +1053,105 @@ def process_document(file_path, filename, session_id='default'):
             - document_info: Metadata about extracted paragraphs for UI display
     """
     texts = []
+    file_extension = os.path.splitext(filename)[1].lower()
 
     try:
         # Log the document processing attempt
-        logger.info(f"Processing document: {filename} (path: {file_path}) for session {session_id}")
-
-        # Check if file exists
-        if not os.path.exists(file_path):
-            logger.error(f"File does not exist: {file_path}")
-            raise Exception(f"File not found: {file_path}")
+        logger.info(f"Processing document from memory: {filename} for session {session_id}")
 
         # Check file size
-        file_size = os.path.getsize(file_path)
+        file_size = len(file_obj.getvalue())
         logger.info(f"File size: {file_size / (1024*1024):.2f} MB")
         if file_size == 0:
-            logger.error(f"File is empty: {file_path}")
+            logger.error(f"File is empty: {filename}")
             raise Exception(f"File is empty: {filename}")
 
         # SIMPLIFIED APPROACH: Try multiple methods in sequence until one works
-
         # Step 1: Extract text from document
-        if file_path.lower().endswith(".pdf"):
+        if file_extension == ".pdf":
             logger.info(f"Processing PDF file: {filename}")
 
             # Method 1: Try PyMuPDF first (most reliable)
             if not texts:
                 try:
                     logger.info(f"Trying PyMuPDF for {filename}")
-                    doc = fitz.open(file_path)
+                    # Open PDF from memory
+                    doc = fitz.open(stream=file_obj.getvalue(), filetype="pdf")
                     logger.info(f"PyMuPDF opened document with {len(doc)} pages")
 
                     for page_num in range(len(doc)):
                         try:
-                            page_text = doc[page_num].get_text()
-                            # Add even small amounts of text - we'll filter later if needed
-                            if page_text and len(page_text.strip()) > 0:
-                                logger.info(f"PyMuPDF extracted {len(page_text)} characters from page {page_num+1}")
-                                texts.append((page_num + 1, page_text))
+                            page = doc.load_page(page_num)
+                            text = page.get_text()
+                            if text and len(text.strip()) > 0:
+                                texts.append((page_num + 1, text))
+                                logger.info(f"PyMuPDF extracted {len(text)} characters from page {page_num + 1}")
                             else:
-                                logger.warning(f"PyMuPDF found no text on page {page_num+1}")
+                                logger.warning(f"PyMuPDF found no text on page {page_num + 1}")
                         except Exception as page_err:
-                            logger.error(f"PyMuPDF error on page {page_num+1}: {str(page_err)}")
-                except Exception as fitz_err:
-                    logger.error(f"PyMuPDF failed: {str(fitz_err)}")
+                            logger.error(f"Error extracting text from page {page_num + 1}: {str(page_err)}")
 
-            # Method 2: Try pdfplumber if PyMuPDF didn't work
+                    doc.close()
+                except Exception as mupdf_err:
+                    logger.error(f"PyMuPDF extraction failed: {str(mupdf_err)}")
+
+            # Method 2: Try pdfplumber as fallback
             if not texts:
                 try:
                     logger.info(f"Trying pdfplumber for {filename}")
-                    with pdfplumber.open(file_path) as pdf:
+                    # Reset file pointer
+                    file_obj.seek(0)
+                    with pdfplumber.open(file_obj) as pdf:
                         logger.info(f"pdfplumber opened document with {len(pdf.pages)} pages")
 
                         for page_num, page in enumerate(pdf.pages):
                             try:
                                 text = page.extract_text()
                                 if text and len(text.strip()) > 0:
-                                    logger.info(f"pdfplumber extracted {len(text)} characters from page {page_num+1}")
                                     texts.append((page_num + 1, text))
+                                    logger.info(f"pdfplumber extracted {len(text)} characters from page {page_num + 1}")
                                 else:
-                                    logger.warning(f"pdfplumber found no text on page {page_num+1}")
+                                    logger.warning(f"pdfplumber found no text on page {page_num + 1}")
                             except Exception as page_err:
-                                logger.error(f"pdfplumber error on page {page_num+1}: {str(page_err)}")
+                                logger.error(f"Error extracting text from page {page_num + 1}: {str(page_err)}")
                 except Exception as plumber_err:
-                    logger.error(f"pdfplumber failed: {str(plumber_err)}")
+                    logger.error(f"pdfplumber extraction failed: {str(plumber_err)}")
 
-            # Method 3: Last resort - try to extract images and run OCR
+            # Method 3: Try OCR as last resort for PDFs
             if not texts:
                 try:
                     logger.info(f"Trying OCR on PDF images for {filename}")
-                    doc = fitz.open(file_path)
+                    # Reset file pointer
+                    file_obj.seek(0)
+                    doc = fitz.open(stream=file_obj.getvalue(), filetype="pdf")
 
                     for page_num in range(len(doc)):
                         try:
-                            # Get page as image
-                            pix = doc[page_num].get_pixmap()
+                            page = doc.load_page(page_num)
+                            pix = page.get_pixmap()
                             img_data = pix.tobytes("png")
                             img = Image.open(io.BytesIO(img_data))
 
-                            # Run OCR
                             text = pytesseract.image_to_string(img)
                             if text and len(text.strip()) > 0:
-                                logger.info(f"OCR extracted {len(text)} characters from page {page_num+1}")
                                 texts.append((page_num + 1, text))
+                                logger.info(f"OCR extracted {len(text)} characters from page {page_num + 1}")
                             else:
-                                logger.warning(f"OCR found no text on page {page_num+1}")
+                                logger.warning(f"OCR found no text on page {page_num + 1}")
                         except Exception as page_err:
-                            logger.error(f"OCR error on page {page_num+1}: {str(page_err)}")
+                            logger.error(f"Error OCR processing page {page_num + 1}: {str(page_err)}")
+
+                    doc.close()
                 except Exception as ocr_err:
                     logger.error(f"PDF OCR failed: {str(ocr_err)}")
 
-        elif file_path.lower().endswith((".png", ".jpg", ".jpeg")):
+        elif file_extension in (".png", ".jpg", ".jpeg"):
             logger.info(f"Processing image file: {filename}")
 
             # For images, just try OCR directly
             try:
-                # Open the image
-                image = Image.open(file_path)
+                # Open the image from memory
+                image = Image.open(file_obj)
                 logger.info(f"Image opened: size={image.size}, mode={image.mode}")
 
                 # Convert to RGB if needed
@@ -1164,187 +1173,134 @@ def process_document(file_path, filename, session_id='default'):
             # For unsupported file types, try a simple text extraction
             try:
                 logger.info(f"Trying to read {filename} as text file")
-                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-                    text = f.read()
-                    if text and len(text.strip()) > 0:
-                        logger.info(f"Read {len(text)} characters from text file")
-                        texts.append((1, text))
-                    else:
-                        logger.warning(f"No text found in file")
+                # Reset file pointer
+                file_obj.seek(0)
+                text = file_obj.read().decode('utf-8', errors='ignore')
+                if text and len(text.strip()) > 0:
+                    logger.info(f"Read {len(text)} characters from text file")
+                    texts.append((1, text))
+                else:
+                    logger.warning(f"No text found in file")
             except Exception as txt_err:
                 logger.error(f"Text file reading failed: {str(txt_err)}")
-                logger.error(f"Unsupported file type: {file_path}")
+                logger.error(f"Unsupported file type: {filename}")
                 raise Exception(f"Unsupported file type: {filename}")
 
         # FALLBACK: If we still have no text, create a dummy paragraph
         if not texts:
-            logger.warning(f"No text extracted from {filename} using any method, creating dummy text")
-            dummy_text = f"[This document '{filename}' could not be processed for text extraction. " \
-                        f"It may be an image-only PDF, a scanned document without OCR, or contain no extractable text.]"
-            texts.append((1, dummy_text))
+            logger.warning(f"No text extracted from {filename} using any method")
+            texts.append((1, f"[No text could be extracted from {filename}]"))
 
-            # Log this as a special case
-            logger.info(f"Using dummy text for {filename}")
-
-        # Log success
-        logger.info(f"Successfully extracted {len(texts)} text sections from {filename}")
-
-        # Step 2: Process extracted text
+        # Step 2: Process extracted text into paragraphs
         all_paragraphs = []
         doc_info = []
+        doc_id = 1  # Start with document 1
 
+        # Process each text section
+        for page_num, text in texts:
+            # Split text into paragraphs
+            paragraphs = text.split('\n\n')
+
+            # Filter and clean paragraphs
+            for i, para in enumerate(paragraphs):
+                # Clean the paragraph
+                para = para.strip()
+                para = re.sub(r'\s+', ' ', para)
+
+                # Skip empty or very short paragraphs
+                if len(para) < 10:
+                    continue
+
+                # Create a unique ID for this paragraph
+                para_id = f"DOC{doc_id}-P{page_num}-{i+1}"
+
+                # Add to our collection
+                all_paragraphs.append(para)
+
+                # Add document info for UI display
+                doc_info.append({
+                    "id": para_id,
+                    "filename": filename,
+                    "page": page_num,
+                    "paragraph": i+1,
+                    "text": para[:100] + "..." if len(para) > 100 else para
+                })
+
+        # Step 3: Create BM25 index for keyword search
+        if all_paragraphs:
+            tokenized_paragraphs = [para.split() for para in all_paragraphs]
+            bm25_index = BM25Okapi(tokenized_paragraphs)
+        else:
+            # Create a dummy index if no paragraphs
+            bm25_index = BM25Okapi([[]])
+
+        # Step 4: Store in database
         try:
-            # Get a database cursor
-            cursor = get_db_cursor()
+            # Get a database connection
+            conn = sqlite3.connect(os.path.join(app.config['DATA_FOLDER'], "documents.db"))
+            cursor = conn.cursor()
 
-            # Process each text section
-            for page_num, text in texts:
-                # Split text into paragraphs
-                paragraphs = text.split("\n\n")
+            # Store each paragraph
+            for i, para in enumerate(all_paragraphs):
+                para_info = doc_info[i]
+                cursor.execute(
+                    "INSERT INTO documents (session_id, filename, page, paragraph, text) VALUES (?, ?, ?, ?, ?)",
+                    (session_id, para_info['filename'], para_info['page'], para_info['paragraph'], para)
+                )
 
-                # Filter out very short paragraphs and normalize text
-                filtered_paragraphs = []
-                for para_num, para in enumerate(paragraphs):
-                    para = para.strip()
-                    # Skip empty or very short paragraphs (less than 20 chars)
-                    if para and len(para) >= 20:
-                        # Normalize whitespace
-                        para = ' '.join(para.split())
-                        filtered_paragraphs.append((para_num, para))
+            # Commit and close
+            conn.commit()
+            conn.close()
 
-                # Process filtered paragraphs
-                for para_num, para in filtered_paragraphs:
-                    doc_id = f"{filename}_{page_num}_{para_num}"
+            logger.info(f"Stored {len(all_paragraphs)} paragraphs in database for session {session_id}")
+        except Exception as db_err:
+            logger.error(f"Database storage error: {str(db_err)}")
+            # Continue even if database storage fails
 
-                    # Get the collection for this session
-                    collection = get_session_collection(session_id)
+        # Step 5: Store in vector database
+        try:
+            # Get the collection for this session
+            collection = get_session_collection(session_id)
 
-                    # Check if it's a dummy collection
-                    is_dummy_collection = hasattr(collection, 'is_dummy') and collection.is_dummy
+            # Prepare data for batch embedding
+            ids = []
+            metadatas = []
+            documents = []
 
-                    # Get embedding if not using dummy collection
-                    embedding = None
-                    try:
-                        # Pass session_id for token tracking
-                        embedding = get_openai_embedding(para, session_id)
-                    except Exception as embed_err:
-                        logger.error(f"Error generating embedding: {str(embed_err)}")
-                        # Create a dummy embedding if OpenAI fails
-                        embedding = [0.0] * 1536
+            for i, para in enumerate(all_paragraphs):
+                para_info = doc_info[i]
+                para_id = para_info['id']
 
-                    # Add to session-specific ChromaDB collection
-                    try:
-                        metadata = {
-                            "doc_id": filename,
-                            "page": page_num,
-                            "paragraph": para_num,
-                            "session_id": session_id
-                        }
+                ids.append(para_id)
+                metadatas.append({
+                    "filename": para_info['filename'],
+                    "page": para_info['page'],
+                    "paragraph": para_info['paragraph'],
+                    "session_id": session_id
+                })
+                documents.append(para)
 
-                        if is_dummy_collection:
-                            collection.add(
-                                documents=[para],
-                                metadatas=[metadata],
-                                ids=[doc_id]
-                            )
-                        else:
-                            collection.add(
-                                embeddings=[embedding],
-                                documents=[para],
-                                metadatas=[metadata],
-                                ids=[doc_id]
-                            )
-                        logger.debug(f"Added document to vector database: {doc_id}")
-                    except Exception as chroma_err:
-                        logger.error(f"Error adding to vector database: {str(chroma_err)}")
+            # Add to vector store if we have documents
+            if documents:
+                collection.add(
+                    ids=ids,
+                    metadatas=metadatas,
+                    documents=documents
+                )
+                logger.info(f"Added {len(documents)} documents to vector store for session {session_id}")
+        except Exception as vec_err:
+            logger.error(f"Vector store error: {str(vec_err)}")
+            # Continue even if vector storage fails
 
-                    # Add to SQLite database
-                    try:
-                        cursor.execute(
-                            "INSERT INTO documents (filename, page, paragraph, text, session_id) VALUES (?, ?, ?, ?, ?)",
-                            (filename, page_num, para_num, para, session_id)
-                        )
-                        commit_db_transaction()
-                        logger.debug(f"Added document to SQL database: {doc_id}")
-                    except Exception as sql_err:
-                        logger.error(f"Error adding to SQL database: {str(sql_err)}")
-                        rollback_db_transaction()
-
-                    # Add to return values
-                    all_paragraphs.append(para)
-                    doc_info.append({
-                        "id": doc_id,
-                        "page": page_num,
-                        "paragraph": para_num,
-                        "text_preview": para[:100] + "..." if len(para) > 100 else para
-                    })
-
-            # Create BM25 index for search
-            if all_paragraphs:
-                tokenized_paragraphs = [para.lower().split() for para in all_paragraphs]
-                bm25 = BM25Okapi(tokenized_paragraphs)
-                logger.info(f"Created BM25 index with {len(all_paragraphs)} paragraphs")
-            else:
-                # Create a dummy BM25 index if no paragraphs were processed
-                bm25 = BM25Okapi([[""]])
-                logger.warning("Created empty BM25 index")
-
-            # Convert any NumPy types before returning
-            converted_doc_info = convert_numpy_types(doc_info)
-
-            # Return document info for UI display
-            logger.info(f"Returning {len(all_paragraphs)} paragraphs and {len(doc_info)} document info items")
-            return all_paragraphs, bm25, converted_doc_info
-
-        except Exception as process_err:
-            logger.error(f"Text processing failed: {str(process_err)}")
-            traceback.print_exc()
-
-            # Create a minimal result with the extracted text
-            minimal_paragraphs = []
-            minimal_doc_info = []
-
-            # Use the raw text sections as paragraphs
-            for page_num, text in texts:
-                para = text.strip()
-                if para:
-                    doc_id = f"{filename}_{page_num}_0"
-                    minimal_paragraphs.append(para)
-                    minimal_doc_info.append({
-                        "id": doc_id,
-                        "page": page_num,
-                        "paragraph": 0,
-                        "text_preview": para[:100] + "..." if len(para) > 100 else para
-                    })
-
-            # Create a BM25 index with whatever we have
-            if minimal_paragraphs:
-                tokenized_paragraphs = [para.lower().split() for para in minimal_paragraphs]
-                minimal_bm25 = BM25Okapi(tokenized_paragraphs)
-            else:
-                minimal_bm25 = BM25Okapi([[""]])
-
-            logger.info(f"Returning minimal result with {len(minimal_paragraphs)} paragraphs after processing error")
-            return minimal_paragraphs, minimal_bm25, minimal_doc_info
+        # Return processed data
+        return all_paragraphs, bm25_index, doc_info
 
     except Exception as e:
-        # Log the full error with traceback
         logger.error(f"Document processing failed: {str(e)}")
         traceback.print_exc()
+        # Return empty results on failure
+        return [], BM25Okapi([[]]), []
 
-        # Create a dummy paragraph with error information
-        dummy_text = f"[Error processing document '{filename}': {str(e)}]"
-        dummy_paragraphs = [dummy_text]
-        dummy_doc_info = [{
-            "id": f"{filename}_0_0",
-            "page": 0,
-            "paragraph": 0,
-            "text_preview": dummy_text
-        }]
-
-        # Return minimal data to avoid crashing the app
-        logger.info("Returning dummy data after document processing failure")
-        return dummy_paragraphs, BM25Okapi([dummy_text.lower().split()]), dummy_doc_info
 
 def process_query(query, paragraphs, bm25, session_id='default', chat_history=None):
     """Process a user query against document collection with semantic search
@@ -2470,31 +2426,26 @@ def index():
                 for file in files:
                     if file and file.filename != '':
                         try:
-                            # Secure the filename
+                            # Secure the filename (for reference only)
                             filename = secure_filename(file.filename)
-                            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
                             # Log file details
-                            logger.info(f"Saving file: {filename} (size: {len(file.read())} bytes)")
+                            file_content = file.read()
+                            file_size = len(file_content)
+                            logger.info(f"Processing file: {filename} (size: {file_size} bytes)")
                             file.seek(0)  # Reset file pointer after reading
 
-                            # Save the file
-                            file.save(file_path)
-
-                            # Check if file was saved correctly
-                            if not os.path.exists(file_path):
-                                raise Exception(f"File was not saved correctly: {filename}")
-
                             # Check file size
-                            file_size = os.path.getsize(file_path)
                             if file_size == 0:
                                 raise Exception(f"File is empty: {filename}")
 
-                            logger.info(f"Successfully saved file: {filename} (size: {file_size} bytes)")
+                            logger.info(f"Successfully loaded file: {filename} (size: {file_size} bytes)")
                             processed_files.append(filename)
 
-                            # Process document with session ID
-                            paragraphs, _, doc_info = process_document(file_path, filename, session_id)
+                            # Process document from memory
+                            file_obj = io.BytesIO(file.read())
+                            file_obj.name = filename
+                            paragraphs, _, doc_info = process_document_from_memory(file_obj, filename, session_id)
 
                             # Check if any text was extracted
                             if paragraphs:
@@ -2640,31 +2591,26 @@ def index():
                     for file in files:
                         if file and file.filename != '':
                             try:
-                                # Secure the filename
+                                # Secure the filename (for reference only)
                                 filename = secure_filename(file.filename)
-                                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
                                 # Log file details
-                                logger.info(f"Saving file: {filename} (size: {len(file.read())} bytes)")
+                                file_content = file.read()
+                                file_size = len(file_content)
+                                logger.info(f"Processing file: {filename} (size: {file_size} bytes)")
                                 file.seek(0)  # Reset file pointer after reading
 
-                                # Save the file
-                                file.save(file_path)
-
-                                # Check if file was saved correctly
-                                if not os.path.exists(file_path):
-                                    raise Exception(f"File was not saved correctly: {filename}")
-
                                 # Check file size
-                                file_size = os.path.getsize(file_path)
                                 if file_size == 0:
                                     raise Exception(f"File is empty: {filename}")
 
-                                logger.info(f"Successfully saved file: {filename} (size: {file_size} bytes)")
+                                logger.info(f"Successfully loaded file: {filename} (size: {file_size} bytes)")
                                 processed_files.append(filename)
 
-                                # Process document with session ID
-                                paragraphs, _, doc_info = process_document(file_path, filename, session_id)
+                                # Process document from memory
+                                file_obj = io.BytesIO(file.read())
+                                file_obj.name = filename
+                                paragraphs, _, doc_info = process_document_from_memory(file_obj, filename, session_id)
 
                                 # Check if any text was extracted
                                 if paragraphs:
@@ -3437,39 +3383,33 @@ def test_upload():
             # Create upload directory if it doesn't exist
             os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-            # Save the file
+            # Process the file in memory
             filename = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
             # Log file details
-            file_size = len(file.read())
+            file_content = file.read()
+            file_size = len(file_content)
             file.seek(0)  # Reset file pointer
+
+            # Create a BytesIO object for in-memory processing
+            file_obj = io.BytesIO(file_content)
+            file_obj.name = filename
 
             results["upload_status"] = {
                 "filename": filename,
                 "size": file_size,
-                "content_type": file.content_type
+                "content_type": file.content_type,
+                "in_memory": True
             }
-
-            # Save the file
-            file.save(file_path)
-
-            # Check if file was saved correctly
-            if os.path.exists(file_path):
-                saved_size = os.path.getsize(file_path)
-                results["upload_status"]["saved"] = True
-                results["upload_status"]["saved_size"] = saved_size
-                results["upload_status"]["path"] = file_path
-            else:
-                results["upload_status"]["saved"] = False
-                return jsonify(results), 500
 
             # Try to process the file with each method separately
 
             # 1. Try PyMuPDF
             try:
                 pymupdf_results = {"success": False, "pages": []}
-                doc = fitz.open(file_path)
+                # Process document from memory
+                file_obj.seek(0)
+                doc = fitz.open(stream=file_obj.getvalue(), filetype="pdf")
                 pymupdf_results["page_count"] = len(doc)
 
                 for page_num in range(len(doc)):
@@ -3492,10 +3432,12 @@ def test_upload():
                 results["extraction_results"]["pymupdf"] = {"error": str(fitz_err)}
 
             # 2. Try pdfplumber
-            if file_path.lower().endswith(".pdf"):
+            file_extension = os.path.splitext(filename)[1].lower()
+            if file_extension == ".pdf":
                 try:
                     pdfplumber_results = {"success": False, "pages": []}
-                    with pdfplumber.open(file_path) as pdf:
+                    file_obj.seek(0)
+                    with pdfplumber.open(file_obj) as pdf:
                         pdfplumber_results["page_count"] = len(pdf.pages)
 
                         for page_num, page in enumerate(pdf.pages):
@@ -3520,10 +3462,12 @@ def test_upload():
             # 3. Try OCR if it's an image or PDF
             try:
                 ocr_results = {"success": False}
+                file_extension = os.path.splitext(filename)[1].lower()
 
-                if file_path.lower().endswith((".png", ".jpg", ".jpeg")):
+                if file_extension in (".png", ".jpg", ".jpeg"):
                     # Direct OCR for images
-                    image = Image.open(file_path)
+                    file_obj.seek(0)
+                    image = Image.open(file_obj)
                     if image.mode not in ('RGB', 'L'):
                         image = image.convert('RGB')
 
@@ -3532,10 +3476,11 @@ def test_upload():
                     ocr_results["text_sample"] = text[:100] if text else None
                     ocr_results["success"] = len(text) > 0 if text else False
 
-                elif file_path.lower().endswith(".pdf"):
+                elif file_extension == ".pdf":
                     # Try OCR on first page of PDF
                     ocr_results["pages"] = []
-                    doc = fitz.open(file_path)
+                    file_obj.seek(0)
+                    doc = fitz.open(stream=file_obj.getvalue(), filetype="pdf")
 
                     for page_num in range(min(1, len(doc))):  # Just try first page
                         try:
@@ -3564,7 +3509,9 @@ def test_upload():
 
             # 4. Try our full document processing function
             try:
-                texts, _, doc_info = process_document(file_path, filename, "test_session")
+                # Reset file pointer for processing
+                file_obj.seek(0)
+                texts, _, doc_info = process_document_from_memory(file_obj, filename, "test_session")
 
                 results["processing_status"] = {
                     "success": len(texts) > 0,

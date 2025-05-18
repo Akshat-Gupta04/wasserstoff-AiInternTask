@@ -6,6 +6,14 @@
 ![Flask](https://img.shields.io/badge/flask-2.0%2B-green)
 ![License](https://img.shields.io/badge/license-MIT-orange)
 
+## Developer
+
+This application was developed by **Akshat Gupta**.
+
+GitHub: [Akshat-Gupta04](https://github.com/Akshat-Gupta04)
+
+Repository: [wasserstoff-AiInternTask](https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask)
+
 A comprehensive Flask-based web application for document analysis, theme identification, and knowledge graph visualization. This application allows users to upload multiple documents, ask questions about their content, and explore the relationships between themes and information through interactive visualizations.
 
 ## 📋 Table of Contents
@@ -127,8 +135,8 @@ The application follows a modular architecture with the following components:
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask.git
+   cd wasserstoff-AiInternTask
    ```
 
 2. Create and activate a virtual environment:
@@ -152,20 +160,17 @@ The application follows a modular architecture with the following components:
    OPENAI_API_KEY=your_api_key_here
    ```
 
-6. Create necessary directories:
-   ```bash
-   mkdir -p uploads data static/graphs
-   ```
-
-7. Run the application:
+6. Run the application:
    ```bash
    python app.py
    ```
 
-8. Open your browser and navigate to:
+7. Open your browser and navigate to:
    ```
    http://127.0.0.1:5000
    ```
+
+> **Note**: The application now processes files in memory without saving them to disk, making it more suitable for deployment on platforms with limited storage like Render.
 
 ## 📖 Usage
 
@@ -217,18 +222,19 @@ This application is configured for easy deployment on Render.com and other cloud
    - Name: `document-research-chatbot` (or your preferred name)
    - Environment: `Python 3`
    - Build Command: `pip install -r requirements.txt`
-   - Start Command: `gunicorn wsgi:app --workers=4 --threads=2 --timeout=120`
+   - Start Command: `gunicorn app:app`
    - Select the appropriate instance type (at least 1GB RAM recommended)
 
 4. **Add environment variables**:
    - `OPENAI_API_KEY`: Your OpenAI API key
-   - `FLASK_ENV`: `production`
-   - `FLASK_DEBUG`: `0`
+   - `LLM_MODEL`: `gpt-3.5-turbo`
+   - `EMBEDDING_MODEL`: `text-embedding-3-small`
+   - `SECRET_KEY`: Generate a secure random string
 
 5. **Create a disk**:
    - In the Render dashboard, go to "Disks"
    - Create a new disk with at least 10GB
-   - Mount path: `/app/data`
+   - Mount path: `/data`
    - Attach it to your web service
 
 6. **Deploy**:
@@ -246,25 +252,28 @@ This repository includes a `render.yaml` file for Blueprint deployments:
 5. Add your `OPENAI_API_KEY` when prompted
 6. Click "Apply" to deploy
 
+### Memory-Efficient Processing
+
+The application has been optimized for deployment on platforms with limited storage:
+
+- **In-Memory File Processing**: Files are processed directly in memory without being saved to disk
+- **Session Isolation**: Each user session has its own isolated vector database
+- **Efficient Resource Usage**: Minimizes disk I/O operations for better performance
+- **Reduced Storage Requirements**: No need for large persistent storage for uploaded files
+
 ### Data Persistence
 
-The application is configured to store all data in a persistent disk on Render:
+The application stores only essential data in a persistent disk on Render:
 
 - **Disk Configuration**: A 10GB disk is mounted at `/data` to store:
   - SQLite database (`documents.db`)
   - ChromaDB vector database
-  - Uploaded documents
-  - Generated graphs
+  - Generated knowledge graphs
 
 - **Environment Variables**: The application uses these paths:
   - `DATA_FOLDER=/data`: Main data directory
-  - `UPLOAD_FOLDER=/data/uploads`: Document storage
+  - `UPLOAD_FOLDER=/data/uploads`: For temporary processing (not used for storage)
   - `STATIC_FOLDER=static`: Static assets (CSS, JS, etc.)
-
-- **Backup Considerations**:
-  - The persistent disk is backed up according to your Render plan
-  - For additional safety, consider implementing scheduled backups
-  - Critical data is isolated in the `/data` directory for easy backup
 
 ### Verifying Deployment
 
@@ -273,7 +282,6 @@ The application is configured to store all data in a persistent disk on Render:
   - Vector database (ChromaDB) status
   - OpenAI API configuration
 - Use this endpoint to monitor the health of your deployment
-- Add this endpoint to your monitoring system for alerts
 
 ### Scaling Considerations
 
@@ -285,12 +293,7 @@ The application is configured to store all data in a persistent disk on Render:
 - **Memory Usage**:
   - Each worker requires approximately 250-500MB of RAM
   - Choose an instance with at least 2GB RAM for production use
-  - The application implements periodic cache clearing to manage memory
-
-- **Storage Requirements**:
-  - Start with 10GB disk and monitor usage
-  - Vector databases grow with document count
-  - Consider increasing disk size for large document collections
+  - The application implements efficient memory management for processing large documents
 
 ## 🛠 Technologies Used
 
@@ -319,11 +322,13 @@ document-research-chatbot/
 ├── app.py                  # Main Flask application
 ├── wsgi.py                 # WSGI entry point for Gunicorn
 ├── requirements.txt        # Python dependencies
-├── Procfile                # Process file for Heroku/Render
+├── Dockerfile              # Docker configuration for containerized deployment
+├── build.sh                # Build script for deployment
 ├── render.yaml             # Render deployment configuration
-├── runtime.txt             # Python version specification
-├── .env                    # Environment variables (not in repo)
+├── .env.example            # Example environment variables
 ├── .gitignore              # Git ignore file
+├── README.md               # Project documentation
+├── PRODUCTION.md           # Production deployment guide
 ├── static/
 │   ├── css/
 │   │   └── style.css       # Custom styles
@@ -331,13 +336,13 @@ document-research-chatbot/
 │   │   ├── main.js         # Main JavaScript
 │   │   ├── new-animation.js # Processing animations
 │   │   └── analysis-animation.js # Analysis animations
-│   └── graphs/             # Generated knowledge graphs
-├── templates/
-│   ├── index.html          # Home page template
-│   └── chat.html           # Chat interface template
-├── uploads/                # Uploaded documents (not in repo)
-└── data/                   # Database and vector store (not in repo)
+│   └── graphs/             # Generated knowledge graphs (not in repo)
+└── templates/
+    ├── index.html          # Home page template
+    └── chat.html           # Chat interface template
 ```
+
+> **Note**: The application now processes files in memory, so there's no need for permanent `uploads/` or `data/` directories in the repository. These directories are created dynamically when needed.
 
 ## 📄 License
 
