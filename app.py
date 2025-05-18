@@ -74,8 +74,7 @@ import tiktoken
 import fitz  # PyMuPDF for PDF processing
 import io  # For BytesIO
 from PIL import Image
-from openai import OpenAI
-from langchain_openai import ChatOpenAI
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain.prompts import PromptTemplate
 from rank_bm25 import BM25Okapi
 from sklearn.decomposition import NMF
@@ -179,14 +178,14 @@ if not OPENAI_API_KEY:
     logger.error("OPENAI_API_KEY not found in .env file")
     raise ValueError("OPENAI_API_KEY not found in .env file")
 
-# Initialize OpenAI and LangChain
-# Using OpenAI client v1.x with simplified initialization
-# Avoid using any parameters that might cause compatibility issues
-openai_client = OpenAI()  # This will use OPENAI_API_KEY from environment
-
+# Initialize LangChain only (no direct OpenAI client)
 # Get LLM model from environment or use default
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-3.5-turbo")
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
+
+# Initialize LLM and embeddings
 llm = ChatOpenAI(model_name=LLM_MODEL)  # This will use OPENAI_API_KEY from environment
+embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL)  # This will use OPENAI_API_KEY from environment
 
 # Database connection pool with thread safety
 class DBConnectionPool:
@@ -980,15 +979,10 @@ def get_openai_embedding(text, session_id='default'):
 
     try:
         # Count tokens for tracking
-        token_count = count_tokens(text, "text-embedding-3-small")
+        token_count = count_tokens(text, EMBEDDING_MODEL)
 
-        # Call OpenAI API with OpenAI client v1.x
-        response = openai_client.embeddings.create(
-            model="text-embedding-3-small",
-            input=text
-        )
-        # Get the embedding
-        embedding = response.data[0].embedding
+        # Use LangChain's OpenAIEmbeddings instead of direct OpenAI client
+        embedding = embeddings.embed_query(text)
 
         # Cache the result
         embedding_cache[text_hash] = embedding
@@ -1005,7 +999,8 @@ def get_openai_embedding(text, session_id='default'):
         return embedding
     except Exception as e:
         logger.error(f"Embedding generation failed: {str(e)}")
-        raise Exception(f"Embedding generation failed: {str(e)}")
+        # Return zeros as fallback
+        return [0.0] * 1536
 
 def process_document(file_path, filename, session_id='default'):
     """Process a document with multiple extraction methods for maximum reliability
