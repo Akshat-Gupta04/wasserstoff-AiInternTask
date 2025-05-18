@@ -1,0 +1,1268 @@
+2025-05-18 10:34:10,579 - document_research_app - INFO - Creating new database connection to data/documents.db
+2025-05-18 10:34:10,721 - document_research_app - INFO - Created new session: 7559b36c-ebc2-43e1-9d86-157ff29052f3
+2025-05-18 10:36:08,172 - document_research_app - INFO - Starting application in production mode
+2025-05-18 10:36:08,172 - document_research_app - INFO - Data folder: data
+2025-05-18 10:36:08,173 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 10:36:08,173 - document_research_app - INFO - Static folder: static
+2025-05-18 10:45:51,357 - document_research_app - INFO - Creating new database connection to data/documents.db
+2025-05-18 10:45:51,359 - document_research_app - INFO - Created new session: 01a21af8-0465-4308-8ce1-2b795f471939
+2025-05-18 10:45:56,148 - document_research_app - INFO - Deleted session 7559b36c-ebc2-43e1-9d86-157ff29052f3 with 0 documents and 0 messages
+2025-05-18 10:45:56,314 - document_research_app - INFO - Deleting vector database collection for session 7559b36c-ebc2-43e1-9d86-157ff29052f3
+2025-05-18 10:45:56,314 - document_research_app - ERROR - Error deleting collection documents_7559b36c-ebc2-43e1-9d86-157ff29052f3: Collection documents_7559b36c-ebc2-43e1-9d86-157ff29052f3 does not exist.
+2025-05-18 10:47:07,411 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6182793216.
+2025-05-18 10:47:07,411 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6182793216.
+2025-05-18 10:47:14,055 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6182793216.
+2025-05-18 10:47:14,056 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6182793216.
+2025-05-18 10:47:18,099 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6182793216.
+2025-05-18 10:47:18,102 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6182793216.
+2025-05-18 10:47:45,719 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6182793216.
+2025-05-18 10:47:45,720 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6182793216.
+2025-05-18 10:47:46,076 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6199619584.
+2025-05-18 10:47:46,076 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6199619584.
+2025-05-18 10:48:14,329 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6182793216.
+2025-05-18 10:48:14,335 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6199619584.
+2025-05-18 10:54:18,174 - document_research_app - ERROR - Error rolling back transaction: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12901707776 and this is thread id 6182793216.
+2025-05-18 10:54:31,385 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 10:54:31,386 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 10:54:31,386 - document_research_app - INFO - Starting application in production mode
+2025-05-18 10:54:31,386 - document_research_app - INFO - Data folder: data
+2025-05-18 10:54:31,386 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 10:54:31,386 - document_research_app - INFO - Static folder: static
+2025-05-18 10:54:31,387 - document_research_app - INFO - Application shutting down, cleaning up resources...
+2025-05-18 10:54:31,387 - document_research_app - INFO - Closed shared SQLite connection
+2025-05-18 10:54:31,387 - document_research_app - INFO - Closed all database connections
+2025-05-18 10:54:31,387 - document_research_app - INFO - Cleared session collections
+2025-05-18 10:54:53,179 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 10:54:53,179 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 10:54:53,180 - document_research_app - INFO - Starting application in production mode
+2025-05-18 10:54:53,180 - document_research_app - INFO - Data folder: data
+2025-05-18 10:54:53,180 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 10:54:53,180 - document_research_app - INFO - Static folder: static
+2025-05-18 10:54:53,181 - document_research_app - INFO - Application shutting down, cleaning up resources...
+2025-05-18 10:54:53,181 - document_research_app - INFO - Closed shared SQLite connection
+2025-05-18 10:54:53,181 - document_research_app - INFO - Closed all database connections
+2025-05-18 10:54:53,181 - document_research_app - INFO - Cleared session collections
+2025-05-18 10:55:11,845 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 10:55:11,846 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 10:55:11,847 - document_research_app - INFO - Starting application in production mode
+2025-05-18 10:55:11,847 - document_research_app - INFO - Data folder: data
+2025-05-18 10:55:11,847 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 10:55:11,847 - document_research_app - INFO - Static folder: static
+2025-05-18 10:55:11,848 - document_research_app - INFO - Application shutting down, cleaning up resources...
+2025-05-18 10:55:11,848 - document_research_app - INFO - Closed shared SQLite connection
+2025-05-18 10:55:11,848 - document_research_app - INFO - Closed all database connections
+2025-05-18 10:55:11,848 - document_research_app - INFO - Cleared session collections
+2025-05-18 10:58:13,891 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 10:58:13,891 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 10:58:13,892 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 10:58:13,892 - document_research_app - INFO - Starting application in production mode
+2025-05-18 10:58:13,892 - document_research_app - INFO - Data folder: data
+2025-05-18 10:58:13,892 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 10:58:13,892 - document_research_app - INFO - Static folder: static
+2025-05-18 10:58:28,001 - document_research_app - INFO - Created new session: 36e70ee7-3a14-4626-93b7-bfc0e366dc60
+2025-05-18 10:59:00,242 - document_research_app - INFO - Closed shared SQLite connection
+2025-05-18 10:59:00,243 - document_research_app - INFO - Closed existing database connection pool
+2025-05-18 10:59:00,244 - document_research_app - INFO - Deleted existing database at data/documents.db
+2025-05-18 10:59:00,247 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 10:59:00,248 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 10:59:00,248 - document_research_app - INFO - Created new database connection pool
+2025-05-18 10:59:00,412 - document_research_app - INFO - Created new session: 1287006f-d899-4b55-84ae-74e2a5488600
+2025-05-18 10:59:00,422 - document_research_app - INFO - Created new session: 86fd81dc-55f2-456b-8539-15ab1291b4a7
+2025-05-18 11:00:22,180 - document_research_app - INFO - Deleted session 1287006f-d899-4b55-84ae-74e2a5488600 with 0 documents and 0 messages
+2025-05-18 11:00:22,194 - document_research_app - INFO - Deleting vector database collection for session 1287006f-d899-4b55-84ae-74e2a5488600
+2025-05-18 11:00:22,195 - document_research_app - ERROR - Error deleting collection documents_1287006f-d899-4b55-84ae-74e2a5488600: Collection documents_1287006f-d899-4b55-84ae-74e2a5488600 does not exist.
+2025-05-18 11:00:24,415 - document_research_app - INFO - Deleted session 86fd81dc-55f2-456b-8539-15ab1291b4a7 with 0 documents and 0 messages
+2025-05-18 11:00:24,422 - document_research_app - INFO - Deleting vector database collection for session 86fd81dc-55f2-456b-8539-15ab1291b4a7
+2025-05-18 11:00:24,424 - document_research_app - ERROR - Error deleting collection documents_86fd81dc-55f2-456b-8539-15ab1291b4a7: Collection documents_86fd81dc-55f2-456b-8539-15ab1291b4a7 does not exist.
+2025-05-18 11:17:53,367 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:17:53,368 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:17:53,369 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 11:17:53,369 - document_research_app - INFO - Starting application in production mode
+2025-05-18 11:17:53,369 - document_research_app - INFO - Data folder: data
+2025-05-18 11:17:53,369 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 11:17:53,369 - document_research_app - INFO - Static folder: static
+2025-05-18 11:19:15,902 - document_research_app - INFO - Processing document: bridge_sensor.pdf (path: uploads/bridge_sensor.pdf) for session test_session
+2025-05-18 11:19:15,902 - document_research_app - INFO - File size: 0.17 MB
+2025-05-18 11:19:15,902 - document_research_app - INFO - Processing PDF file: bridge_sensor.pdf
+2025-05-18 11:19:15,902 - document_research_app - INFO - Trying PyMuPDF for bridge_sensor.pdf
+2025-05-18 11:19:15,903 - document_research_app - INFO - PyMuPDF opened document with 8 pages
+2025-05-18 11:19:15,905 - document_research_app - INFO - PyMuPDF extracted 2669 characters from page 1
+2025-05-18 11:19:15,906 - document_research_app - INFO - PyMuPDF extracted 1470 characters from page 2
+2025-05-18 11:19:15,907 - document_research_app - INFO - PyMuPDF extracted 1488 characters from page 3
+2025-05-18 11:19:15,907 - document_research_app - INFO - PyMuPDF extracted 1878 characters from page 4
+2025-05-18 11:19:15,908 - document_research_app - INFO - PyMuPDF extracted 1836 characters from page 5
+2025-05-18 11:19:15,908 - document_research_app - INFO - PyMuPDF extracted 1594 characters from page 6
+2025-05-18 11:19:15,909 - document_research_app - INFO - PyMuPDF extracted 2228 characters from page 7
+2025-05-18 11:19:15,909 - document_research_app - INFO - PyMuPDF extracted 528 characters from page 8
+2025-05-18 11:19:15,909 - document_research_app - INFO - Successfully extracted 8 text sections from bridge_sensor.pdf
+2025-05-18 11:19:16,814 - document_research_app - INFO - Session test_session used 567 embedding tokens
+2025-05-18 11:19:17,329 - document_research_app - INFO - Processing document: bridge_sensor.pdf (path: uploads/bridge_sensor.pdf) for session test_session
+2025-05-18 11:19:17,329 - document_research_app - INFO - File size: 0.17 MB
+2025-05-18 11:19:17,329 - document_research_app - INFO - Processing PDF file: bridge_sensor.pdf
+2025-05-18 11:19:17,329 - document_research_app - INFO - Trying PyMuPDF for bridge_sensor.pdf
+2025-05-18 11:19:17,329 - document_research_app - INFO - PyMuPDF opened document with 8 pages
+2025-05-18 11:19:17,332 - document_research_app - INFO - PyMuPDF extracted 2669 characters from page 1
+2025-05-18 11:19:17,333 - document_research_app - INFO - PyMuPDF extracted 1470 characters from page 2
+2025-05-18 11:19:17,333 - document_research_app - INFO - PyMuPDF extracted 1488 characters from page 3
+2025-05-18 11:19:17,334 - document_research_app - INFO - PyMuPDF extracted 1878 characters from page 4
+2025-05-18 11:19:17,335 - document_research_app - INFO - PyMuPDF extracted 1836 characters from page 5
+2025-05-18 11:19:17,335 - document_research_app - INFO - PyMuPDF extracted 1594 characters from page 6
+2025-05-18 11:19:17,335 - document_research_app - INFO - PyMuPDF extracted 2228 characters from page 7
+2025-05-18 11:19:17,336 - document_research_app - INFO - PyMuPDF extracted 528 characters from page 8
+2025-05-18 11:19:17,336 - document_research_app - INFO - Successfully extracted 8 text sections from bridge_sensor.pdf
+2025-05-18 11:19:17,977 - document_research_app - INFO - Session test_session used 460 embedding tokens
+2025-05-18 11:19:17,987 - document_research_app - ERROR - Error adding to SQL database: cannot commit - no transaction is active
+2025-05-18 11:19:17,987 - document_research_app - ERROR - Text processing failed: cannot rollback - no transaction is active
+2025-05-18 11:19:17,992 - document_research_app - INFO - Returning minimal result with 8 paragraphs after processing error
+2025-05-18 11:19:17,999 - document_research_app - INFO - Session test_session used 460 embedding tokens
+2025-05-18 11:19:18,003 - document_research_app - ERROR - Error adding to SQL database: cannot commit - no transaction is active
+2025-05-18 11:19:18,003 - document_research_app - ERROR - Text processing failed: cannot rollback - no transaction is active
+2025-05-18 11:19:18,005 - document_research_app - INFO - Returning minimal result with 8 paragraphs after processing error
+2025-05-18 11:20:06,312 - document_research_app - INFO - Application shutting down, cleaning up resources...
+2025-05-18 11:20:06,313 - document_research_app - INFO - Closed shared SQLite connection
+2025-05-18 11:20:06,314 - document_research_app - INFO - Closed all database connections
+2025-05-18 11:20:06,314 - document_research_app - INFO - Cleared session collections
+2025-05-18 11:20:06,314 - document_research_app - INFO - Cleared caches: 2 embeddings and 0 LLM responses
+2025-05-18 11:20:13,677 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:20:13,678 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:20:13,679 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 11:20:13,679 - document_research_app - INFO - Starting application in production mode
+2025-05-18 11:20:13,679 - document_research_app - INFO - Data folder: data
+2025-05-18 11:20:13,679 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 11:20:13,679 - document_research_app - INFO - Static folder: static
+2025-05-18 11:20:22,624 - document_research_app - INFO - Created new session: cfe43999-c37a-4377-9651-4c22600f112f
+2025-05-18 11:20:32,659 - document_research_app - ERROR - Error in diagnostics: Object of type Version is not JSON serializable
+2025-05-18 11:20:32,661 - document_research_app - ERROR - Traceback (most recent call last):
+  File "/Users/akshat/Documents/assignment/app.py", line 588, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/akshat/Documents/assignment/app.py", line 3144, in diagnostics
+    return jsonify(results)
+  File "/Users/akshat/dl-env/lib/python3.10/site-packages/flask/json/__init__.py", line 170, in jsonify
+    return current_app.json.response(*args, **kwargs)
+  File "/Users/akshat/dl-env/lib/python3.10/site-packages/flask/json/provider.py", line 215, in response
+    f"{self.dumps(obj, **dump_args)}\n", mimetype=self.mimetype
+  File "/Users/akshat/dl-env/lib/python3.10/site-packages/flask/json/provider.py", line 180, in dumps
+    return json.dumps(obj, **kwargs)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.17/Frameworks/Python.framework/Versions/3.10/lib/python3.10/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.17/Frameworks/Python.framework/Versions/3.10/lib/python3.10/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.17/Frameworks/Python.framework/Versions/3.10/lib/python3.10/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/akshat/dl-env/lib/python3.10/site-packages/flask/json/provider.py", line 120, in _default
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+TypeError: Object of type Version is not JSON serializable
+
+2025-05-18 11:21:05,983 - document_research_app - ERROR - Error in diagnostics: Object of type Version is not JSON serializable
+2025-05-18 11:21:05,984 - document_research_app - ERROR - Traceback (most recent call last):
+  File "/Users/akshat/Documents/assignment/app.py", line 588, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/akshat/Documents/assignment/app.py", line 3144, in diagnostics
+    return jsonify(results)
+  File "/Users/akshat/dl-env/lib/python3.10/site-packages/flask/json/__init__.py", line 170, in jsonify
+    return current_app.json.response(*args, **kwargs)
+  File "/Users/akshat/dl-env/lib/python3.10/site-packages/flask/json/provider.py", line 215, in response
+    f"{self.dumps(obj, **dump_args)}\n", mimetype=self.mimetype
+  File "/Users/akshat/dl-env/lib/python3.10/site-packages/flask/json/provider.py", line 180, in dumps
+    return json.dumps(obj, **kwargs)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.17/Frameworks/Python.framework/Versions/3.10/lib/python3.10/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.17/Frameworks/Python.framework/Versions/3.10/lib/python3.10/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.17/Frameworks/Python.framework/Versions/3.10/lib/python3.10/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/akshat/dl-env/lib/python3.10/site-packages/flask/json/provider.py", line 120, in _default
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+TypeError: Object of type Version is not JSON serializable
+
+2025-05-18 11:21:30,196 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:21:30,196 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:21:30,198 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 11:21:30,198 - document_research_app - INFO - Starting application in production mode
+2025-05-18 11:21:30,198 - document_research_app - INFO - Data folder: data
+2025-05-18 11:21:30,198 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 11:21:30,198 - document_research_app - INFO - Static folder: static
+2025-05-18 11:21:39,592 - document_research_app - INFO - Created new session: 61f8b19d-cc24-4d0d-a731-d2539f1d94c1
+2025-05-18 11:21:41,306 - document_research_app - INFO - Created new session: e685aad5-2643-4cb9-b50a-4116ce3bd069
+2025-05-18 11:21:51,066 - document_research_app - INFO - Saving file: bridge_sensor.pdf (size: 178368 bytes)
+2025-05-18 11:21:51,068 - document_research_app - INFO - Successfully saved file: bridge_sensor.pdf (size: 178368 bytes)
+2025-05-18 11:21:51,068 - document_research_app - INFO - Processing document: bridge_sensor.pdf (path: uploads/bridge_sensor.pdf) for session e685aad5-2643-4cb9-b50a-4116ce3bd069
+2025-05-18 11:21:51,068 - document_research_app - INFO - File size: 0.17 MB
+2025-05-18 11:21:51,068 - document_research_app - INFO - Processing PDF file: bridge_sensor.pdf
+2025-05-18 11:21:51,068 - document_research_app - INFO - Trying PyMuPDF for bridge_sensor.pdf
+2025-05-18 11:21:51,073 - document_research_app - INFO - PyMuPDF opened document with 8 pages
+2025-05-18 11:21:51,092 - document_research_app - INFO - PyMuPDF extracted 2669 characters from page 1
+2025-05-18 11:21:51,094 - document_research_app - INFO - PyMuPDF extracted 1470 characters from page 2
+2025-05-18 11:21:51,095 - document_research_app - INFO - PyMuPDF extracted 1488 characters from page 3
+2025-05-18 11:21:51,096 - document_research_app - INFO - PyMuPDF extracted 1878 characters from page 4
+2025-05-18 11:21:51,097 - document_research_app - INFO - PyMuPDF extracted 1836 characters from page 5
+2025-05-18 11:21:51,098 - document_research_app - INFO - PyMuPDF extracted 1594 characters from page 6
+2025-05-18 11:21:51,099 - document_research_app - INFO - PyMuPDF extracted 2228 characters from page 7
+2025-05-18 11:21:51,099 - document_research_app - INFO - PyMuPDF extracted 528 characters from page 8
+2025-05-18 11:21:51,099 - document_research_app - INFO - Successfully extracted 8 text sections from bridge_sensor.pdf
+2025-05-18 11:21:52,020 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 567 embedding tokens
+2025-05-18 11:21:52,856 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 460 embedding tokens
+2025-05-18 11:21:53,615 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 428 embedding tokens
+2025-05-18 11:21:54,128 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 544 embedding tokens
+2025-05-18 11:21:54,904 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 533 embedding tokens
+2025-05-18 11:21:55,396 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 390 embedding tokens
+2025-05-18 11:21:56,186 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 571 embedding tokens
+2025-05-18 11:21:57,141 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 94 embedding tokens
+2025-05-18 11:21:57,147 - document_research_app - INFO - Created BM25 index with 8 paragraphs
+2025-05-18 11:21:57,147 - document_research_app - INFO - Returning 8 paragraphs and 8 document info items
+2025-05-18 11:21:57,149 - document_research_app - INFO - Successfully processed bridge_sensor.pdf: extracted 8 paragraphs
+2025-05-18 11:21:57,150 - document_research_app - INFO - Processing query for session e685aad5-2643-4cb9-b50a-4116ce3bd069: what is paper all about?...
+2025-05-18 11:21:57,926 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 6 embedding tokens
+2025-05-18 11:22:00,463 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 6781 prompt tokens and 135 completion tokens
+2025-05-18 11:22:00,996 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 80 prompt tokens and 1 completion tokens
+2025-05-18 11:22:01,509 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 89 prompt tokens and 1 completion tokens
+2025-05-18 11:22:04,182 - document_research_app - INFO - Session e685aad5-2643-4cb9-b50a-4116ce3bd069 used 143 prompt tokens and 93 completion tokens
+2025-05-18 11:22:04,183 - document_research_app - INFO - Synthesized response for session e685aad5-2643-4cb9-b50a-4116ce3bd069
+2025-05-18 11:22:31,436 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:22:31,437 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:22:31,438 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 11:22:31,438 - document_research_app - INFO - Starting application in production mode
+2025-05-18 11:22:31,438 - document_research_app - INFO - Data folder: data
+2025-05-18 11:22:31,438 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 11:22:31,438 - document_research_app - INFO - Static folder: static
+2025-05-18 11:22:34,933 - document_research_app - INFO - Created new session: 6aeb9fc7-5c87-437d-b000-98ef8133c69e
+2025-05-18 11:22:49,208 - document_research_app - INFO - Created new session: 1d2922c7-4aa3-460e-bc8e-10df13962d1a
+2025-05-18 11:23:04,898 - document_research_app - INFO - Created new session: d4aae380-07eb-4232-81b9-10243e649fcd
+2025-05-18 11:23:26,302 - document_research_app - INFO - Saving file: Examination-Manual-2024-25--2.pdf (size: 9016246 bytes)
+2025-05-18 11:23:26,322 - document_research_app - INFO - Successfully saved file: Examination-Manual-2024-25--2.pdf (size: 9016246 bytes)
+2025-05-18 11:23:26,322 - document_research_app - INFO - Processing document: Examination-Manual-2024-25--2.pdf (path: uploads/Examination-Manual-2024-25--2.pdf) for session 1d2922c7-4aa3-460e-bc8e-10df13962d1a
+2025-05-18 11:23:26,322 - document_research_app - INFO - File size: 8.60 MB
+2025-05-18 11:23:26,322 - document_research_app - INFO - Processing PDF file: Examination-Manual-2024-25--2.pdf
+2025-05-18 11:23:26,322 - document_research_app - INFO - Trying PyMuPDF for Examination-Manual-2024-25--2.pdf
+2025-05-18 11:23:26,334 - document_research_app - INFO - PyMuPDF opened document with 69 pages
+2025-05-18 11:23:26,337 - document_research_app - WARNING - PyMuPDF found no text on page 1
+2025-05-18 11:23:26,337 - document_research_app - WARNING - PyMuPDF found no text on page 2
+2025-05-18 11:23:26,337 - document_research_app - WARNING - PyMuPDF found no text on page 3
+2025-05-18 11:23:26,337 - document_research_app - WARNING - PyMuPDF found no text on page 4
+2025-05-18 11:23:26,338 - document_research_app - WARNING - PyMuPDF found no text on page 5
+2025-05-18 11:23:26,338 - document_research_app - WARNING - PyMuPDF found no text on page 6
+2025-05-18 11:23:26,338 - document_research_app - WARNING - PyMuPDF found no text on page 7
+2025-05-18 11:23:26,338 - document_research_app - WARNING - PyMuPDF found no text on page 8
+2025-05-18 11:23:26,338 - document_research_app - WARNING - PyMuPDF found no text on page 9
+2025-05-18 11:23:26,338 - document_research_app - WARNING - PyMuPDF found no text on page 10
+2025-05-18 11:23:26,338 - document_research_app - WARNING - PyMuPDF found no text on page 11
+2025-05-18 11:23:26,338 - document_research_app - WARNING - PyMuPDF found no text on page 12
+2025-05-18 11:23:26,338 - document_research_app - WARNING - PyMuPDF found no text on page 13
+2025-05-18 11:23:26,338 - document_research_app - WARNING - PyMuPDF found no text on page 14
+2025-05-18 11:23:26,338 - document_research_app - WARNING - PyMuPDF found no text on page 15
+2025-05-18 11:23:26,339 - document_research_app - WARNING - PyMuPDF found no text on page 16
+2025-05-18 11:23:26,339 - document_research_app - WARNING - PyMuPDF found no text on page 17
+2025-05-18 11:23:26,339 - document_research_app - WARNING - PyMuPDF found no text on page 18
+2025-05-18 11:23:26,339 - document_research_app - WARNING - PyMuPDF found no text on page 19
+2025-05-18 11:23:26,339 - document_research_app - WARNING - PyMuPDF found no text on page 20
+2025-05-18 11:23:26,339 - document_research_app - WARNING - PyMuPDF found no text on page 21
+2025-05-18 11:23:26,339 - document_research_app - WARNING - PyMuPDF found no text on page 22
+2025-05-18 11:23:26,339 - document_research_app - WARNING - PyMuPDF found no text on page 23
+2025-05-18 11:23:26,339 - document_research_app - WARNING - PyMuPDF found no text on page 24
+2025-05-18 11:23:26,339 - document_research_app - WARNING - PyMuPDF found no text on page 25
+2025-05-18 11:23:26,340 - document_research_app - WARNING - PyMuPDF found no text on page 26
+2025-05-18 11:23:26,340 - document_research_app - WARNING - PyMuPDF found no text on page 27
+2025-05-18 11:23:26,341 - document_research_app - WARNING - PyMuPDF found no text on page 28
+2025-05-18 11:23:26,342 - document_research_app - WARNING - PyMuPDF found no text on page 29
+2025-05-18 11:23:26,342 - document_research_app - WARNING - PyMuPDF found no text on page 30
+2025-05-18 11:23:26,342 - document_research_app - WARNING - PyMuPDF found no text on page 31
+2025-05-18 11:23:26,342 - document_research_app - WARNING - PyMuPDF found no text on page 32
+2025-05-18 11:23:26,342 - document_research_app - WARNING - PyMuPDF found no text on page 33
+2025-05-18 11:23:26,342 - document_research_app - WARNING - PyMuPDF found no text on page 34
+2025-05-18 11:23:26,343 - document_research_app - WARNING - PyMuPDF found no text on page 35
+2025-05-18 11:23:26,343 - document_research_app - WARNING - PyMuPDF found no text on page 36
+2025-05-18 11:23:26,343 - document_research_app - WARNING - PyMuPDF found no text on page 37
+2025-05-18 11:23:26,343 - document_research_app - WARNING - PyMuPDF found no text on page 38
+2025-05-18 11:23:26,343 - document_research_app - WARNING - PyMuPDF found no text on page 39
+2025-05-18 11:23:26,343 - document_research_app - WARNING - PyMuPDF found no text on page 40
+2025-05-18 11:23:26,343 - document_research_app - WARNING - PyMuPDF found no text on page 41
+2025-05-18 11:23:26,344 - document_research_app - WARNING - PyMuPDF found no text on page 42
+2025-05-18 11:23:26,344 - document_research_app - WARNING - PyMuPDF found no text on page 43
+2025-05-18 11:23:26,344 - document_research_app - WARNING - PyMuPDF found no text on page 44
+2025-05-18 11:23:26,344 - document_research_app - WARNING - PyMuPDF found no text on page 45
+2025-05-18 11:23:26,344 - document_research_app - WARNING - PyMuPDF found no text on page 46
+2025-05-18 11:23:26,344 - document_research_app - WARNING - PyMuPDF found no text on page 47
+2025-05-18 11:23:26,344 - document_research_app - WARNING - PyMuPDF found no text on page 48
+2025-05-18 11:23:26,344 - document_research_app - WARNING - PyMuPDF found no text on page 49
+2025-05-18 11:23:26,344 - document_research_app - WARNING - PyMuPDF found no text on page 50
+2025-05-18 11:23:26,344 - document_research_app - WARNING - PyMuPDF found no text on page 51
+2025-05-18 11:23:26,344 - document_research_app - WARNING - PyMuPDF found no text on page 52
+2025-05-18 11:23:26,345 - document_research_app - WARNING - PyMuPDF found no text on page 53
+2025-05-18 11:23:26,345 - document_research_app - WARNING - PyMuPDF found no text on page 54
+2025-05-18 11:23:26,345 - document_research_app - WARNING - PyMuPDF found no text on page 55
+2025-05-18 11:23:26,345 - document_research_app - WARNING - PyMuPDF found no text on page 56
+2025-05-18 11:23:26,345 - document_research_app - WARNING - PyMuPDF found no text on page 57
+2025-05-18 11:23:26,345 - document_research_app - WARNING - PyMuPDF found no text on page 58
+2025-05-18 11:23:26,345 - document_research_app - WARNING - PyMuPDF found no text on page 59
+2025-05-18 11:23:26,345 - document_research_app - WARNING - PyMuPDF found no text on page 60
+2025-05-18 11:23:26,345 - document_research_app - WARNING - PyMuPDF found no text on page 61
+2025-05-18 11:23:26,345 - document_research_app - WARNING - PyMuPDF found no text on page 62
+2025-05-18 11:23:26,345 - document_research_app - WARNING - PyMuPDF found no text on page 63
+2025-05-18 11:23:26,345 - document_research_app - WARNING - PyMuPDF found no text on page 64
+2025-05-18 11:23:26,346 - document_research_app - WARNING - PyMuPDF found no text on page 65
+2025-05-18 11:23:26,346 - document_research_app - WARNING - PyMuPDF found no text on page 66
+2025-05-18 11:23:26,346 - document_research_app - WARNING - PyMuPDF found no text on page 67
+2025-05-18 11:23:26,346 - document_research_app - WARNING - PyMuPDF found no text on page 68
+2025-05-18 11:23:26,346 - document_research_app - WARNING - PyMuPDF found no text on page 69
+2025-05-18 11:23:26,346 - document_research_app - INFO - Trying pdfplumber for Examination-Manual-2024-25--2.pdf
+2025-05-18 11:23:26,360 - document_research_app - INFO - pdfplumber opened document with 69 pages
+2025-05-18 11:23:26,361 - document_research_app - WARNING - pdfplumber found no text on page 1
+2025-05-18 11:23:26,361 - document_research_app - WARNING - pdfplumber found no text on page 2
+2025-05-18 11:23:26,361 - document_research_app - WARNING - pdfplumber found no text on page 3
+2025-05-18 11:23:26,362 - document_research_app - WARNING - pdfplumber found no text on page 4
+2025-05-18 11:23:26,362 - document_research_app - WARNING - pdfplumber found no text on page 5
+2025-05-18 11:23:26,362 - document_research_app - WARNING - pdfplumber found no text on page 6
+2025-05-18 11:23:26,362 - document_research_app - WARNING - pdfplumber found no text on page 7
+2025-05-18 11:23:26,363 - document_research_app - WARNING - pdfplumber found no text on page 8
+2025-05-18 11:23:26,363 - document_research_app - WARNING - pdfplumber found no text on page 9
+2025-05-18 11:23:26,363 - document_research_app - WARNING - pdfplumber found no text on page 10
+2025-05-18 11:23:26,366 - document_research_app - WARNING - pdfplumber found no text on page 11
+2025-05-18 11:23:26,366 - document_research_app - WARNING - pdfplumber found no text on page 12
+2025-05-18 11:23:26,366 - document_research_app - WARNING - pdfplumber found no text on page 13
+2025-05-18 11:23:26,366 - document_research_app - WARNING - pdfplumber found no text on page 14
+2025-05-18 11:23:26,367 - document_research_app - WARNING - pdfplumber found no text on page 15
+2025-05-18 11:23:26,367 - document_research_app - WARNING - pdfplumber found no text on page 16
+2025-05-18 11:23:26,367 - document_research_app - WARNING - pdfplumber found no text on page 17
+2025-05-18 11:23:26,368 - document_research_app - WARNING - pdfplumber found no text on page 18
+2025-05-18 11:23:26,368 - document_research_app - WARNING - pdfplumber found no text on page 19
+2025-05-18 11:23:26,368 - document_research_app - WARNING - pdfplumber found no text on page 20
+2025-05-18 11:23:26,368 - document_research_app - WARNING - pdfplumber found no text on page 21
+2025-05-18 11:23:26,369 - document_research_app - WARNING - pdfplumber found no text on page 22
+2025-05-18 11:23:26,369 - document_research_app - WARNING - pdfplumber found no text on page 23
+2025-05-18 11:23:26,369 - document_research_app - WARNING - pdfplumber found no text on page 24
+2025-05-18 11:23:26,369 - document_research_app - WARNING - pdfplumber found no text on page 25
+2025-05-18 11:23:26,370 - document_research_app - WARNING - pdfplumber found no text on page 26
+2025-05-18 11:23:26,370 - document_research_app - WARNING - pdfplumber found no text on page 27
+2025-05-18 11:23:26,370 - document_research_app - WARNING - pdfplumber found no text on page 28
+2025-05-18 11:23:26,370 - document_research_app - WARNING - pdfplumber found no text on page 29
+2025-05-18 11:23:26,371 - document_research_app - WARNING - pdfplumber found no text on page 30
+2025-05-18 11:23:26,371 - document_research_app - WARNING - pdfplumber found no text on page 31
+2025-05-18 11:23:26,371 - document_research_app - WARNING - pdfplumber found no text on page 32
+2025-05-18 11:23:26,371 - document_research_app - WARNING - pdfplumber found no text on page 33
+2025-05-18 11:23:26,372 - document_research_app - WARNING - pdfplumber found no text on page 34
+2025-05-18 11:23:26,504 - document_research_app - WARNING - pdfplumber found no text on page 35
+2025-05-18 11:23:26,505 - document_research_app - WARNING - pdfplumber found no text on page 36
+2025-05-18 11:23:26,505 - document_research_app - WARNING - pdfplumber found no text on page 37
+2025-05-18 11:23:26,505 - document_research_app - WARNING - pdfplumber found no text on page 38
+2025-05-18 11:23:26,505 - document_research_app - WARNING - pdfplumber found no text on page 39
+2025-05-18 11:23:26,506 - document_research_app - WARNING - pdfplumber found no text on page 40
+2025-05-18 11:23:26,507 - document_research_app - WARNING - pdfplumber found no text on page 41
+2025-05-18 11:23:26,507 - document_research_app - WARNING - pdfplumber found no text on page 42
+2025-05-18 11:23:26,507 - document_research_app - WARNING - pdfplumber found no text on page 43
+2025-05-18 11:23:26,507 - document_research_app - WARNING - pdfplumber found no text on page 44
+2025-05-18 11:23:26,508 - document_research_app - WARNING - pdfplumber found no text on page 45
+2025-05-18 11:23:26,508 - document_research_app - WARNING - pdfplumber found no text on page 46
+2025-05-18 11:23:26,508 - document_research_app - WARNING - pdfplumber found no text on page 47
+2025-05-18 11:23:26,509 - document_research_app - WARNING - pdfplumber found no text on page 48
+2025-05-18 11:23:26,509 - document_research_app - WARNING - pdfplumber found no text on page 49
+2025-05-18 11:23:26,509 - document_research_app - WARNING - pdfplumber found no text on page 50
+2025-05-18 11:23:26,509 - document_research_app - WARNING - pdfplumber found no text on page 51
+2025-05-18 11:23:26,510 - document_research_app - WARNING - pdfplumber found no text on page 52
+2025-05-18 11:23:26,510 - document_research_app - WARNING - pdfplumber found no text on page 53
+2025-05-18 11:23:26,510 - document_research_app - WARNING - pdfplumber found no text on page 54
+2025-05-18 11:23:26,511 - document_research_app - WARNING - pdfplumber found no text on page 55
+2025-05-18 11:23:26,511 - document_research_app - WARNING - pdfplumber found no text on page 56
+2025-05-18 11:23:26,511 - document_research_app - WARNING - pdfplumber found no text on page 57
+2025-05-18 11:23:26,511 - document_research_app - WARNING - pdfplumber found no text on page 58
+2025-05-18 11:23:26,512 - document_research_app - WARNING - pdfplumber found no text on page 59
+2025-05-18 11:23:26,512 - document_research_app - WARNING - pdfplumber found no text on page 60
+2025-05-18 11:23:26,512 - document_research_app - WARNING - pdfplumber found no text on page 61
+2025-05-18 11:23:26,512 - document_research_app - WARNING - pdfplumber found no text on page 62
+2025-05-18 11:23:26,513 - document_research_app - WARNING - pdfplumber found no text on page 63
+2025-05-18 11:23:26,513 - document_research_app - WARNING - pdfplumber found no text on page 64
+2025-05-18 11:23:26,513 - document_research_app - WARNING - pdfplumber found no text on page 65
+2025-05-18 11:23:26,513 - document_research_app - WARNING - pdfplumber found no text on page 66
+2025-05-18 11:23:26,513 - document_research_app - WARNING - pdfplumber found no text on page 67
+2025-05-18 11:23:26,514 - document_research_app - WARNING - pdfplumber found no text on page 68
+2025-05-18 11:23:26,514 - document_research_app - WARNING - pdfplumber found no text on page 69
+2025-05-18 11:23:26,514 - document_research_app - INFO - Trying OCR on PDF images for Examination-Manual-2024-25--2.pdf
+2025-05-18 11:23:26,771 - document_research_app - INFO - OCR extracted 297 characters from page 1
+2025-05-18 11:23:27,062 - document_research_app - INFO - OCR extracted 809 characters from page 2
+2025-05-18 11:23:27,694 - document_research_app - INFO - OCR extracted 1504 characters from page 3
+2025-05-18 11:23:27,894 - document_research_app - INFO - OCR extracted 96 characters from page 4
+2025-05-18 11:23:28,415 - document_research_app - INFO - OCR extracted 1249 characters from page 5
+2025-05-18 11:23:28,997 - document_research_app - INFO - OCR extracted 1893 characters from page 6
+2025-05-18 11:23:29,517 - document_research_app - INFO - OCR extracted 1863 characters from page 7
+2025-05-18 11:23:29,763 - document_research_app - INFO - OCR extracted 112 characters from page 8
+2025-05-18 11:23:30,379 - document_research_app - INFO - OCR extracted 1699 characters from page 9
+2025-05-18 11:23:30,999 - document_research_app - INFO - OCR extracted 1803 characters from page 10
+2025-05-18 11:23:31,588 - document_research_app - INFO - OCR extracted 2243 characters from page 11
+2025-05-18 11:23:32,232 - document_research_app - INFO - OCR extracted 2451 characters from page 12
+2025-05-18 11:23:32,803 - document_research_app - INFO - OCR extracted 2139 characters from page 13
+2025-05-18 11:23:33,363 - document_research_app - INFO - OCR extracted 2077 characters from page 14
+2025-05-18 11:23:33,923 - document_research_app - INFO - OCR extracted 1960 characters from page 15
+2025-05-18 11:23:34,471 - document_research_app - INFO - OCR extracted 1888 characters from page 16
+2025-05-18 11:23:35,087 - document_research_app - INFO - OCR extracted 2028 characters from page 17
+2025-05-18 11:23:35,700 - document_research_app - INFO - OCR extracted 2325 characters from page 18
+2025-05-18 11:23:36,304 - document_research_app - INFO - OCR extracted 2174 characters from page 19
+2025-05-18 11:23:36,903 - document_research_app - INFO - OCR extracted 2210 characters from page 20
+2025-05-18 11:23:37,378 - document_research_app - INFO - OCR extracted 1646 characters from page 21
+2025-05-18 11:23:37,867 - document_research_app - INFO - OCR extracted 1746 characters from page 22
+2025-05-18 11:23:38,491 - document_research_app - INFO - OCR extracted 2271 characters from page 23
+2025-05-18 11:23:39,041 - document_research_app - INFO - OCR extracted 1909 characters from page 24
+2025-05-18 11:23:39,610 - document_research_app - INFO - OCR extracted 2008 characters from page 25
+2025-05-18 11:23:40,130 - document_research_app - INFO - OCR extracted 1903 characters from page 26
+2025-05-18 11:23:40,644 - document_research_app - INFO - OCR extracted 1881 characters from page 27
+2025-05-18 11:23:41,140 - document_research_app - INFO - OCR extracted 1827 characters from page 28
+2025-05-18 11:23:41,673 - document_research_app - INFO - OCR extracted 1678 characters from page 29
+2025-05-18 11:23:42,239 - document_research_app - INFO - OCR extracted 1496 characters from page 30
+2025-05-18 11:23:42,847 - document_research_app - INFO - OCR extracted 2028 characters from page 31
+2025-05-18 11:23:43,361 - document_research_app - INFO - OCR extracted 1891 characters from page 32
+2025-05-18 11:23:44,013 - document_research_app - INFO - OCR extracted 1535 characters from page 33
+2025-05-18 11:23:44,615 - document_research_app - INFO - OCR extracted 2257 characters from page 34
+2025-05-18 11:23:45,218 - document_research_app - INFO - OCR extracted 2257 characters from page 35
+2025-05-18 11:23:45,806 - document_research_app - INFO - OCR extracted 1915 characters from page 36
+2025-05-18 11:23:46,353 - document_research_app - INFO - OCR extracted 2014 characters from page 37
+2025-05-18 11:23:46,923 - document_research_app - INFO - OCR extracted 2031 characters from page 38
+2025-05-18 11:23:47,467 - document_research_app - INFO - OCR extracted 2024 characters from page 39
+2025-05-18 11:23:48,051 - document_research_app - INFO - OCR extracted 2084 characters from page 40
+2025-05-18 11:23:48,606 - document_research_app - INFO - OCR extracted 2096 characters from page 41
+2025-05-18 11:23:49,214 - document_research_app - INFO - OCR extracted 2115 characters from page 42
+2025-05-18 11:23:49,779 - document_research_app - INFO - OCR extracted 1750 characters from page 43
+2025-05-18 11:23:50,222 - document_research_app - INFO - OCR extracted 1406 characters from page 44
+2025-05-18 11:23:50,832 - document_research_app - INFO - OCR extracted 2188 characters from page 45
+2025-05-18 11:23:51,420 - document_research_app - INFO - OCR extracted 2070 characters from page 46
+2025-05-18 11:23:51,988 - document_research_app - INFO - OCR extracted 2170 characters from page 47
+2025-05-18 11:23:52,546 - document_research_app - INFO - OCR extracted 2099 characters from page 48
+2025-05-18 11:23:53,308 - document_research_app - INFO - OCR extracted 2325 characters from page 49
+2025-05-18 11:23:53,816 - document_research_app - INFO - OCR extracted 1806 characters from page 50
+2025-05-18 11:23:54,249 - document_research_app - INFO - OCR extracted 1176 characters from page 51
+2025-05-18 11:23:54,801 - document_research_app - INFO - OCR extracted 1891 characters from page 52
+2025-05-18 11:23:55,374 - document_research_app - INFO - OCR extracted 1717 characters from page 53
+2025-05-18 11:23:55,836 - document_research_app - INFO - OCR extracted 1254 characters from page 54
+2025-05-18 11:23:56,303 - document_research_app - INFO - OCR extracted 1083 characters from page 55
+2025-05-18 11:23:56,914 - document_research_app - INFO - OCR extracted 1263 characters from page 56
+2025-05-18 11:23:57,306 - document_research_app - INFO - OCR extracted 847 characters from page 57
+2025-05-18 11:23:57,679 - document_research_app - INFO - OCR extracted 918 characters from page 58
+2025-05-18 11:23:58,010 - document_research_app - INFO - OCR extracted 620 characters from page 59
+2025-05-18 11:23:58,418 - document_research_app - INFO - OCR extracted 914 characters from page 60
+2025-05-18 11:23:58,807 - document_research_app - INFO - OCR extracted 832 characters from page 61
+2025-05-18 11:23:59,078 - document_research_app - INFO - OCR extracted 375 characters from page 62
+2025-05-18 11:23:59,301 - document_research_app - INFO - OCR extracted 453 characters from page 63
+2025-05-18 11:23:59,702 - document_research_app - INFO - OCR extracted 871 characters from page 64
+2025-05-18 11:24:00,269 - document_research_app - INFO - OCR extracted 838 characters from page 65
+2025-05-18 11:24:00,549 - document_research_app - INFO - OCR extracted 557 characters from page 66
+2025-05-18 11:24:00,899 - document_research_app - INFO - OCR extracted 875 characters from page 67
+2025-05-18 11:24:01,185 - document_research_app - INFO - OCR extracted 365 characters from page 68
+2025-05-18 11:24:01,626 - document_research_app - INFO - OCR extracted 1044 characters from page 69
+2025-05-18 11:24:01,626 - document_research_app - INFO - Successfully extracted 69 text sections from Examination-Manual-2024-25--2.pdf
+2025-05-18 11:24:03,242 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 11 embedding tokens
+2025-05-18 11:24:04,242 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 9 embedding tokens
+2025-05-18 11:24:05,203 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 21 embedding tokens
+2025-05-18 11:24:05,573 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 28 embedding tokens
+2025-05-18 11:24:05,957 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 5 embedding tokens
+2025-05-18 11:24:07,068 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 12 embedding tokens
+2025-05-18 11:24:07,411 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 10 embedding tokens
+2025-05-18 11:24:07,808 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 11 embedding tokens
+2025-05-18 11:24:08,295 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 71 embedding tokens
+2025-05-18 11:24:08,895 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 41 embedding tokens
+2025-05-18 11:24:09,306 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 6 embedding tokens
+2025-05-18 11:24:09,750 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 7 embedding tokens
+2025-05-18 11:24:10,430 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 13 embedding tokens
+2025-05-18 11:24:10,848 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 11 embedding tokens
+2025-05-18 11:24:11,216 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 14 embedding tokens
+2025-05-18 11:24:11,577 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 11 embedding tokens
+2025-05-18 11:24:11,954 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 15 embedding tokens
+2025-05-18 11:24:12,381 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 10 embedding tokens
+2025-05-18 11:24:12,798 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 9 embedding tokens
+2025-05-18 11:24:13,128 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 9 embedding tokens
+2025-05-18 11:24:13,514 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 4 embedding tokens
+2025-05-18 11:24:14,531 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 20 embedding tokens
+2025-05-18 11:24:14,900 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 6 embedding tokens
+2025-05-18 11:24:15,243 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 31 embedding tokens
+2025-05-18 11:24:15,653 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 17 embedding tokens
+2025-05-18 11:24:16,309 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 7 embedding tokens
+2025-05-18 11:24:16,627 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:24:16,985 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 17 embedding tokens
+2025-05-18 11:24:17,357 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 10 embedding tokens
+2025-05-18 11:24:17,751 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 11 embedding tokens
+2025-05-18 11:24:18,221 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 12 embedding tokens
+2025-05-18 11:24:18,624 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 35 embedding tokens
+2025-05-18 11:24:19,513 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 7 embedding tokens
+2025-05-18 11:24:19,861 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 41 embedding tokens
+2025-05-18 11:24:22,411 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 15 embedding tokens
+2025-05-18 11:24:22,767 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 12 embedding tokens
+2025-05-18 11:24:23,306 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 10 embedding tokens
+2025-05-18 11:24:23,662 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:24:23,978 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 85 embedding tokens
+2025-05-18 11:24:24,430 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:24:24,801 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 20 embedding tokens
+2025-05-18 11:24:25,278 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 33 embedding tokens
+2025-05-18 11:24:25,688 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 46 embedding tokens
+2025-05-18 11:24:26,099 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:24:26,713 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 5 embedding tokens
+2025-05-18 11:24:27,222 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 11 embedding tokens
+2025-05-18 11:24:27,619 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 10 embedding tokens
+2025-05-18 11:24:27,998 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 79 embedding tokens
+2025-05-18 11:24:28,342 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 49 embedding tokens
+2025-05-18 11:24:28,708 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 27 embedding tokens
+2025-05-18 11:24:29,170 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:24:30,549 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 20 embedding tokens
+2025-05-18 11:24:31,292 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 50 embedding tokens
+2025-05-18 11:24:31,859 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 22 embedding tokens
+2025-05-18 11:24:32,172 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 26 embedding tokens
+2025-05-18 11:24:32,547 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 53 embedding tokens
+2025-05-18 11:24:32,884 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 13 embedding tokens
+2025-05-18 11:24:33,243 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 9 embedding tokens
+2025-05-18 11:24:33,777 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 5 embedding tokens
+2025-05-18 11:24:34,095 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 53 embedding tokens
+2025-05-18 11:24:34,493 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 5 embedding tokens
+2025-05-18 11:24:34,845 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 46 embedding tokens
+2025-05-18 11:24:35,442 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 23 embedding tokens
+2025-05-18 11:24:35,847 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 26 embedding tokens
+2025-05-18 11:24:36,289 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 50 embedding tokens
+2025-05-18 11:24:36,723 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 26 embedding tokens
+2025-05-18 11:24:37,099 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 20 embedding tokens
+2025-05-18 11:24:37,461 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 6 embedding tokens
+2025-05-18 11:24:37,832 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 30 embedding tokens
+2025-05-18 11:24:38,882 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 30 embedding tokens
+2025-05-18 11:24:39,285 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 12 embedding tokens
+2025-05-18 11:24:39,688 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 7 embedding tokens
+2025-05-18 11:24:40,196 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 13 embedding tokens
+2025-05-18 11:24:40,558 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 6 embedding tokens
+2025-05-18 11:24:41,049 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 26 embedding tokens
+2025-05-18 11:24:41,605 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 41 embedding tokens
+2025-05-18 11:24:41,954 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 41 embedding tokens
+2025-05-18 11:24:42,325 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 21 embedding tokens
+2025-05-18 11:24:42,756 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 12 embedding tokens
+2025-05-18 11:24:43,154 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 26 embedding tokens
+2025-05-18 11:24:43,505 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 21 embedding tokens
+2025-05-18 11:24:43,917 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 45 embedding tokens
+2025-05-18 11:24:44,413 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 29 embedding tokens
+2025-05-18 11:24:44,862 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 45 embedding tokens
+2025-05-18 11:24:45,202 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 35 embedding tokens
+2025-05-18 11:24:45,613 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 29 embedding tokens
+2025-05-18 11:24:45,981 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 16 embedding tokens
+2025-05-18 11:24:46,413 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 30 embedding tokens
+2025-05-18 11:24:46,758 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 66 embedding tokens
+2025-05-18 11:24:47,151 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 55 embedding tokens
+2025-05-18 11:24:47,602 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 29 embedding tokens
+2025-05-18 11:24:47,989 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 14 embedding tokens
+2025-05-18 11:24:48,521 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 30 embedding tokens
+2025-05-18 11:24:48,964 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 21 embedding tokens
+2025-05-18 11:24:49,287 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 12 embedding tokens
+2025-05-18 11:24:49,679 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 27 embedding tokens
+2025-05-18 11:24:50,227 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 9 embedding tokens
+2025-05-18 11:24:50,621 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 20 embedding tokens
+2025-05-18 11:24:50,993 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 17 embedding tokens
+2025-05-18 11:24:51,411 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 11 embedding tokens
+2025-05-18 11:24:51,820 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 5 embedding tokens
+2025-05-18 11:24:52,195 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 50 embedding tokens
+2025-05-18 11:24:52,581 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 13 embedding tokens
+2025-05-18 11:24:52,926 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 22 embedding tokens
+2025-05-18 11:24:53,246 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 49 embedding tokens
+2025-05-18 11:24:53,629 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 52 embedding tokens
+2025-05-18 11:24:54,118 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 6 embedding tokens
+2025-05-18 11:24:54,477 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 17 embedding tokens
+2025-05-18 11:24:54,863 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 13 embedding tokens
+2025-05-18 11:24:55,219 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 33 embedding tokens
+2025-05-18 11:24:55,565 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 47 embedding tokens
+2025-05-18 11:24:55,991 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 79 embedding tokens
+2025-05-18 11:24:56,367 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 26 embedding tokens
+2025-05-18 11:24:56,739 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 23 embedding tokens
+2025-05-18 11:24:57,100 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 7 embedding tokens
+2025-05-18 11:24:57,478 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 78 embedding tokens
+2025-05-18 11:24:57,857 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 38 embedding tokens
+2025-05-18 11:24:58,256 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 49 embedding tokens
+2025-05-18 11:24:58,641 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 45 embedding tokens
+2025-05-18 11:24:59,019 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 19 embedding tokens
+2025-05-18 11:24:59,498 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 16 embedding tokens
+2025-05-18 11:24:59,988 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 18 embedding tokens
+2025-05-18 11:25:00,378 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 18 embedding tokens
+2025-05-18 11:25:00,749 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 63 embedding tokens
+2025-05-18 11:25:01,115 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 39 embedding tokens
+2025-05-18 11:25:01,645 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 17 embedding tokens
+2025-05-18 11:25:02,014 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 15 embedding tokens
+2025-05-18 11:25:02,548 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 21 embedding tokens
+2025-05-18 11:25:02,895 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 16 embedding tokens
+2025-05-18 11:25:03,285 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 18 embedding tokens
+2025-05-18 11:25:03,753 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 11 embedding tokens
+2025-05-18 11:25:04,437 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 12 embedding tokens
+2025-05-18 11:25:04,909 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 10 embedding tokens
+2025-05-18 11:25:05,281 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 5 embedding tokens
+2025-05-18 11:25:06,240 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 45 embedding tokens
+2025-05-18 11:25:06,568 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 10 embedding tokens
+2025-05-18 11:25:06,952 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 9 embedding tokens
+2025-05-18 11:25:07,942 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 24 embedding tokens
+2025-05-18 11:25:08,343 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 7 embedding tokens
+2025-05-18 11:25:08,742 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 16 embedding tokens
+2025-05-18 11:25:09,146 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 16 embedding tokens
+2025-05-18 11:25:09,518 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 16 embedding tokens
+2025-05-18 11:25:09,925 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 25 embedding tokens
+2025-05-18 11:25:10,327 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 15 embedding tokens
+2025-05-18 11:25:10,683 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 5 embedding tokens
+2025-05-18 11:25:11,058 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 51 embedding tokens
+2025-05-18 11:25:11,612 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 20 embedding tokens
+2025-05-18 11:25:11,971 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 10 embedding tokens
+2025-05-18 11:25:12,362 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 27 embedding tokens
+2025-05-18 11:25:12,738 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 50 embedding tokens
+2025-05-18 11:25:13,122 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 37 embedding tokens
+2025-05-18 11:25:13,452 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 14 embedding tokens
+2025-05-18 11:25:15,042 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 86 embedding tokens
+2025-05-18 11:25:15,497 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 30 embedding tokens
+2025-05-18 11:25:15,900 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 7 embedding tokens
+2025-05-18 11:25:16,447 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 9 embedding tokens
+2025-05-18 11:25:16,818 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:25:17,201 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 16 embedding tokens
+2025-05-18 11:25:17,567 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 31 embedding tokens
+2025-05-18 11:25:17,928 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:25:18,464 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 14 embedding tokens
+2025-05-18 11:25:18,835 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 22 embedding tokens
+2025-05-18 11:25:19,209 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 45 embedding tokens
+2025-05-18 11:25:19,590 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 31 embedding tokens
+2025-05-18 11:25:20,063 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 10 embedding tokens
+2025-05-18 11:25:20,576 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 7 embedding tokens
+2025-05-18 11:25:20,942 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 51 embedding tokens
+2025-05-18 11:25:41,451 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 45 embedding tokens
+2025-05-18 11:25:41,848 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 52 embedding tokens
+2025-05-18 11:25:42,442 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:25:42,800 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 34 embedding tokens
+2025-05-18 11:25:43,166 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 6 embedding tokens
+2025-05-18 11:25:43,558 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 24 embedding tokens
+2025-05-18 11:25:43,974 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 138 embedding tokens
+2025-05-18 11:25:44,448 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 32 embedding tokens
+2025-05-18 11:25:44,844 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 15 embedding tokens
+2025-05-18 11:25:45,361 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 63 embedding tokens
+2025-05-18 11:25:45,716 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 20 embedding tokens
+2025-05-18 11:25:46,175 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 31 embedding tokens
+2025-05-18 11:25:46,552 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 11 embedding tokens
+2025-05-18 11:25:46,921 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 29 embedding tokens
+2025-05-18 11:25:47,303 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 103 embedding tokens
+2025-05-18 11:25:47,688 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 33 embedding tokens
+2025-05-18 11:25:48,056 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 23 embedding tokens
+2025-05-18 11:25:49,042 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 19 embedding tokens
+2025-05-18 11:25:49,453 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 72 embedding tokens
+2025-05-18 11:25:49,863 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 19 embedding tokens
+2025-05-18 11:25:50,223 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 20 embedding tokens
+2025-05-18 11:25:50,680 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 10 embedding tokens
+2025-05-18 11:25:51,065 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 6 embedding tokens
+2025-05-18 11:25:51,427 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 28 embedding tokens
+2025-05-18 11:25:51,746 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 17 embedding tokens
+2025-05-18 11:25:52,276 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 17 embedding tokens
+2025-05-18 11:25:52,580 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 81 embedding tokens
+2025-05-18 11:25:52,952 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 9 embedding tokens
+2025-05-18 11:25:53,314 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 43 embedding tokens
+2025-05-18 11:25:53,752 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 22 embedding tokens
+2025-05-18 11:25:54,196 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 32 embedding tokens
+2025-05-18 11:25:54,615 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:25:54,951 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 38 embedding tokens
+2025-05-18 11:25:55,493 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 25 embedding tokens
+2025-05-18 11:25:55,902 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 18 embedding tokens
+2025-05-18 11:25:56,315 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 5 embedding tokens
+2025-05-18 11:25:56,713 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 16 embedding tokens
+2025-05-18 11:25:57,100 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:25:57,495 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 9 embedding tokens
+2025-05-18 11:25:57,825 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 22 embedding tokens
+2025-05-18 11:25:58,188 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 16 embedding tokens
+2025-05-18 11:25:58,567 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:25:58,885 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 11 embedding tokens
+2025-05-18 11:25:59,330 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 25 embedding tokens
+2025-05-18 11:25:59,809 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 112 embedding tokens
+2025-05-18 11:26:00,183 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 67 embedding tokens
+2025-05-18 11:26:00,525 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 44 embedding tokens
+2025-05-18 11:26:00,916 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 49 embedding tokens
+2025-05-18 11:26:01,363 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 53 embedding tokens
+2025-05-18 11:26:01,686 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 40 embedding tokens
+2025-05-18 11:26:02,028 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 50 embedding tokens
+2025-05-18 11:26:02,415 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 13 embedding tokens
+2025-05-18 11:26:02,792 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 15 embedding tokens
+2025-05-18 11:26:03,159 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:26:03,509 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 7 embedding tokens
+2025-05-18 11:26:03,890 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 14 embedding tokens
+2025-05-18 11:26:04,258 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 28 embedding tokens
+2025-05-18 11:26:04,625 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 14 embedding tokens
+2025-05-18 11:26:05,016 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 10 embedding tokens
+2025-05-18 11:26:05,417 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 6 embedding tokens
+2025-05-18 11:26:05,841 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 7 embedding tokens
+2025-05-18 11:26:06,861 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 14 embedding tokens
+2025-05-18 11:26:07,282 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 22 embedding tokens
+2025-05-18 11:26:07,664 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 31 embedding tokens
+2025-05-18 11:26:08,010 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 16 embedding tokens
+2025-05-18 11:26:08,393 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:26:08,803 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 21 embedding tokens
+2025-05-18 11:26:09,212 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 75 embedding tokens
+2025-05-18 11:26:09,560 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 6 embedding tokens
+2025-05-18 11:26:09,928 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 33 embedding tokens
+2025-05-18 11:26:10,377 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 39 embedding tokens
+2025-05-18 11:26:11,029 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:26:11,428 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 65 embedding tokens
+2025-05-18 11:26:11,805 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:26:12,181 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 36 embedding tokens
+2025-05-18 11:26:12,502 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 25 embedding tokens
+2025-05-18 11:26:12,902 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 56 embedding tokens
+2025-05-18 11:26:13,277 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 30 embedding tokens
+2025-05-18 11:26:13,720 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 34 embedding tokens
+2025-05-18 11:26:14,148 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 26 embedding tokens
+2025-05-18 11:26:14,545 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 53 embedding tokens
+2025-05-18 11:26:14,917 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 31 embedding tokens
+2025-05-18 11:26:15,561 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 39 embedding tokens
+2025-05-18 11:26:15,924 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 27 embedding tokens
+2025-05-18 11:26:16,299 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 40 embedding tokens
+2025-05-18 11:26:16,688 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 20 embedding tokens
+2025-05-18 11:26:17,069 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 26 embedding tokens
+2025-05-18 11:26:17,507 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 6 embedding tokens
+2025-05-18 11:26:17,920 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 8 embedding tokens
+2025-05-18 11:26:18,260 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 32 embedding tokens
+2025-05-18 11:26:18,611 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 23 embedding tokens
+2025-05-18 11:26:18,942 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 14 embedding tokens
+2025-05-18 11:26:19,351 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 17 embedding tokens
+2025-05-18 11:26:19,729 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 31 embedding tokens
+2025-05-18 11:26:20,170 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 40 embedding tokens
+2025-05-18 11:26:20,531 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 7 embedding tokens
+2025-05-18 11:26:21,094 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 27 embedding tokens
+2025-05-18 11:26:21,559 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 31 embedding tokens
+2025-05-18 11:26:21,970 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 93 embedding tokens
+2025-05-18 11:26:22,310 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 9 embedding tokens
+2025-05-18 11:26:22,654 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 75 embedding tokens
+2025-05-18 11:26:23,032 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 45 embedding tokens
+2025-05-18 11:26:23,360 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 6 embedding tokens
+2025-05-18 11:26:23,728 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 19 embedding tokens
+2025-05-18 11:26:24,162 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 55 embedding tokens
+2025-05-18 11:26:24,650 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 23 embedding tokens
+2025-05-18 11:26:25,034 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 17 embedding tokens
+2025-05-18 11:26:25,394 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 7 embedding tokens
+2025-05-18 11:26:25,762 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 46 embedding tokens
+2025-05-18 11:26:26,109 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 26 embedding tokens
+2025-05-18 11:26:26,778 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 22 embedding tokens
+2025-05-18 11:26:27,189 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 37 embedding tokens
+2025-05-18 11:26:27,613 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 6 embedding tokens
+2025-05-18 11:26:28,520 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 23 embedding tokens
+2025-05-18 11:26:28,885 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 70 embedding tokens
+2025-05-18 11:26:29,284 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 36 embedding tokens
+2025-05-18 11:26:29,611 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 66 embedding tokens
+2025-05-18 11:26:29,975 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 18 embedding tokens
+2025-05-18 11:26:30,411 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 17 embedding tokens
+2025-05-18 11:26:30,836 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 64 embedding tokens
+2025-05-18 11:26:31,262 - document_research_app - INFO - Session 1d2922c7-4aa3-460e-bc8e-10df13962d1a used 44 embedding tokens
+2025-05-18 11:26:47,972 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:26:47,972 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:26:47,973 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 11:26:47,973 - document_research_app - INFO - Starting application in production mode
+2025-05-18 11:26:47,973 - document_research_app - INFO - Data folder: data
+2025-05-18 11:26:47,974 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 11:26:47,974 - document_research_app - INFO - Static folder: static
+2025-05-18 11:26:50,499 - document_research_app - INFO - Created new session: 3aaa806c-abdf-4509-87e6-08beb56aa6bd
+2025-05-18 11:27:47,006 - document_research_app - INFO - Saving file: Final-Resume.pdf (size: 315726 bytes)
+2025-05-18 11:27:47,007 - document_research_app - INFO - Successfully saved file: Final-Resume.pdf (size: 315726 bytes)
+2025-05-18 11:27:47,007 - document_research_app - INFO - Processing document: Final-Resume.pdf (path: uploads/Final-Resume.pdf) for session 3aaa806c-abdf-4509-87e6-08beb56aa6bd
+2025-05-18 11:27:47,007 - document_research_app - INFO - File size: 0.30 MB
+2025-05-18 11:27:47,007 - document_research_app - INFO - Processing PDF file: Final-Resume.pdf
+2025-05-18 11:27:47,007 - document_research_app - INFO - Trying PyMuPDF for Final-Resume.pdf
+2025-05-18 11:27:47,011 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 11:27:47,025 - document_research_app - INFO - PyMuPDF extracted 3093 characters from page 1
+2025-05-18 11:27:47,026 - document_research_app - INFO - Successfully extracted 1 text sections from Final-Resume.pdf
+2025-05-18 11:27:48,066 - document_research_app - INFO - Session 3aaa806c-abdf-4509-87e6-08beb56aa6bd used 645 embedding tokens
+2025-05-18 11:27:48,070 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 11:27:48,071 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 11:27:48,071 - document_research_app - INFO - Successfully processed Final-Resume.pdf: extracted 1 paragraphs
+2025-05-18 11:27:48,072 - document_research_app - INFO - Processing query for session 3aaa806c-abdf-4509-87e6-08beb56aa6bd: summarize this file...
+2025-05-18 11:27:48,400 - document_research_app - INFO - Session 3aaa806c-abdf-4509-87e6-08beb56aa6bd used 5 embedding tokens
+2025-05-18 11:27:50,011 - document_research_app - INFO - Session 3aaa806c-abdf-4509-87e6-08beb56aa6bd used 723 prompt tokens and 95 completion tokens
+2025-05-18 11:27:50,431 - document_research_app - INFO - Session 3aaa806c-abdf-4509-87e6-08beb56aa6bd used 110 prompt tokens and 1 completion tokens
+2025-05-18 11:27:53,562 - document_research_app - INFO - Session 3aaa806c-abdf-4509-87e6-08beb56aa6bd used 99 prompt tokens and 89 completion tokens
+2025-05-18 11:27:53,563 - document_research_app - INFO - Synthesized response for session 3aaa806c-abdf-4509-87e6-08beb56aa6bd
+2025-05-18 11:28:12,552 - document_research_app - INFO - Deleted session 3aaa806c-abdf-4509-87e6-08beb56aa6bd with 1 documents and 2 messages
+2025-05-18 11:28:12,568 - document_research_app - INFO - Deleting vector database collection for session 3aaa806c-abdf-4509-87e6-08beb56aa6bd
+2025-05-18 11:28:12,588 - document_research_app - INFO - Successfully deleted vector database collection for session 3aaa806c-abdf-4509-87e6-08beb56aa6bd
+2025-05-18 11:28:12,588 - document_research_app - INFO - Removed session 3aaa806c-abdf-4509-87e6-08beb56aa6bd from session_collections dictionary
+2025-05-18 11:28:12,604 - document_research_app - INFO - Created new session: 7f8063cc-4158-4bc5-ab43-04b71da1f583
+2025-05-18 11:28:16,893 - document_research_app - INFO - Deleted session 7f8063cc-4158-4bc5-ab43-04b71da1f583 with 0 documents and 0 messages
+2025-05-18 11:28:16,901 - document_research_app - INFO - Deleting vector database collection for session 7f8063cc-4158-4bc5-ab43-04b71da1f583
+2025-05-18 11:28:16,903 - document_research_app - ERROR - Error deleting collection documents_7f8063cc-4158-4bc5-ab43-04b71da1f583: Collection documents_7f8063cc-4158-4bc5-ab43-04b71da1f583 does not exist.
+2025-05-18 11:28:16,915 - document_research_app - INFO - Created new session: b0571c36-03e7-42b4-b69d-d53b3572bd1c
+2025-05-18 11:33:50,862 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:33:50,862 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:33:50,863 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 11:33:50,863 - document_research_app - INFO - Starting application in production mode
+2025-05-18 11:33:50,863 - document_research_app - INFO - Data folder: data
+2025-05-18 11:33:50,863 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 11:33:50,864 - document_research_app - INFO - Static folder: static
+2025-05-18 11:33:51,908 - document_research_app - INFO - Created new session: 17ffebb4-95d2-477f-8168-cd866a542b46
+2025-05-18 11:34:12,551 - document_research_app - INFO - Saving file: Final.pdf (size: 126025 bytes)
+2025-05-18 11:34:12,552 - document_research_app - INFO - Successfully saved file: Final.pdf (size: 126025 bytes)
+2025-05-18 11:34:12,552 - document_research_app - INFO - Processing document: Final.pdf (path: uploads/Final.pdf) for session 17ffebb4-95d2-477f-8168-cd866a542b46
+2025-05-18 11:34:12,552 - document_research_app - INFO - File size: 0.12 MB
+2025-05-18 11:34:12,553 - document_research_app - INFO - Processing PDF file: Final.pdf
+2025-05-18 11:34:12,553 - document_research_app - INFO - Trying PyMuPDF for Final.pdf
+2025-05-18 11:34:12,559 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 11:34:12,573 - document_research_app - INFO - PyMuPDF extracted 2751 characters from page 1
+2025-05-18 11:34:12,573 - document_research_app - INFO - Successfully extracted 1 text sections from Final.pdf
+2025-05-18 11:34:13,161 - document_research_app - INFO - Session 17ffebb4-95d2-477f-8168-cd866a542b46 used 577 embedding tokens
+2025-05-18 11:34:13,170 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 11:34:13,171 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 11:34:13,172 - document_research_app - INFO - Successfully processed Final.pdf: extracted 1 paragraphs
+2025-05-18 11:34:13,174 - document_research_app - INFO - Processing query for session 17ffebb4-95d2-477f-8168-cd866a542b46: what is this file all about...
+2025-05-18 11:34:14,178 - document_research_app - INFO - Session 17ffebb4-95d2-477f-8168-cd866a542b46 used 6 embedding tokens
+2025-05-18 11:34:15,272 - document_research_app - INFO - Session 17ffebb4-95d2-477f-8168-cd866a542b46 used 659 prompt tokens and 47 completion tokens
+2025-05-18 11:34:18,280 - document_research_app - INFO - Session 17ffebb4-95d2-477f-8168-cd866a542b46 used 107 prompt tokens and 81 completion tokens
+2025-05-18 11:34:18,281 - document_research_app - INFO - Synthesized response for session 17ffebb4-95d2-477f-8168-cd866a542b46
+2025-05-18 11:37:21,627 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:37:21,628 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:37:21,629 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 11:37:21,629 - document_research_app - INFO - Starting application in production mode
+2025-05-18 11:37:21,629 - document_research_app - INFO - Data folder: data
+2025-05-18 11:37:21,629 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 11:37:21,629 - document_research_app - INFO - Static folder: static
+2025-05-18 11:37:23,392 - document_research_app - INFO - Created new session: ed9aa150-b744-46a9-ae8b-59fdbba944f2
+2025-05-18 11:38:17,536 - document_research_app - INFO - Created new session: d23a4495-05d0-4a97-8bb1-7d7bf9c87fce
+2025-05-18 11:38:55,685 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:38:55,686 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:38:55,687 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 11:38:55,687 - document_research_app - INFO - Starting application in production mode
+2025-05-18 11:38:55,687 - document_research_app - INFO - Data folder: data
+2025-05-18 11:38:55,687 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 11:38:55,687 - document_research_app - INFO - Static folder: static
+2025-05-18 11:38:59,368 - document_research_app - INFO - Created new session: 2d5914f9-2505-4c43-b8b4-b1b54caa1061
+2025-05-18 11:39:06,589 - document_research_app - INFO - Closed shared SQLite connection
+2025-05-18 11:39:06,589 - document_research_app - INFO - Closed existing database connection pool
+2025-05-18 11:39:06,591 - document_research_app - INFO - Deleted existing database at data/documents.db
+2025-05-18 11:39:06,593 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:39:06,593 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:39:06,593 - document_research_app - INFO - Created new database connection pool
+2025-05-18 11:39:06,743 - document_research_app - INFO - Created new session: 6856d4b6-1a09-4744-96a8-08a3c46a0bcc
+2025-05-18 11:39:06,752 - document_research_app - INFO - Created new session: 8ad44aca-ee39-4151-87f4-f9b45c43f8c9
+2025-05-18 11:39:44,389 - document_research_app - INFO - Saving file: Final.pdf (size: 126025 bytes)
+2025-05-18 11:39:44,391 - document_research_app - INFO - Successfully saved file: Final.pdf (size: 126025 bytes)
+2025-05-18 11:39:44,391 - document_research_app - INFO - Processing document: Final.pdf (path: uploads/Final.pdf) for session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9
+2025-05-18 11:39:44,391 - document_research_app - INFO - File size: 0.12 MB
+2025-05-18 11:39:44,391 - document_research_app - INFO - Processing PDF file: Final.pdf
+2025-05-18 11:39:44,391 - document_research_app - INFO - Trying PyMuPDF for Final.pdf
+2025-05-18 11:39:44,395 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 11:39:44,412 - document_research_app - INFO - PyMuPDF extracted 2751 characters from page 1
+2025-05-18 11:39:44,413 - document_research_app - INFO - Successfully extracted 1 text sections from Final.pdf
+2025-05-18 11:39:45,735 - document_research_app - INFO - Session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9 used 577 embedding tokens
+2025-05-18 11:39:45,746 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 11:39:45,746 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 11:39:45,747 - document_research_app - INFO - Successfully processed Final.pdf: extracted 1 paragraphs
+2025-05-18 11:39:45,748 - document_research_app - INFO - Processing query for session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9: what is this file about...
+2025-05-18 11:39:46,485 - document_research_app - INFO - Session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9 used 5 embedding tokens
+2025-05-18 11:39:48,059 - document_research_app - INFO - Session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9 used 657 prompt tokens and 50 completion tokens
+2025-05-18 11:39:50,289 - document_research_app - INFO - Session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9 used 98 prompt tokens and 89 completion tokens
+2025-05-18 11:39:50,289 - document_research_app - INFO - Synthesized response for session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9
+2025-05-18 11:40:04,374 - document_research_app - INFO - Processing query for session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9: explain in depth...
+2025-05-18 11:40:05,098 - document_research_app - INFO - Session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9 used 3 embedding tokens
+2025-05-18 11:40:06,696 - document_research_app - INFO - Session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9 used 752 prompt tokens and 71 completion tokens
+2025-05-18 11:40:07,164 - document_research_app - INFO - Session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9 used 86 prompt tokens and 1 completion tokens
+2025-05-18 11:40:09,265 - document_research_app - INFO - Session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9 used 82 prompt tokens and 114 completion tokens
+2025-05-18 11:40:09,266 - document_research_app - INFO - Synthesized response for session 8ad44aca-ee39-4151-87f4-f9b45c43f8c9
+2025-05-18 11:40:26,713 - document_research_app - INFO - Created new session: 63ad35a4-a5c1-4661-ab3c-2cf872d9ff0f
+2025-05-18 11:43:31,530 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:43:31,530 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:43:31,531 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 11:43:31,531 - document_research_app - INFO - Starting application in production mode
+2025-05-18 11:43:31,531 - document_research_app - INFO - Data folder: data
+2025-05-18 11:43:31,531 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 11:43:31,531 - document_research_app - INFO - Static folder: static
+2025-05-18 11:43:43,620 - document_research_app - INFO - Created new session: b0736529-687f-4519-9800-b636356ced39
+2025-05-18 11:43:54,888 - document_research_app - INFO - Saving file: Final-Resume.pdf (size: 315726 bytes)
+2025-05-18 11:43:54,890 - document_research_app - INFO - Successfully saved file: Final-Resume.pdf (size: 315726 bytes)
+2025-05-18 11:43:54,891 - document_research_app - INFO - Processing document: Final-Resume.pdf (path: uploads/Final-Resume.pdf) for session b0736529-687f-4519-9800-b636356ced39
+2025-05-18 11:43:54,891 - document_research_app - INFO - File size: 0.30 MB
+2025-05-18 11:43:54,891 - document_research_app - INFO - Processing PDF file: Final-Resume.pdf
+2025-05-18 11:43:54,891 - document_research_app - INFO - Trying PyMuPDF for Final-Resume.pdf
+2025-05-18 11:43:54,896 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 11:43:54,913 - document_research_app - INFO - PyMuPDF extracted 3093 characters from page 1
+2025-05-18 11:43:54,914 - document_research_app - INFO - Successfully extracted 1 text sections from Final-Resume.pdf
+2025-05-18 11:43:56,059 - document_research_app - INFO - Session b0736529-687f-4519-9800-b636356ced39 used 645 embedding tokens
+2025-05-18 11:43:56,066 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 11:43:56,067 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 11:43:56,067 - document_research_app - INFO - Successfully processed Final-Resume.pdf: extracted 1 paragraphs
+2025-05-18 11:43:56,068 - document_research_app - INFO - Processing query for session b0736529-687f-4519-9800-b636356ced39: what is this file about...
+2025-05-18 11:43:56,487 - document_research_app - INFO - Session b0736529-687f-4519-9800-b636356ced39 used 5 embedding tokens
+2025-05-18 11:43:57,435 - document_research_app - INFO - Session b0736529-687f-4519-9800-b636356ced39 used 727 prompt tokens and 55 completion tokens
+2025-05-18 11:44:00,366 - document_research_app - INFO - Session b0736529-687f-4519-9800-b636356ced39 used 87 prompt tokens and 80 completion tokens
+2025-05-18 11:44:00,367 - document_research_app - INFO - Synthesized response for session b0736529-687f-4519-9800-b636356ced39
+2025-05-18 11:44:20,186 - document_research_app - INFO - Created new session: faf83830-15eb-4061-a4f1-90e86a3507e5
+2025-05-18 11:44:32,064 - document_research_app - INFO - Saving file: cour2.pdf (size: 370682 bytes)
+2025-05-18 11:44:32,065 - document_research_app - INFO - Successfully saved file: cour2.pdf (size: 370682 bytes)
+2025-05-18 11:44:32,065 - document_research_app - INFO - Processing document: cour2.pdf (path: uploads/cour2.pdf) for session faf83830-15eb-4061-a4f1-90e86a3507e5
+2025-05-18 11:44:32,065 - document_research_app - INFO - File size: 0.35 MB
+2025-05-18 11:44:32,065 - document_research_app - INFO - Processing PDF file: cour2.pdf
+2025-05-18 11:44:32,065 - document_research_app - INFO - Trying PyMuPDF for cour2.pdf
+2025-05-18 11:44:32,070 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 11:44:32,089 - document_research_app - INFO - PyMuPDF extracted 460 characters from page 1
+2025-05-18 11:44:32,089 - document_research_app - INFO - Successfully extracted 1 text sections from cour2.pdf
+2025-05-18 11:44:33,427 - document_research_app - INFO - Session faf83830-15eb-4061-a4f1-90e86a3507e5 used 126 embedding tokens
+2025-05-18 11:44:33,432 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 11:44:33,432 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 11:44:33,432 - document_research_app - INFO - Successfully processed cour2.pdf: extracted 1 paragraphs
+2025-05-18 11:44:33,433 - document_research_app - INFO - Processing query for session faf83830-15eb-4061-a4f1-90e86a3507e5: what is this ?...
+2025-05-18 11:44:33,759 - document_research_app - INFO - Session faf83830-15eb-4061-a4f1-90e86a3507e5 used 4 embedding tokens
+2025-05-18 11:44:35,741 - document_research_app - INFO - Session faf83830-15eb-4061-a4f1-90e86a3507e5 used 203 prompt tokens and 46 completion tokens
+2025-05-18 11:44:37,366 - document_research_app - INFO - Session faf83830-15eb-4061-a4f1-90e86a3507e5 used 83 prompt tokens and 66 completion tokens
+2025-05-18 11:44:37,366 - document_research_app - INFO - Synthesized response for session faf83830-15eb-4061-a4f1-90e86a3507e5
+2025-05-18 11:46:02,818 - document_research_app - INFO - Created new session: a10ee57a-b27b-47ac-9d07-db8a0e83edc9
+2025-05-18 11:47:09,931 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:47:09,931 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:47:09,933 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 11:47:09,933 - document_research_app - INFO - Starting application in production mode
+2025-05-18 11:47:09,933 - document_research_app - INFO - Data folder: data
+2025-05-18 11:47:09,933 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 11:47:09,933 - document_research_app - INFO - Static folder: static
+2025-05-18 11:47:11,071 - document_research_app - INFO - Created new session: bb82bbd1-21e6-45c8-8558-c06bcf798dab
+2025-05-18 11:47:25,002 - document_research_app - INFO - Saving file: cour2.pdf (size: 370682 bytes)
+2025-05-18 11:47:25,003 - document_research_app - INFO - Successfully saved file: cour2.pdf (size: 370682 bytes)
+2025-05-18 11:47:25,003 - document_research_app - INFO - Processing document: cour2.pdf (path: uploads/cour2.pdf) for session bb82bbd1-21e6-45c8-8558-c06bcf798dab
+2025-05-18 11:47:25,003 - document_research_app - INFO - File size: 0.35 MB
+2025-05-18 11:47:25,004 - document_research_app - INFO - Processing PDF file: cour2.pdf
+2025-05-18 11:47:25,004 - document_research_app - INFO - Trying PyMuPDF for cour2.pdf
+2025-05-18 11:47:25,008 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 11:47:25,026 - document_research_app - INFO - PyMuPDF extracted 460 characters from page 1
+2025-05-18 11:47:25,026 - document_research_app - INFO - Successfully extracted 1 text sections from cour2.pdf
+2025-05-18 11:47:26,327 - document_research_app - INFO - Session bb82bbd1-21e6-45c8-8558-c06bcf798dab used 126 embedding tokens
+2025-05-18 11:47:26,332 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 11:47:26,332 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 11:47:26,333 - document_research_app - INFO - Successfully processed cour2.pdf: extracted 1 paragraphs
+2025-05-18 11:47:26,333 - document_research_app - INFO - Processing query for session bb82bbd1-21e6-45c8-8558-c06bcf798dab: what is this file all about...
+2025-05-18 11:47:26,723 - document_research_app - INFO - Session bb82bbd1-21e6-45c8-8558-c06bcf798dab used 6 embedding tokens
+2025-05-18 11:47:27,926 - document_research_app - INFO - Session bb82bbd1-21e6-45c8-8558-c06bcf798dab used 209 prompt tokens and 68 completion tokens
+2025-05-18 11:47:30,039 - document_research_app - INFO - Session bb82bbd1-21e6-45c8-8558-c06bcf798dab used 100 prompt tokens and 93 completion tokens
+2025-05-18 11:47:30,039 - document_research_app - INFO - Synthesized response for session bb82bbd1-21e6-45c8-8558-c06bcf798dab
+2025-05-18 11:49:34,517 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:49:34,517 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:49:34,519 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 11:49:34,519 - document_research_app - INFO - Starting application in production mode
+2025-05-18 11:49:34,519 - document_research_app - INFO - Data folder: data
+2025-05-18 11:49:34,519 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 11:49:34,519 - document_research_app - INFO - Static folder: static
+2025-05-18 11:49:39,315 - document_research_app - INFO - Created new session: 9af20d4e-32f6-41d5-b1d7-f80b6533ff72
+2025-05-18 11:50:29,698 - document_research_app - INFO - Saving file: cour2.pdf (size: 370682 bytes)
+2025-05-18 11:50:29,699 - document_research_app - INFO - Successfully saved file: cour2.pdf (size: 370682 bytes)
+2025-05-18 11:50:29,700 - document_research_app - INFO - Processing document: cour2.pdf (path: uploads/cour2.pdf) for session 9af20d4e-32f6-41d5-b1d7-f80b6533ff72
+2025-05-18 11:50:29,700 - document_research_app - INFO - File size: 0.35 MB
+2025-05-18 11:50:29,700 - document_research_app - INFO - Processing PDF file: cour2.pdf
+2025-05-18 11:50:29,700 - document_research_app - INFO - Trying PyMuPDF for cour2.pdf
+2025-05-18 11:50:29,700 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 11:50:29,716 - document_research_app - INFO - PyMuPDF extracted 460 characters from page 1
+2025-05-18 11:50:29,716 - document_research_app - INFO - Successfully extracted 1 text sections from cour2.pdf
+2025-05-18 11:50:30,641 - document_research_app - INFO - Session 9af20d4e-32f6-41d5-b1d7-f80b6533ff72 used 126 embedding tokens
+2025-05-18 11:50:30,656 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 11:50:30,656 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 11:50:30,657 - document_research_app - INFO - Successfully processed cour2.pdf: extracted 1 paragraphs
+2025-05-18 11:50:30,657 - document_research_app - INFO - Processing query for session 9af20d4e-32f6-41d5-b1d7-f80b6533ff72: what is this file all about...
+2025-05-18 11:50:31,081 - document_research_app - INFO - Session 9af20d4e-32f6-41d5-b1d7-f80b6533ff72 used 6 embedding tokens
+2025-05-18 11:50:32,051 - document_research_app - INFO - Session 9af20d4e-32f6-41d5-b1d7-f80b6533ff72 used 209 prompt tokens and 44 completion tokens
+2025-05-18 11:50:34,736 - document_research_app - INFO - Session 9af20d4e-32f6-41d5-b1d7-f80b6533ff72 used 95 prompt tokens and 83 completion tokens
+2025-05-18 11:50:34,737 - document_research_app - INFO - Synthesized response for session 9af20d4e-32f6-41d5-b1d7-f80b6533ff72
+2025-05-18 11:54:17,292 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 11:54:17,292 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 11:54:17,293 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 11:54:17,293 - document_research_app - INFO - Starting application in production mode
+2025-05-18 11:54:17,293 - document_research_app - INFO - Data folder: data
+2025-05-18 11:54:17,293 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 11:54:17,293 - document_research_app - INFO - Static folder: static
+2025-05-18 11:55:35,668 - document_research_app - INFO - Created new session: 6703aee8-cf57-4e8f-9798-15d2e918b05a
+2025-05-18 11:55:47,773 - document_research_app - INFO - Saving file: Final.pdf (size: 126025 bytes)
+2025-05-18 11:55:47,776 - document_research_app - INFO - Successfully saved file: Final.pdf (size: 126025 bytes)
+2025-05-18 11:55:47,776 - document_research_app - INFO - Processing document: Final.pdf (path: uploads/Final.pdf) for session 6703aee8-cf57-4e8f-9798-15d2e918b05a
+2025-05-18 11:55:47,776 - document_research_app - INFO - File size: 0.12 MB
+2025-05-18 11:55:47,777 - document_research_app - INFO - Processing PDF file: Final.pdf
+2025-05-18 11:55:47,777 - document_research_app - INFO - Trying PyMuPDF for Final.pdf
+2025-05-18 11:55:47,782 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 11:55:47,804 - document_research_app - INFO - PyMuPDF extracted 2751 characters from page 1
+2025-05-18 11:55:47,804 - document_research_app - INFO - Successfully extracted 1 text sections from Final.pdf
+2025-05-18 11:55:49,267 - document_research_app - INFO - Session 6703aee8-cf57-4e8f-9798-15d2e918b05a used 577 embedding tokens
+2025-05-18 11:55:49,278 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 11:55:49,278 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 11:55:49,279 - document_research_app - INFO - Successfully processed Final.pdf: extracted 1 paragraphs
+2025-05-18 11:55:49,280 - document_research_app - INFO - Processing query for session 6703aee8-cf57-4e8f-9798-15d2e918b05a: what is this file about...
+2025-05-18 11:55:50,153 - document_research_app - INFO - Session 6703aee8-cf57-4e8f-9798-15d2e918b05a used 5 embedding tokens
+2025-05-18 11:55:51,031 - document_research_app - INFO - Session 6703aee8-cf57-4e8f-9798-15d2e918b05a used 657 prompt tokens and 42 completion tokens
+2025-05-18 11:55:53,453 - document_research_app - INFO - Session 6703aee8-cf57-4e8f-9798-15d2e918b05a used 86 prompt tokens and 87 completion tokens
+2025-05-18 11:55:53,454 - document_research_app - INFO - Synthesized response for session 6703aee8-cf57-4e8f-9798-15d2e918b05a
+2025-05-18 12:01:46,603 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:01:46,604 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:01:46,605 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 12:01:46,605 - document_research_app - INFO - Starting application in production mode
+2025-05-18 12:01:46,605 - document_research_app - INFO - Data folder: data
+2025-05-18 12:01:46,605 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 12:01:46,605 - document_research_app - INFO - Static folder: static
+2025-05-18 12:10:33,132 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:10:33,133 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:10:33,134 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 12:10:33,134 - document_research_app - INFO - Starting application in production mode
+2025-05-18 12:10:33,134 - document_research_app - INFO - Data folder: data
+2025-05-18 12:10:33,134 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 12:10:33,134 - document_research_app - INFO - Static folder: static
+2025-05-18 12:10:47,844 - document_research_app - INFO - Created new session: e27209f0-2027-4d5e-825c-c26158bcd0d7
+2025-05-18 12:10:54,431 - document_research_app - INFO - Closed shared SQLite connection
+2025-05-18 12:10:54,432 - document_research_app - INFO - Closed existing database connection pool
+2025-05-18 12:10:54,433 - document_research_app - INFO - Deleted existing database at data/documents.db
+2025-05-18 12:10:54,436 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:10:54,436 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:10:54,436 - document_research_app - INFO - Created new database connection pool
+2025-05-18 12:10:54,602 - document_research_app - INFO - Created new session: c3f1f4bd-5b33-485c-b8c3-f843c6491929
+2025-05-18 12:10:54,613 - document_research_app - INFO - Created new session: f5953695-4499-489a-8ccb-f52e204d0a1e
+2025-05-18 12:10:59,411 - document_research_app - INFO - Closed shared SQLite connection
+2025-05-18 12:10:59,412 - document_research_app - INFO - Closed existing database connection pool
+2025-05-18 12:10:59,412 - document_research_app - INFO - Deleted existing database at data/documents.db
+2025-05-18 12:10:59,425 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:10:59,425 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:10:59,425 - document_research_app - INFO - Created new database connection pool
+2025-05-18 12:10:59,452 - document_research_app - INFO - Created new session: e355b7e5-1b71-4143-b0ce-e53eed7ecded
+2025-05-18 12:10:59,460 - document_research_app - INFO - Created new session: bf771cf6-c777-4007-9cea-ea4b42a826fa
+2025-05-18 12:11:08,816 - document_research_app - INFO - Saving file: Final-Resume.pdf (size: 315726 bytes)
+2025-05-18 12:11:08,817 - document_research_app - INFO - Successfully saved file: Final-Resume.pdf (size: 315726 bytes)
+2025-05-18 12:11:08,818 - document_research_app - INFO - Processing document: Final-Resume.pdf (path: uploads/Final-Resume.pdf) for session bf771cf6-c777-4007-9cea-ea4b42a826fa
+2025-05-18 12:11:08,818 - document_research_app - INFO - File size: 0.30 MB
+2025-05-18 12:11:08,818 - document_research_app - INFO - Processing PDF file: Final-Resume.pdf
+2025-05-18 12:11:08,818 - document_research_app - INFO - Trying PyMuPDF for Final-Resume.pdf
+2025-05-18 12:11:08,823 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 12:11:08,839 - document_research_app - INFO - PyMuPDF extracted 3093 characters from page 1
+2025-05-18 12:11:08,839 - document_research_app - INFO - Successfully extracted 1 text sections from Final-Resume.pdf
+2025-05-18 12:11:11,117 - document_research_app - INFO - Session bf771cf6-c777-4007-9cea-ea4b42a826fa used 645 embedding tokens
+2025-05-18 12:11:11,119 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 12:11:11,120 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 12:11:11,121 - document_research_app - INFO - Successfully processed Final-Resume.pdf: extracted 1 paragraphs
+2025-05-18 12:11:11,122 - document_research_app - INFO - Processing query for session bf771cf6-c777-4007-9cea-ea4b42a826fa: what is this file about...
+2025-05-18 12:11:11,721 - document_research_app - INFO - Session bf771cf6-c777-4007-9cea-ea4b42a826fa used 5 embedding tokens
+2025-05-18 12:11:12,878 - document_research_app - INFO - Session bf771cf6-c777-4007-9cea-ea4b42a826fa used 727 prompt tokens and 63 completion tokens
+2025-05-18 12:11:14,924 - document_research_app - INFO - Session bf771cf6-c777-4007-9cea-ea4b42a826fa used 90 prompt tokens and 72 completion tokens
+2025-05-18 12:11:14,924 - document_research_app - INFO - Synthesized response for session bf771cf6-c777-4007-9cea-ea4b42a826fa
+2025-05-18 12:11:25,659 - document_research_app - INFO - Processing query for session bf771cf6-c777-4007-9cea-ea4b42a826fa: what the...
+2025-05-18 12:11:26,779 - document_research_app - INFO - Session bf771cf6-c777-4007-9cea-ea4b42a826fa used 803 prompt tokens and 74 completion tokens
+2025-05-18 12:11:27,256 - document_research_app - INFO - Session bf771cf6-c777-4007-9cea-ea4b42a826fa used 88 prompt tokens and 1 completion tokens
+2025-05-18 12:11:29,910 - document_research_app - INFO - Session bf771cf6-c777-4007-9cea-ea4b42a826fa used 80 prompt tokens and 106 completion tokens
+2025-05-18 12:11:29,911 - document_research_app - INFO - Synthesized response for session bf771cf6-c777-4007-9cea-ea4b42a826fa
+2025-05-18 12:12:16,848 - document_research_app - INFO - Created new session: b3c872d8-cd2c-41cf-ad34-d7e915e738f3
+2025-05-18 12:18:45,400 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:18:45,400 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:18:45,402 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 12:18:45,402 - document_research_app - INFO - Starting application in production mode
+2025-05-18 12:18:45,402 - document_research_app - INFO - Data folder: data
+2025-05-18 12:18:45,402 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 12:18:45,402 - document_research_app - INFO - Static folder: static
+2025-05-18 12:19:06,387 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:19:06,388 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:19:06,389 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 12:19:06,389 - document_research_app - INFO - Starting application in production mode
+2025-05-18 12:19:06,389 - document_research_app - INFO - Data folder: data
+2025-05-18 12:19:06,389 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 12:19:06,389 - document_research_app - INFO - Static folder: static
+2025-05-18 12:19:13,501 - document_research_app - INFO - Created new session: ecfa3289-0fd3-4446-94eb-ac3d4f291535
+2025-05-18 12:19:25,243 - document_research_app - INFO - Saving file: cour2.pdf (size: 370682 bytes)
+2025-05-18 12:19:25,245 - document_research_app - INFO - Successfully saved file: cour2.pdf (size: 370682 bytes)
+2025-05-18 12:19:25,245 - document_research_app - INFO - Processing document: cour2.pdf (path: uploads/cour2.pdf) for session ecfa3289-0fd3-4446-94eb-ac3d4f291535
+2025-05-18 12:19:25,245 - document_research_app - INFO - File size: 0.35 MB
+2025-05-18 12:19:25,245 - document_research_app - INFO - Processing PDF file: cour2.pdf
+2025-05-18 12:19:25,245 - document_research_app - INFO - Trying PyMuPDF for cour2.pdf
+2025-05-18 12:19:25,248 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 12:19:25,268 - document_research_app - INFO - PyMuPDF extracted 460 characters from page 1
+2025-05-18 12:19:25,268 - document_research_app - INFO - Successfully extracted 1 text sections from cour2.pdf
+2025-05-18 12:19:26,376 - document_research_app - INFO - Session ecfa3289-0fd3-4446-94eb-ac3d4f291535 used 126 embedding tokens
+2025-05-18 12:19:26,381 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 12:19:26,381 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 12:19:26,382 - document_research_app - INFO - Successfully processed cour2.pdf: extracted 1 paragraphs
+2025-05-18 12:19:26,383 - document_research_app - INFO - Processing query for session ecfa3289-0fd3-4446-94eb-ac3d4f291535: what is this?...
+2025-05-18 12:19:26,754 - document_research_app - INFO - Session ecfa3289-0fd3-4446-94eb-ac3d4f291535 used 4 embedding tokens
+2025-05-18 12:19:28,278 - document_research_app - INFO - Session ecfa3289-0fd3-4446-94eb-ac3d4f291535 used 203 prompt tokens and 51 completion tokens
+2025-05-18 12:19:28,733 - document_research_app - INFO - Session ecfa3289-0fd3-4446-94eb-ac3d4f291535 used 66 prompt tokens and 1 completion tokens
+2025-05-18 12:19:30,830 - document_research_app - INFO - Session ecfa3289-0fd3-4446-94eb-ac3d4f291535 used 72 prompt tokens and 53 completion tokens
+2025-05-18 12:19:30,831 - document_research_app - INFO - Synthesized response for session ecfa3289-0fd3-4446-94eb-ac3d4f291535
+2025-05-18 12:19:47,856 - document_research_app - INFO - Processing query for session ecfa3289-0fd3-4446-94eb-ac3d4f291535: ok explain more...
+2025-05-18 12:19:48,697 - document_research_app - INFO - Session ecfa3289-0fd3-4446-94eb-ac3d4f291535 used 3 embedding tokens
+2025-05-18 12:19:50,181 - document_research_app - INFO - Session ecfa3289-0fd3-4446-94eb-ac3d4f291535 used 264 prompt tokens and 60 completion tokens
+2025-05-18 12:19:50,669 - document_research_app - INFO - Session ecfa3289-0fd3-4446-94eb-ac3d4f291535 used 75 prompt tokens and 1 completion tokens
+2025-05-18 12:19:54,070 - document_research_app - INFO - Session ecfa3289-0fd3-4446-94eb-ac3d4f291535 used 69 prompt tokens and 236 completion tokens
+2025-05-18 12:19:54,071 - document_research_app - INFO - Synthesized response for session ecfa3289-0fd3-4446-94eb-ac3d4f291535
+2025-05-18 12:21:15,564 - document_research_app - INFO - Deleted session ecfa3289-0fd3-4446-94eb-ac3d4f291535 with 1 documents and 4 messages
+2025-05-18 12:21:15,583 - document_research_app - INFO - Deleting vector database collection for session ecfa3289-0fd3-4446-94eb-ac3d4f291535
+2025-05-18 12:21:15,588 - document_research_app - INFO - Successfully deleted vector database collection for session ecfa3289-0fd3-4446-94eb-ac3d4f291535
+2025-05-18 12:21:15,588 - document_research_app - INFO - Removed session ecfa3289-0fd3-4446-94eb-ac3d4f291535 from session_collections dictionary
+2025-05-18 12:21:15,606 - document_research_app - INFO - Created new session: 7d27e979-4a9f-409e-8652-3d019f369df9
+2025-05-18 12:23:03,343 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:23:03,343 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:23:03,344 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 12:23:03,344 - document_research_app - INFO - Starting application in production mode
+2025-05-18 12:23:03,344 - document_research_app - INFO - Data folder: data
+2025-05-18 12:23:03,344 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 12:23:03,344 - document_research_app - INFO - Static folder: static
+2025-05-18 12:23:21,798 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:23:21,799 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:23:21,800 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 12:23:21,800 - document_research_app - INFO - Starting application in production mode
+2025-05-18 12:23:21,800 - document_research_app - INFO - Data folder: data
+2025-05-18 12:23:21,800 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 12:23:21,800 - document_research_app - INFO - Static folder: static
+2025-05-18 12:23:31,927 - document_research_app - INFO - Created new session: 62052f0c-f1a7-4308-b1c3-5e4895ebd6e4
+2025-05-18 12:23:43,046 - document_research_app - INFO - Created new session: a4bfbc2a-2ac0-4838-ac9b-294f8dd9b7cf
+2025-05-18 12:23:50,103 - document_research_app - INFO - Closed shared SQLite connection
+2025-05-18 12:23:50,104 - document_research_app - INFO - Closed existing database connection pool
+2025-05-18 12:23:50,105 - document_research_app - INFO - Deleted existing database at data/documents.db
+2025-05-18 12:23:50,107 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:23:50,107 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:23:50,107 - document_research_app - INFO - Created new database connection pool
+2025-05-18 12:23:50,276 - document_research_app - INFO - Created new session: 5a53b7c5-4c64-4d69-b7d7-3324db3f301d
+2025-05-18 12:23:50,286 - document_research_app - INFO - Created new session: 04045899-f1f6-497d-8ed9-427e357ae02e
+2025-05-18 12:24:07,167 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:24:07,168 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:24:07,169 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 12:24:07,170 - document_research_app - INFO - Starting application in production mode
+2025-05-18 12:24:07,170 - document_research_app - INFO - Data folder: data
+2025-05-18 12:24:07,170 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 12:24:07,170 - document_research_app - INFO - Static folder: static
+2025-05-18 12:27:39,660 - document_research_app - INFO - Saving file: cour2.pdf (size: 370682 bytes)
+2025-05-18 12:27:39,661 - document_research_app - INFO - Successfully saved file: cour2.pdf (size: 370682 bytes)
+2025-05-18 12:27:39,662 - document_research_app - INFO - Processing document: cour2.pdf (path: uploads/cour2.pdf) for session 04045899-f1f6-497d-8ed9-427e357ae02e
+2025-05-18 12:27:39,662 - document_research_app - INFO - File size: 0.35 MB
+2025-05-18 12:27:39,662 - document_research_app - INFO - Processing PDF file: cour2.pdf
+2025-05-18 12:27:39,662 - document_research_app - INFO - Trying PyMuPDF for cour2.pdf
+2025-05-18 12:27:39,666 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 12:27:39,684 - document_research_app - INFO - PyMuPDF extracted 460 characters from page 1
+2025-05-18 12:27:39,684 - document_research_app - INFO - Successfully extracted 1 text sections from cour2.pdf
+2025-05-18 12:27:40,764 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 126 embedding tokens
+2025-05-18 12:27:40,769 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 12:27:40,769 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 12:27:40,770 - document_research_app - INFO - Successfully processed cour2.pdf: extracted 1 paragraphs
+2025-05-18 12:27:40,771 - document_research_app - INFO - Processing query for session 04045899-f1f6-497d-8ed9-427e357ae02e: what is thes?...
+2025-05-18 12:27:41,848 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 5 embedding tokens
+2025-05-18 12:27:42,594 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 205 prompt tokens and 30 completion tokens
+2025-05-18 12:27:43,109 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 46 prompt tokens and 1 completion tokens
+2025-05-18 12:27:45,579 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 100 prompt tokens and 87 completion tokens
+2025-05-18 12:27:45,579 - document_research_app - INFO - Synthesized response for session 04045899-f1f6-497d-8ed9-427e357ae02e
+2025-05-18 12:28:00,738 - document_research_app - INFO - Processing query for session 04045899-f1f6-497d-8ed9-427e357ae02e: ok...
+2025-05-18 12:28:01,487 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 295 prompt tokens and 22 completion tokens
+2025-05-18 12:28:02,021 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 35 prompt tokens and 1 completion tokens
+2025-05-18 12:28:04,068 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 78 prompt tokens and 50 completion tokens
+2025-05-18 12:28:04,068 - document_research_app - INFO - Synthesized response for session 04045899-f1f6-497d-8ed9-427e357ae02e
+2025-05-18 12:31:38,634 - document_research_app - INFO - Processing query for session 04045899-f1f6-497d-8ed9-427e357ae02e: ok...
+2025-05-18 12:31:39,376 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 351 prompt tokens and 22 completion tokens
+2025-05-18 12:31:41,580 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 85 prompt tokens and 74 completion tokens
+2025-05-18 12:31:41,581 - document_research_app - INFO - Synthesized response for session 04045899-f1f6-497d-8ed9-427e357ae02e
+2025-05-18 12:31:46,833 - document_research_app - INFO - Processing query for session 04045899-f1f6-497d-8ed9-427e357ae02e: ok...
+2025-05-18 12:31:48,225 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 324 prompt tokens and 45 completion tokens
+2025-05-18 12:31:48,759 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 58 prompt tokens and 1 completion tokens
+2025-05-18 12:31:51,596 - document_research_app - INFO - Session 04045899-f1f6-497d-8ed9-427e357ae02e used 82 prompt tokens and 85 completion tokens
+2025-05-18 12:31:51,597 - document_research_app - INFO - Synthesized response for session 04045899-f1f6-497d-8ed9-427e357ae02e
+2025-05-18 12:31:55,476 - document_research_app - INFO - Created new session: 8d6fc14c-f5e0-486c-853c-138fa7439add
+2025-05-18 12:32:07,582 - document_research_app - INFO - Saving file: Final.pdf (size: 126025 bytes)
+2025-05-18 12:32:07,584 - document_research_app - INFO - Successfully saved file: Final.pdf (size: 126025 bytes)
+2025-05-18 12:32:07,584 - document_research_app - INFO - Processing document: Final.pdf (path: uploads/Final.pdf) for session 8d6fc14c-f5e0-486c-853c-138fa7439add
+2025-05-18 12:32:07,584 - document_research_app - INFO - File size: 0.12 MB
+2025-05-18 12:32:07,584 - document_research_app - INFO - Processing PDF file: Final.pdf
+2025-05-18 12:32:07,584 - document_research_app - INFO - Trying PyMuPDF for Final.pdf
+2025-05-18 12:32:07,589 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 12:32:07,603 - document_research_app - INFO - PyMuPDF extracted 2751 characters from page 1
+2025-05-18 12:32:07,603 - document_research_app - INFO - Successfully extracted 1 text sections from Final.pdf
+2025-05-18 12:32:08,504 - document_research_app - INFO - Session 8d6fc14c-f5e0-486c-853c-138fa7439add used 577 embedding tokens
+2025-05-18 12:32:08,515 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 12:32:08,515 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 12:32:08,516 - document_research_app - INFO - Successfully processed Final.pdf: extracted 1 paragraphs
+2025-05-18 12:32:08,517 - document_research_app - INFO - Processing query for session 8d6fc14c-f5e0-486c-853c-138fa7439add: summarize?...
+2025-05-18 12:32:08,912 - document_research_app - INFO - Session 8d6fc14c-f5e0-486c-853c-138fa7439add used 4 embedding tokens
+2025-05-18 12:32:10,447 - document_research_app - INFO - Session 8d6fc14c-f5e0-486c-853c-138fa7439add used 649 prompt tokens and 67 completion tokens
+2025-05-18 12:32:11,061 - document_research_app - INFO - Session 8d6fc14c-f5e0-486c-853c-138fa7439add used 80 prompt tokens and 1 completion tokens
+2025-05-18 12:32:13,268 - document_research_app - INFO - Session 8d6fc14c-f5e0-486c-853c-138fa7439add used 82 prompt tokens and 81 completion tokens
+2025-05-18 12:32:13,270 - document_research_app - INFO - Synthesized response for session 8d6fc14c-f5e0-486c-853c-138fa7439add
+2025-05-18 12:32:27,132 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:32:27,133 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:32:27,134 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 12:32:27,134 - document_research_app - INFO - Starting application in production mode
+2025-05-18 12:32:27,134 - document_research_app - INFO - Data folder: data
+2025-05-18 12:32:27,134 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 12:32:27,134 - document_research_app - INFO - Static folder: static
+2025-05-18 12:34:33,899 - document_research_app - INFO - Created new session: a93af921-8e6c-4f5a-8ff7-718510c4b2d7
+2025-05-18 12:34:44,147 - document_research_app - INFO - Created new session: b7170a5e-79cb-4e67-aa0b-3d8ec6cf0c82
+2025-05-18 12:34:46,101 - document_research_app - INFO - Created new session: 7fd73d39-fdc5-483e-92f6-bac9cd517127
+2025-05-18 12:38:30,038 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:38:30,038 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:38:30,040 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 12:38:30,040 - document_research_app - INFO - Starting application in production mode
+2025-05-18 12:38:30,040 - document_research_app - INFO - Data folder: data
+2025-05-18 12:38:30,040 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 12:38:30,040 - document_research_app - INFO - Static folder: static
+2025-05-18 12:38:31,902 - document_research_app - INFO - Created new session: cdd82b02-e2f0-445f-86cf-1658a57c5a56
+2025-05-18 12:39:19,781 - document_research_app - INFO - Created new session: a26878a8-59ad-4ecb-a913-b89e91e43c6a
+2025-05-18 12:39:28,663 - document_research_app - INFO - Deleted session a26878a8-59ad-4ecb-a913-b89e91e43c6a with 0 documents and 0 messages
+2025-05-18 12:39:28,762 - document_research_app - INFO - Deleting vector database collection for session a26878a8-59ad-4ecb-a913-b89e91e43c6a
+2025-05-18 12:39:28,763 - document_research_app - ERROR - Error deleting collection documents_a26878a8-59ad-4ecb-a913-b89e91e43c6a: Collection documents_a26878a8-59ad-4ecb-a913-b89e91e43c6a does not exist.
+2025-05-18 12:39:28,772 - document_research_app - INFO - Created new session: 6b680981-aff5-4760-9529-13d598e06d7d
+2025-05-18 12:39:46,733 - document_research_app - INFO - Saving file: Final.pdf (size: 126025 bytes)
+2025-05-18 12:39:46,734 - document_research_app - INFO - Successfully saved file: Final.pdf (size: 126025 bytes)
+2025-05-18 12:39:46,735 - document_research_app - INFO - Processing document: Final.pdf (path: uploads/Final.pdf) for session 6b680981-aff5-4760-9529-13d598e06d7d
+2025-05-18 12:39:46,735 - document_research_app - INFO - File size: 0.12 MB
+2025-05-18 12:39:46,735 - document_research_app - INFO - Processing PDF file: Final.pdf
+2025-05-18 12:39:46,735 - document_research_app - INFO - Trying PyMuPDF for Final.pdf
+2025-05-18 12:39:46,739 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 12:39:46,756 - document_research_app - INFO - PyMuPDF extracted 2751 characters from page 1
+2025-05-18 12:39:46,756 - document_research_app - INFO - Successfully extracted 1 text sections from Final.pdf
+2025-05-18 12:39:47,696 - document_research_app - INFO - Session 6b680981-aff5-4760-9529-13d598e06d7d used 577 embedding tokens
+2025-05-18 12:39:47,707 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 12:39:47,708 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 12:39:47,709 - document_research_app - INFO - Successfully processed Final.pdf: extracted 1 paragraphs
+2025-05-18 12:39:47,710 - document_research_app - INFO - Processing query for session 6b680981-aff5-4760-9529-13d598e06d7d: tell what all skills are mentioned in this...
+2025-05-18 12:39:48,078 - document_research_app - INFO - Session 6b680981-aff5-4760-9529-13d598e06d7d used 8 embedding tokens
+2025-05-18 12:39:49,939 - document_research_app - INFO - Session 6b680981-aff5-4760-9529-13d598e06d7d used 663 prompt tokens and 109 completion tokens
+2025-05-18 12:39:50,470 - document_research_app - INFO - Session 6b680981-aff5-4760-9529-13d598e06d7d used 129 prompt tokens and 1 completion tokens
+2025-05-18 12:39:53,448 - document_research_app - INFO - Session 6b680981-aff5-4760-9529-13d598e06d7d used 90 prompt tokens and 133 completion tokens
+2025-05-18 12:39:53,450 - document_research_app - INFO - Synthesized response for session 6b680981-aff5-4760-9529-13d598e06d7d
+2025-05-18 12:40:27,138 - document_research_app - INFO - Created new session: 8d1c6f88-4289-4893-b153-70de17e7e096
+2025-05-18 12:40:47,829 - document_research_app - INFO - Deleted session 5a53b7c5-4c64-4d69-b7d7-3324db3f301d with 0 documents and 0 messages
+2025-05-18 12:40:47,849 - document_research_app - INFO - Deleting vector database collection for session 5a53b7c5-4c64-4d69-b7d7-3324db3f301d
+2025-05-18 12:40:47,850 - document_research_app - ERROR - Error deleting collection documents_5a53b7c5-4c64-4d69-b7d7-3324db3f301d: Collection documents_5a53b7c5-4c64-4d69-b7d7-3324db3f301d does not exist.
+2025-05-18 12:40:52,658 - document_research_app - INFO - Deleted session 04045899-f1f6-497d-8ed9-427e357ae02e with 1 documents and 8 messages
+2025-05-18 12:40:52,665 - document_research_app - INFO - Deleting vector database collection for session 04045899-f1f6-497d-8ed9-427e357ae02e
+2025-05-18 12:40:52,677 - document_research_app - INFO - Successfully deleted vector database collection for session 04045899-f1f6-497d-8ed9-427e357ae02e
+2025-05-18 12:40:54,840 - document_research_app - INFO - Deleted session 8d6fc14c-f5e0-486c-853c-138fa7439add with 1 documents and 2 messages
+2025-05-18 12:40:54,848 - document_research_app - INFO - Deleting vector database collection for session 8d6fc14c-f5e0-486c-853c-138fa7439add
+2025-05-18 12:40:54,855 - document_research_app - INFO - Successfully deleted vector database collection for session 8d6fc14c-f5e0-486c-853c-138fa7439add
+2025-05-18 12:40:57,788 - document_research_app - INFO - Deleted session a93af921-8e6c-4f5a-8ff7-718510c4b2d7 with 0 documents and 0 messages
+2025-05-18 12:40:57,795 - document_research_app - INFO - Deleting vector database collection for session a93af921-8e6c-4f5a-8ff7-718510c4b2d7
+2025-05-18 12:40:57,797 - document_research_app - ERROR - Error deleting collection documents_a93af921-8e6c-4f5a-8ff7-718510c4b2d7: Collection documents_a93af921-8e6c-4f5a-8ff7-718510c4b2d7 does not exist.
+2025-05-18 12:41:02,061 - document_research_app - INFO - Deleted session b7170a5e-79cb-4e67-aa0b-3d8ec6cf0c82 with 0 documents and 0 messages
+2025-05-18 12:41:02,071 - document_research_app - INFO - Deleting vector database collection for session b7170a5e-79cb-4e67-aa0b-3d8ec6cf0c82
+2025-05-18 12:41:02,073 - document_research_app - ERROR - Error deleting collection documents_b7170a5e-79cb-4e67-aa0b-3d8ec6cf0c82: Collection documents_b7170a5e-79cb-4e67-aa0b-3d8ec6cf0c82 does not exist.
+2025-05-18 12:41:04,991 - document_research_app - INFO - Deleted session 7fd73d39-fdc5-483e-92f6-bac9cd517127 with 0 documents and 0 messages
+2025-05-18 12:41:04,998 - document_research_app - INFO - Deleting vector database collection for session 7fd73d39-fdc5-483e-92f6-bac9cd517127
+2025-05-18 12:41:04,999 - document_research_app - ERROR - Error deleting collection documents_7fd73d39-fdc5-483e-92f6-bac9cd517127: Collection documents_7fd73d39-fdc5-483e-92f6-bac9cd517127 does not exist.
+2025-05-18 12:41:07,206 - document_research_app - INFO - Deleted session cdd82b02-e2f0-445f-86cf-1658a57c5a56 with 0 documents and 0 messages
+2025-05-18 12:41:07,213 - document_research_app - INFO - Deleting vector database collection for session cdd82b02-e2f0-445f-86cf-1658a57c5a56
+2025-05-18 12:41:07,214 - document_research_app - ERROR - Error deleting collection documents_cdd82b02-e2f0-445f-86cf-1658a57c5a56: Collection documents_cdd82b02-e2f0-445f-86cf-1658a57c5a56 does not exist.
+2025-05-18 12:41:09,224 - document_research_app - INFO - Deleted session 6b680981-aff5-4760-9529-13d598e06d7d with 1 documents and 2 messages
+2025-05-18 12:41:09,230 - document_research_app - INFO - Deleting vector database collection for session 6b680981-aff5-4760-9529-13d598e06d7d
+2025-05-18 12:41:09,236 - document_research_app - INFO - Successfully deleted vector database collection for session 6b680981-aff5-4760-9529-13d598e06d7d
+2025-05-18 12:41:09,236 - document_research_app - INFO - Removed session 6b680981-aff5-4760-9529-13d598e06d7d from session_collections dictionary
+2025-05-18 12:41:09,250 - document_research_app - INFO - Created new session: b7f267ea-71b6-4397-ba26-5a26b30ffe03
+2025-05-18 12:41:41,895 - document_research_app - INFO - Created new session: db44f4e5-84da-44ea-8f17-a26f157d3879
+2025-05-18 12:41:48,625 - document_research_app - INFO - Deleted session 8d1c6f88-4289-4893-b153-70de17e7e096 with 0 documents and 0 messages
+2025-05-18 12:41:48,638 - document_research_app - INFO - Deleting vector database collection for session 8d1c6f88-4289-4893-b153-70de17e7e096
+2025-05-18 12:41:48,639 - document_research_app - ERROR - Error deleting collection documents_8d1c6f88-4289-4893-b153-70de17e7e096: Collection documents_8d1c6f88-4289-4893-b153-70de17e7e096 does not exist.
+2025-05-18 12:41:50,875 - document_research_app - INFO - Deleted session b7f267ea-71b6-4397-ba26-5a26b30ffe03 with 0 documents and 0 messages
+2025-05-18 12:41:50,881 - document_research_app - INFO - Deleting vector database collection for session b7f267ea-71b6-4397-ba26-5a26b30ffe03
+2025-05-18 12:41:50,883 - document_research_app - ERROR - Error deleting collection documents_b7f267ea-71b6-4397-ba26-5a26b30ffe03: Collection documents_b7f267ea-71b6-4397-ba26-5a26b30ffe03 does not exist.
+2025-05-18 12:53:34,106 - document_research_app - INFO - Database schema initialized successfully
+2025-05-18 12:53:34,106 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-18 12:53:34,107 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-18 12:53:34,107 - document_research_app - INFO - Starting application in production mode
+2025-05-18 12:53:34,107 - document_research_app - INFO - Data folder: data
+2025-05-18 12:53:34,107 - document_research_app - INFO - Upload folder: uploads
+2025-05-18 12:53:34,107 - document_research_app - INFO - Static folder: static
+2025-05-18 12:53:37,909 - document_research_app - INFO - Created new session: 8aa8e877-e466-408c-8f2a-16dda82080ae
+2025-05-18 12:53:53,455 - document_research_app - INFO - Saving file: Final.pdf (size: 126025 bytes)
+2025-05-18 12:53:53,457 - document_research_app - INFO - Successfully saved file: Final.pdf (size: 126025 bytes)
+2025-05-18 12:53:53,457 - document_research_app - INFO - Processing document: Final.pdf (path: uploads/Final.pdf) for session 8aa8e877-e466-408c-8f2a-16dda82080ae
+2025-05-18 12:53:53,457 - document_research_app - INFO - File size: 0.12 MB
+2025-05-18 12:53:53,457 - document_research_app - INFO - Processing PDF file: Final.pdf
+2025-05-18 12:53:53,457 - document_research_app - INFO - Trying PyMuPDF for Final.pdf
+2025-05-18 12:53:53,462 - document_research_app - INFO - PyMuPDF opened document with 1 pages
+2025-05-18 12:53:53,477 - document_research_app - INFO - PyMuPDF extracted 2751 characters from page 1
+2025-05-18 12:53:53,477 - document_research_app - INFO - Successfully extracted 1 text sections from Final.pdf
+2025-05-18 12:53:54,920 - document_research_app - INFO - Session 8aa8e877-e466-408c-8f2a-16dda82080ae used 577 embedding tokens
+2025-05-18 12:53:54,929 - document_research_app - INFO - Created BM25 index with 1 paragraphs
+2025-05-18 12:53:54,929 - document_research_app - INFO - Returning 1 paragraphs and 1 document info items
+2025-05-18 12:53:54,931 - document_research_app - INFO - Successfully processed Final.pdf: extracted 1 paragraphs
+2025-05-18 12:53:54,931 - document_research_app - INFO - Processing query for session 8aa8e877-e466-408c-8f2a-16dda82080ae: what is this all about ...
+2025-05-18 12:53:55,599 - document_research_app - INFO - Session 8aa8e877-e466-408c-8f2a-16dda82080ae used 6 embedding tokens
+2025-05-18 12:53:56,690 - document_research_app - INFO - Session 8aa8e877-e466-408c-8f2a-16dda82080ae used 657 prompt tokens and 41 completion tokens
+2025-05-18 12:53:58,365 - document_research_app - INFO - Session 8aa8e877-e466-408c-8f2a-16dda82080ae used 96 prompt tokens and 50 completion tokens
+2025-05-18 12:53:58,365 - document_research_app - INFO - Synthesized response for session 8aa8e877-e466-408c-8f2a-16dda82080ae
+2025-05-18 12:54:21,529 - document_research_app - INFO - Processing query for session 8aa8e877-e466-408c-8f2a-16dda82080ae: what skills does the resume holder have...
+2025-05-18 12:54:22,258 - document_research_app - INFO - Session 8aa8e877-e466-408c-8f2a-16dda82080ae used 7 embedding tokens
+2025-05-18 12:54:23,340 - document_research_app - INFO - Session 8aa8e877-e466-408c-8f2a-16dda82080ae used 721 prompt tokens and 59 completion tokens
+2025-05-18 12:54:25,091 - document_research_app - INFO - Session 8aa8e877-e466-408c-8f2a-16dda82080ae used 79 prompt tokens and 53 completion tokens
+2025-05-18 12:54:25,092 - document_research_app - INFO - Synthesized response for session 8aa8e877-e466-408c-8f2a-16dda82080ae
+2025-05-18 12:55:14,942 - document_research_app - INFO - Deleted session 8aa8e877-e466-408c-8f2a-16dda82080ae with 1 documents and 4 messages
+2025-05-18 12:55:14,954 - document_research_app - INFO - Deleting vector database collection for session 8aa8e877-e466-408c-8f2a-16dda82080ae
+2025-05-18 12:55:14,960 - document_research_app - INFO - Successfully deleted vector database collection for session 8aa8e877-e466-408c-8f2a-16dda82080ae
+2025-05-18 12:55:14,960 - document_research_app - INFO - Removed session 8aa8e877-e466-408c-8f2a-16dda82080ae from session_collections dictionary
+2025-05-18 12:55:14,973 - document_research_app - INFO - Created new session: 44a1d963-aea6-4275-a715-36eea5c0ad81

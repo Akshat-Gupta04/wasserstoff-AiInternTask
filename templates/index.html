@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<!--
+Document Research & Theme Identification Chatbot - Index Page
+
+Frontend Architecture:
+---------------------
+1. User Interface Components:
+   - Responsive layout with sidebar and main content area
+   - Document upload form with multi-file support
+   - Interactive animations for processing feedback
+   - Session management interface for multiple conversations
+   - Feature showcase with visual explanations
+
+2. Document Processing Flow:
+   - File selection with preview and validation
+   - Query input with suggestions for better results
+   - Analysis initiation with visual feedback
+   - Results presentation in organized tabs
+
+3. Visual Design Principles:
+   - Clean, modern interface with consistent styling
+   - Clear visual hierarchy for important elements
+   - Responsive design for all device sizes
+   - Animated elements for engagement and feedback
+   - Accessibility considerations for all users
+
+4. Interactive Elements:
+   - Tooltips for contextual help
+   - Animated processing indicators
+   - Session management controls
+   - Knowledge graph visualization
+   - Modal dialogs for additional information
+
+5. Technical Implementation:
+   - Bootstrap 5 for responsive grid and components
+   - Custom CSS for specialized styling
+   - JavaScript for dynamic interactions
+   - Font Awesome for iconography
+   - Google Fonts for typography
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Research & Theme Identification Chatbot</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- No tour functionality -->
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Tippy.js for tooltips -->
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Additional chat-specific styles -->
+    <style>
+        .chat-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: 1fr;
+            height: calc(100vh - 70px);
+        }
+        .sidebar {
+            background: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .session-item {
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .session-item:hover, .session-item.active {
+            background: rgba(67, 97, 238, 0.1);
+        }
+        .session-item.active {
+            border-left: 3px solid var(--primary-color);
+        }
+        .delete-session-btn {
+            opacity: 0.3;
+            transition: opacity 0.2s ease;
+        }
+        .session-item:hover .delete-session-btn {
+            opacity: 1;
+        }
+        .welcome-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .feature-card {
+            height: 100%;
+            transition: var(--transition);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .hero-section {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1) 0%, rgba(63, 55, 201, 0.1) 100%);
+            padding: 3rem 0;
+            border-radius: var(--border-radius);
+            margin-bottom: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="app-title">Document Research & Theme Identification</h1>
+                <div class="d-flex align-items-center">
+                    <!-- Reset All Data button removed -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Flash Messages -->
+    <div class="container-fluid">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category if category != 'message' else 'info' }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Mobile Sidebar Toggle -->
+    <div class="mobile-sidebar-toggle d-lg-none">
+        <button id="sidebar-toggle" class="btn btn-sm btn-primary">
+            <i class="fas fa-bars"></i> Toggle Sidebar
+        </button>
+    </div>
+
+    <!-- Chat Layout -->
+    <div class="chat-layout">
+        <!-- Sidebar -->
+        <div class="sidebar" id="chat-sidebar">
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-block mb-4">
+                <i class="fas fa-plus me-2"></i> New Chat
+            </a>
+
+            <div class="sidebar-section">
+                <h5><i class="fas fa-comments me-2"></i> Your Chats</h5>
+                <div class="session-list">
+                    {% for s in all_sessions %}
+                        <div class="session-item {% if s.id == session_id %}active{% endif %}">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{{ url_for('chat', session_id=s.id) }}" class="text-decoration-none text-dark flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="session-title">{{ s.title }}</div>
+                                        <small class="text-muted">{{ s.last_updated.split(' ')[0] }}</small>
+                                    </div>
+                                </a>
+                                <button class="btn btn-sm btn-link text-danger delete-session-btn p-0 ms-2"
+                                        data-session-id="{{ s.id }}"
+                                        data-tippy-content="Delete this chat"
+                                        {% if s.id == session_id %}data-is-current="true"{% endif %}>
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content - Welcome Screen -->
+        <div class="main-content p-4">
+            <div class="welcome-container">
+                <!-- Hero Section -->
+                <div class="hero-section text-center p-5">
+                    <h2 class="mb-3">Welcome to Document Research & Theme Identification</h2>
+                    <p class="lead mb-4">Upload documents, ask questions, and discover insights with AI-powered analysis</p>
+
+                    <!-- Upload Form -->
+                    <div class="card mb-4 upload-card">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"><i class="fas fa-file-upload me-2"></i> Upload Documents & Ask Questions</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <form method="POST" action="{{ url_for('index', session_id=session_id) }}" enctype="multipart/form-data">
+                                <!-- Step 1: Upload Files -->
+                                <div class="mb-4">
+                                    <h5 class="mb-3"><span class="badge bg-primary me-2">1</span> Upload Your Documents</h5>
+                                    <div class="upload-container p-3 border rounded">
+                                        <div class="input-group mb-3">
+                                            <input type="file" class="form-control form-control-lg" id="file" name="file" accept=".pdf,.png,.jpg,.jpeg" multiple required data-tippy-content="Upload PDF, PNG, JPG, or JPEG files. Hold Ctrl/Cmd to select multiple files.">
+                                            <label class="input-group-text" for="file">
+                                                <i class="fas fa-file-upload"></i> Browse
+                                            </label>
+                                        </div>
+                                        <div class="form-text mb-2">
+                                            <i class="fas fa-info-circle me-1 text-primary"></i> Select multiple files by holding Ctrl/Cmd while selecting. Supported formats: PDF, PNG, JPG, JPEG.
+                                        </div>
+                                        <div id="selected-files" class="mt-3 mb-2"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Step 2: Ask Question -->
+                                <div class="mb-4">
+                                    <h5 class="mb-3"><span class="badge bg-primary me-2">2</span> Ask Your Question</h5>
+                                    <div class="query-container p-3 border rounded">
+                                        <input type="text" class="form-control form-control-lg" name="query" placeholder="Ask a question about the document..." required data-tippy-content="Ask specific questions for better results. Try 'What are the main themes?' or 'Summarize the key points about [topic]'">
+                                        <div class="form-text mt-2">
+                                            <i class="fas fa-lightbulb me-1 text-warning"></i> Try questions like "What are the main themes?" or "Summarize the key points about [topic]"
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Step 3: Submit -->
+                                <div class="text-center mt-4">
+                                    <button type="submit" id="analyze-btn" class="btn btn-primary btn-lg px-5" data-tippy-content="Submit your question and document to analyze">
+                                        <i class="fas fa-search me-2"></i> Analyze Documents
+                                    </button>
+                                    <div class="form-text text-center mt-2">
+                                        <i class="fas fa-info-circle me-1"></i> This will start a new conversation with your documents.
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!-- Reset Database Notice removed -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <h3 class="text-center mb-4">Key Features</h3>
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="card feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s">
+                            <div class="card-body text-center">
+                                <div class="feature-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <h4>Continuous Chat</h4>
+                                <p>Ask follow-up questions and maintain context throughout your research session.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.3s">
+                            <div class="card-body text-center">
+                                <div class="feature-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <h4>Theme Identification</h4>
+                                <p>Automatically identify key themes and topics within your documents.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.5s">
+                            <div class="card-body text-center">
+                                <div class="feature-icon">
+                                    <i class="fas fa-project-diagram"></i>
+                                </div>
+                                <h4>Knowledge Graphs</h4>
+                                <p>Visualize connections between documents, themes, and extracted information.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How It Works Section -->
+                <h3 class="text-center mb-4">How It Works</h3>
+                <div class="card mb-5">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 text-center">
+                                <div class="p-3 animate__animated animate__fadeInRight" style="animation-delay: 0.1s">
+                                    <i class="fas fa-file-upload fa-3x mb-3 text-primary"></i>
+                                    <h5>1. Upload</h5>
+                                    <p class="small">Upload your PDF or image document</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <div class="p-3 animate__animated animate__fadeInRight" style="animation-delay: 0.3s">
+                                    <i class="fas fa-question-circle fa-3x mb-3 text-primary"></i>
+                                    <h5>2. Ask</h5>
+                                    <p class="small">Ask a question about the document</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <div class="p-3 animate__animated animate__fadeInRight" style="animation-delay: 0.5s">
+                                    <i class="fas fa-robot fa-3x mb-3 text-primary"></i>
+                                    <h5>3. Analyze</h5>
+                                    <p class="small">AI analyzes the content and finds answers</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <div class="p-3 animate__animated animate__fadeInRight" style="animation-delay: 0.7s">
+                                    <i class="fas fa-lightbulb fa-3x mb-3 text-primary"></i>
+                                    <h5>4. Discover</h5>
+                                    <p class="small">Explore themes and insights</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay d-none">
+        <div class="loading-content">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 loading-text">Processing your request...</p>
+        </div>
+    </div>
+
+    <!-- Analysis Animation Overlay (Embedded directly in HTML) -->
+    <div id="analysisOverlay" class="analysis-overlay" style="display: none;" data-permanent="true">
+        <div class="analysis-content">
+            <div class="animation-container">
+                <div class="doc-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="scan-line"></div>
+            </div>
+            <div class="processing-steps" id="processingSteps">
+                <!-- Steps will be added dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Analysis Animation Styles (Embedded directly in HTML) */
+        .analysis-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .analysis-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-width: 90%;
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .animation-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 2rem;
+        }
+
+        .doc-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: #007bff;
+            animation: pulse 2s infinite;
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: #28a745;
+            animation: scan 2s infinite;
+            box-shadow: 0 0 10px #28a745;
+            border-radius: 5px;
+        }
+
+        .processing-steps {
+            width: 100%;
+            text-align: left;
+        }
+
+        .step {
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .step.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0;
+            }
+            50% {
+                top: calc(100% - 5px);
+            }
+            100% {
+                top: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <!-- Welcome Modal -->
+    <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="welcomeModalLabel">Welcome to Document Research & Theme Identification</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-4">
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-rocket fa-4x text-primary mb-3"></i>
+                            <h5>Getting Started</h5>
+                            <p>Upload documents and ask questions to analyze content and discover insights.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-lightbulb fa-4x text-warning mb-3"></i>
+                            <h5>Smart Analysis</h5>
+                            <p>AI-powered theme identification and knowledge graph visualization.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-comments fa-4x text-success mb-3"></i>
+                            <h5>Continuous Chat</h5>
+                            <p>Ask follow-up questions and maintain context throughout your research.</p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Pro Tip:</strong> You can upload multiple documents at once by holding Ctrl/Cmd while selecting files.
+                    </div>
+
+                    <h5 class="mt-4">Example Questions to Ask:</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group">
+                                <li class="list-group-item"><i class="fas fa-question-circle text-primary me-2"></i> What are the main themes in this document?</li>
+                                <li class="list-group-item"><i class="fas fa-question-circle text-primary me-2"></i> Summarize the key points about [specific topic].</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group">
+                                <li class="list-group-item"><i class="fas fa-question-circle text-primary me-2"></i> What evidence supports [specific claim]?</li>
+                                <li class="list-group-item"><i class="fas fa-question-circle text-primary me-2"></i> Compare and contrast the different perspectives on [topic].</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- No tour functionality -->
+    <!-- Tippy.js for tooltips -->
+    <script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/analysis-animation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/new-animation.js') }}"></script>
+    <!-- No tour functionality -->
+
+    <script>
+        // Show welcome modal on first visit
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if this is the first visit
+            if (!localStorage.getItem('welcomeShown')) {
+                // Show the welcome modal
+                var welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
+                welcomeModal.show();
+
+                // Set flag in localStorage
+                localStorage.setItem('welcomeShown', 'true');
+            }
+
+            // Initialize tooltips
+            tippy('[data-tippy-content]');
+
+            // Function to show loading overlay
+            function showLoadingOverlay(message) {
+                let loadingOverlay = document.getElementById('loadingOverlay');
+                if (!loadingOverlay) {
+                    loadingOverlay = document.createElement('div');
+                    loadingOverlay.id = 'loadingOverlay';
+                    loadingOverlay.className = 'loading-overlay';
+
+                    const loadingContent = document.createElement('div');
+                    loadingContent.className = 'loading-content';
+
+                    const spinner = document.createElement('div');
+                    spinner.className = 'spinner-border text-primary';
+                    spinner.setAttribute('role', 'status');
+                    spinner.style.width = '3rem';
+                    spinner.style.height = '3rem';
+
+                    const spinnerText = document.createElement('span');
+                    spinnerText.className = 'visually-hidden';
+                    spinnerText.textContent = 'Loading...';
+
+                    const loadingText = document.createElement('p');
+                    loadingText.className = 'mt-3 loading-text';
+                    loadingText.textContent = message || 'Processing...';
+
+                    spinner.appendChild(spinnerText);
+                    loadingContent.appendChild(spinner);
+                    loadingContent.appendChild(loadingText);
+                    loadingOverlay.appendChild(loadingContent);
+
+                    document.body.appendChild(loadingOverlay);
+                } else {
+                    const loadingText = loadingOverlay.querySelector('.loading-text');
+                    if (loadingText && message) {
+                        loadingText.textContent = message;
+                    }
+                    loadingOverlay.classList.remove('d-none');
+                }
+                return loadingOverlay;
+            }
+
+            // Function to delete a chat session
+            function deleteChat(sessionId, button, isCurrent = false) {
+                console.log('Delete chat called for session:', sessionId, 'isCurrent:', isCurrent);
+
+                if (confirm('Are you sure you want to delete this chat session? This will remove all messages and associated documents for this chat only. This action cannot be undone.')) {
+                    // Show loading overlay
+                    const loadingOverlay = showLoadingOverlay('Deleting chat session... This may take a moment.');
+
+                    // Show loading state on button
+                    const originalContent = button.innerHTML;
+                    button.disabled = true;
+                    if (button.classList.contains('btn-sm')) {
+                        button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
+                    } else {
+                        button.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Deleting...';
+                    }
+
+                    // Send delete request
+                    fetch('/delete_chat/' + sessionId, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Delete successful:', data);
+                        if (isCurrent) {
+                            // If deleting current chat, refresh the page
+                            window.location.reload();
+                        } else {
+                            // If deleting another chat, just remove it from the sidebar
+                            const sessionItem = button.closest('.session-item');
+                            if (sessionItem) {
+                                sessionItem.remove();
+                            }
+                            // Hide loading overlay
+                            if (loadingOverlay) {
+                                loadingOverlay.classList.add('d-none');
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting chat:', error);
+                        alert('Error deleting chat: ' + error.message);
+
+                        // Reset button state
+                        button.disabled = false;
+                        button.innerHTML = originalContent;
+
+                        // Hide loading overlay
+                        if (loadingOverlay) {
+                            loadingOverlay.classList.add('d-none');
+                        }
+                    });
+                }
+            }
+
+            // Handle delete buttons in sidebar
+            console.log('Initializing delete buttons in index.html');
+            const deleteButtons = document.querySelectorAll('.delete-session-btn');
+            console.log('Found sidebar delete buttons:', deleteButtons.length);
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    console.log('Sidebar delete button clicked');
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const sessionId = this.getAttribute('data-session-id');
+                    const isCurrent = this.hasAttribute('data-is-current');
+                    console.log('Session ID:', sessionId, 'Is Current:', isCurrent);
+
+                    deleteChat(sessionId, this, isCurrent);
+                });
+            });
+
+            // Tour initialization is now handled by tour.js
+
+            // Mobile sidebar toggle
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const chatSidebar = document.getElementById('chat-sidebar');
+
+            if (sidebarToggle && chatSidebar) {
+                sidebarToggle.addEventListener('click', function() {
+                    chatSidebar.classList.toggle('sidebar-mobile-open');
+
+                    // Change icon based on state
+                    const icon = this.querySelector('i');
+                    if (chatSidebar.classList.contains('sidebar-mobile-open')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                        this.innerHTML = '<i class="fas fa-times"></i> Close Sidebar';
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                        this.innerHTML = '<i class="fas fa-bars"></i> Toggle Sidebar';
+                    }
+                });
+            }
+
+            // Document analysis animation
+            const analyzeForm = document.querySelector('form[action*="index"]');
+            if (analyzeForm) {
+                analyzeForm.addEventListener('submit', function(e) {
+                    // Check if form is valid
+                    if (this.checkValidity()) {
+                        // Prevent default form submission temporarily
+                        e.preventDefault();
+
+                        // Get the submit button
+                        const submitBtn = document.getElementById('analyze-btn');
+                        if (submitBtn) {
+                            // Disable the button to prevent multiple submissions
+                            submitBtn.disabled = true;
+                            // Change the button icon to a spinner
+                            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Analyzing...';
+                        }
+
+                        // Get the file input
+                        const fileInput = document.getElementById('file');
+
+                        // Show document processing animation
+                        const analysisOverlay = document.getElementById('analysisOverlay');
+                        const processingSteps = document.getElementById('processingSteps');
+
+                        // Clear any existing steps
+                        processingSteps.innerHTML = '';
+
+                        // Define document processing steps
+                        const steps = [
+                            '<i class="fas fa-file-upload text-primary me-2"></i> Uploading documents...',
+                            '<i class="fas fa-file-alt text-primary me-2"></i> Extracting text content...',
+                            '<i class="fas fa-database text-primary me-2"></i> Creating vector embeddings...',
+                            '<i class="fas fa-brain text-primary me-2"></i> Analyzing document content...',
+                            '<i class="fas fa-search text-primary me-2"></i> Finding relevant information...'
+                        ];
+
+                        // Change icon to document
+                        document.querySelector('.doc-icon i').className = 'fas fa-file-alt';
+
+                        // Create step elements
+                        steps.forEach((step, index) => {
+                            const stepElement = document.createElement('div');
+                            stepElement.className = 'step';
+                            stepElement.innerHTML = step;
+                            processingSteps.appendChild(stepElement);
+                        });
+
+                        // Use the new animation function
+                        console.log("Using showNewAnimation function");
+                        window.showNewAnimation('document');
+
+                        // Submit the form after a short delay to allow animation to start
+                        setTimeout(() => {
+                            this.submit();
+                        }, 500);
+
+                        // Store the current timestamp to identify this submission
+                        window.lastSubmissionTime = new Date().getTime();
+
+                        return false;
+                    }
+                });
+            }
+
+            // No need to add another tour button as we already have one in the header
+        });
+    </script>
+</body>
+</html>

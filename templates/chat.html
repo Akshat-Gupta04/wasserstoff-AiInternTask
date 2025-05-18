@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<!--
+Document Research & Theme Identification Chatbot - Chat Interface
+
+Frontend Architecture:
+---------------------
+1. Chat Interface Components:
+   - Two-panel layout with sidebar and main chat area
+   - Message history with user and assistant messages
+   - Interactive result tabs for themes, answers, and knowledge graphs
+   - File upload capability for adding documents during conversation
+   - Session management with multiple chat support
+
+2. Data Visualization:
+   - Theme cards showing identified topics
+   - Tabular display of extracted answers with citations
+   - Interactive knowledge graph with filtering options
+   - Responsive iframe embedding for graph visualization
+   - Fullscreen capability for detailed exploration
+
+3. Conversation Flow:
+   - Chronological message display with timestamps
+   - Visual distinction between user and assistant messages
+   - Follow-up question input with auto-resizing textarea
+   - Document upload during conversation
+   - Context maintenance across interactions
+
+4. User Experience Features:
+   - Help modal with usage tips and examples
+   - Mobile-responsive design with sidebar toggle
+   - Animated elements for visual feedback
+   - Session management with deletion capability
+   - Tooltips for contextual guidance
+
+5. Technical Implementation:
+   - Bootstrap 5 grid and component system
+   - CSS Grid for two-panel layout
+   - Responsive design breakpoints
+   - Iframe integration for knowledge graph
+   - Form handling for queries and file uploads
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Research & Theme Identification Chatbot</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- No tour functionality -->
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Tippy.js for tooltips -->
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Additional chat-specific styles -->
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+            --border-radius: 0.25rem;
+            --transition: all 0.3s ease;
+        }
+
+        .chat-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: 1fr;
+            height: calc(100vh - 70px);
+        }
+        .sidebar {
+            background: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .chat-input {
+            border-top: 1px solid #dee2e6;
+            padding: 1rem;
+            background: white;
+        }
+        .session-item {
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .session-item:hover, .session-item.active {
+            background: rgba(67, 97, 238, 0.1);
+        }
+        .session-item.active {
+            border-left: 3px solid var(--primary-color);
+        }
+        .delete-session-btn {
+            opacity: 0.3;
+            transition: opacity 0.2s ease;
+        }
+        .session-item:hover .delete-session-btn {
+            opacity: 1;
+        }
+        .tab-content {
+            padding: 1rem 0;
+        }
+        .document-item {
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 0.5rem;
+            background: white;
+            border: 1px solid #dee2e6;
+            font-size: 0.9rem;
+        }
+        .nav-tabs .nav-link {
+            color: var(--dark-color);
+        }
+        .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        .result-tabs {
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 1rem;
+        }
+        .result-tabs .nav-link {
+            border: none;
+            border-bottom: 2px solid transparent;
+            border-radius: 0;
+            padding: 0.5rem 1rem;
+        }
+        .result-tabs .nav-link.active {
+            border-bottom: 2px solid var(--primary-color);
+            background: transparent;
+        }
+        .message-time {
+            font-size: 0.75rem;
+            color: #6c757d;
+        }
+        .chat-message {
+            max-width: 85%;
+        }
+        .user-message {
+            margin-left: auto;
+        }
+        .assistant-message {
+            margin-right: auto;
+        }
+        .message-content {
+            white-space: pre-wrap;
+        }
+        .new-chat-btn {
+            margin-bottom: 1rem;
+        }
+
+        .theme-card {
+            background-color: rgba(67, 97, 238, 0.1);
+            border-left: 3px solid var(--primary-color);
+        }
+
+        /* Mobile styles */
+        .mobile-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        @media (max-width: 991.98px) {
+            .chat-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 70px;
+                left: -250px;
+                height: calc(100vh - 70px);
+                width: 250px;
+                z-index: 1000;
+                transition: left 0.3s ease;
+            }
+
+            .sidebar-mobile-open {
+                left: 0;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .mobile-sidebar-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="app-title">Document Research & Theme Identification</h1>
+                <div class="d-flex align-items-center">
+                    <button type="button" id="help-btn" class="btn btn-sm btn-info me-2" data-bs-toggle="modal" data-bs-target="#helpModal">
+                        <i class="fas fa-question-circle me-1"></i> Help & Tips
+                    </button>
+                    <button type="button" id="delete-chat-btn" class="btn btn-sm btn-outline-danger me-2" data-tippy-content="Delete this chat session">
+                        <i class="fas fa-trash me-1"></i> Delete Chat
+                    </button>
+                    <!-- Reset All Data button removed -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Flash Messages -->
+    <div class="container-fluid">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category if category != 'message' else 'info' }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Mobile Sidebar Toggle -->
+    <div class="mobile-sidebar-toggle d-lg-none">
+        <button id="sidebar-toggle" class="btn btn-sm btn-primary">
+            <i class="fas fa-bars"></i> Toggle Sidebar
+        </button>
+    </div>
+
+    <!-- Chat Layout -->
+    <div class="chat-layout">
+        <!-- Sidebar -->
+        <div class="sidebar" id="chat-sidebar">
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-block new-chat-btn">
+                <i class="fas fa-plus me-2"></i> New Chat
+            </a>
+
+            <div class="sidebar-section">
+                <h5><i class="fas fa-comments me-2"></i> Your Chats</h5>
+                <div class="session-list">
+                    {% for s in all_sessions %}
+                        <div class="session-item {% if s.id == session_id %}active{% endif %} animate__animated animate__fadeIn" data-index="{{ loop.index0 }}">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{{ url_for('chat', session_id=s.id) }}" class="text-decoration-none text-dark flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="session-title">{{ s.title }}</div>
+                                        <small class="text-muted">{{ s.last_updated.split(' ')[0] }}</small>
+                                    </div>
+                                </a>
+                                <button class="btn btn-sm btn-link text-danger delete-session-btn p-0 ms-2"
+                                        data-session-id="{{ s.id }}"
+                                        data-tippy-content="Delete this chat"
+                                        {% if s.id == session_id %}data-is-current="true"{% endif %}>
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="sidebar-section mt-4">
+                <h5><i class="fas fa-file-alt me-2"></i> Documents</h5>
+                <div class="document-list">
+                    {% if documents %}
+                        {% for doc in documents %}
+                            <div class="document-item animate__animated animate__fadeIn" data-index="{{ loop.index0 }}">
+                                <div class="document-title">
+                                    <i class="fas fa-file-pdf me-2"></i> Page {{ doc.page }}, Para {{ doc.paragraph }}
+                                </div>
+                                <div class="document-preview text-muted">
+                                    {{ doc.text_preview }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">No documents uploaded yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Chat Messages -->
+            <div class="chat-messages" id="chat-messages">
+                {% for message in chat_history %}
+                    <div class="chat-message {% if message.role == 'user' %}user-message{% else %}assistant-message{% endif %} mb-3 animate__animated animate__fadeIn">
+                        <div class="message-header d-flex justify-content-between align-items-center mb-1">
+                            <div class="message-sender">
+                                {% if message.role == 'user' %}
+                                    <i class="fas fa-user me-2"></i> <strong>You</strong>
+                                {% else %}
+                                    <i class="fas fa-robot me-2"></i> <strong>AI Assistant</strong>
+                                {% endif %}
+                            </div>
+                            <div class="message-time">
+                                {{ message.metadata.get('timestamp', '') }}
+                            </div>
+                        </div>
+                        <div class="message-bubble p-3 rounded">
+                            <div class="message-content">{{ message.content }}</div>
+
+                            {% if message.role == 'assistant' and message.metadata %}
+                                <!-- Result Tabs for Assistant Messages -->
+                                <div class="result-section mt-3">
+                                    <ul class="nav nav-tabs result-tabs" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#themes-{{ loop.index }}" type="button" role="tab">
+                                                <i class="fas fa-lightbulb me-1"></i> Themes
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#answers-{{ loop.index }}" type="button" role="tab">
+                                                <i class="fas fa-table me-1"></i> Answers
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#graph-{{ loop.index }}" type="button" role="tab">
+                                                <i class="fas fa-project-diagram me-1"></i> Graph
+                                            </button>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="themes-{{ loop.index }}" role="tabpanel">
+                                            <div class="row">
+                                                {% for theme in message.metadata.get('themes', []) %}
+                                                    <div class="col-md-6 mb-2">
+                                                        <div class="theme-card p-2 rounded animate__animated animate__fadeIn" data-index="{{ loop.index0 }}">
+                                                            <i class="fas fa-tag me-2"></i> {{ theme }}
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="answers-{{ loop.index }}" role="tabpanel">
+                                            <div class="table-container">
+                                                {% if message.metadata.get('extracted_answers') %}
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>File</th>
+                                                                <th>Answer</th>
+                                                                <th>Citation</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for answer in message.metadata.get('extracted_answers', []) %}
+                                                                <tr>
+                                                                    <td>{{ answer.Filename }}</td>
+                                                                    <td>{{ answer.Extracted_Answer }}</td>
+                                                                    <td>{{ answer.Citation }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                {% else %}
+                                                    <p>No extracted answers available.</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="graph-{{ loop.index }}" role="tabpanel">
+                                            {% if message.metadata.get('graph_path') %}
+                                                <div class="position-relative">
+                                                    <iframe class="graph-container" style="height: 400px;" src="{{ url_for('static', filename=message.metadata.get('graph_path')) }}"></iframe>
+                                                    <button class="btn btn-sm btn-primary fullscreen-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="View fullscreen">
+                                                        <i class="fas fa-expand"></i>
+                                                    </button>
+                                                </div>
+                                            {% else %}
+                                                <p>No knowledge graph available.</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <!-- Current Response Tabs (if any) - Only show if we have current_graph_path but it's not in chat history -->
+                {% if current_graph_path and current_themes and not (chat_history and chat_history[-1].role == 'assistant' and chat_history[-1].metadata.get('graph_path')) %}
+                    <!-- Hidden Result Tabs for Current Response -->
+                    <div class="result-section mt-3">
+                        <ul class="nav nav-tabs result-tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#current-themes" type="button" role="tab">
+                                    <i class="fas fa-lightbulb me-1"></i> Themes
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#current-answers" type="button" role="tab">
+                                    <i class="fas fa-table me-1"></i> Answers
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#current-graph" type="button" role="tab">
+                                    <i class="fas fa-project-diagram me-1"></i> Graph
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="current-themes" role="tabpanel">
+                                <div class="row">
+                                    {% for theme in current_themes %}
+                                        <div class="col-md-6 mb-2">
+                                            <div class="theme-card p-2 rounded animate__animated animate__fadeIn" data-index="{{ loop.index0 }}">
+                                                <i class="fas fa-tag me-2"></i> {{ theme }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="current-answers" role="tabpanel">
+                                <div class="table-container">
+                                    {{ current_table | safe }}
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="current-graph" role="tabpanel">
+                                <div class="position-relative">
+                                    <iframe class="graph-container" style="height: 400px;" src="{{ url_for('static', filename=current_graph_path) }}"></iframe>
+                                    <button class="btn btn-sm btn-primary fullscreen-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="View fullscreen">
+                                        <i class="fas fa-expand"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input">
+                <form method="POST" action="{{ url_for('chat', session_id=session_id, follow_up='true') }}" enctype="multipart/form-data" class="d-flex flex-column">
+                    <div class="input-group mb-2">
+                        <textarea class="form-control auto-resize" name="query" placeholder="Ask a follow-up question..." rows="1" required data-tippy-content="Ask specific follow-up questions for better results. You can reference previous answers."></textarea>
+                        <button class="btn btn-primary" type="submit" data-tippy-content="Send your question">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="chat-actions mt-3">
+                        <!-- File Upload Section -->
+                        <div class="file-upload-section mb-3 p-3 border rounded bg-light">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-paperclip me-2 text-primary"></i>
+                                <h6 class="mb-0">Add More Documents</h6>
+                            </div>
+                            <div class="input-group">
+                                <input type="file" id="file" name="file" class="form-control" accept=".pdf,.png,.jpg,.jpeg" multiple data-tippy-content="Upload additional documents to enhance your research">
+                                <label class="input-group-text" for="file">
+                                    <i class="fas fa-file-upload"></i> Browse
+                                </label>
+                            </div>
+                            <div class="form-text text-muted small mt-2">
+                                <i class="fas fa-info-circle me-1"></i> Upload additional documents to enhance your research. Supported formats: PDF, PNG, JPG, JPEG.
+                            </div>
+                            <div id="selected-files-chat" class="mt-2 small"></div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="form-text text-muted">
+                                Ask a follow-up question or upload new documents to continue the conversation.
+                            </div>
+                            <!-- Reset All Data button removed -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="helpModalLabel">Help & Tips</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="accordion" id="helpAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <i class="fas fa-question-circle me-2"></i> How to Ask Effective Questions
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    <p>To get the best results, try these question formats:</p>
+                                    <ul>
+                                        <li><strong>Specific questions:</strong> "What does the document say about climate change impacts?"</li>
+                                        <li><strong>Comparative questions:</strong> "Compare the different approaches to renewable energy mentioned in the document."</li>
+                                        <li><strong>Summary requests:</strong> "Summarize the key findings about urban development."</li>
+                                        <li><strong>Evidence questions:</strong> "What evidence supports the claim that exercise improves mental health?"</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <i class="fas fa-file-upload me-2"></i> Document Upload Tips
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    <p>For best results with document uploads:</p>
+                                    <ul>
+                                        <li><strong>Multiple files:</strong> You can upload multiple documents at once by holding Ctrl/Cmd while selecting files.</li>
+                                        <li><strong>Supported formats:</strong> PDF, JPG, JPEG, and PNG files are supported.</li>
+                                        <li><strong>Text quality:</strong> Documents with clear, searchable text work best. Scanned documents may have variable results.</li>
+                                        <li><strong>File size:</strong> Larger files may take longer to process.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <i class="fas fa-lightbulb me-2"></i> Understanding Themes & Knowledge Graphs
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    <p><strong>Themes:</strong> These are key topics or concepts identified in your documents. They help you understand the main subjects discussed.</p>
+                                    <p><strong>Knowledge Graph:</strong> This visualization shows how documents and themes are connected:</p>
+                                    <ul>
+                                        <li><strong>Blue nodes:</strong> Document sections</li>
+                                        <li><strong>Green nodes:</strong> Identified themes</li>
+                                        <li><strong>Connections:</strong> Show relationships between documents and themes</li>
+                                        <li><strong>Highlighted nodes:</strong> Most relevant to your current query</li>
+                                    </ul>
+                                    <p>You can interact with the graph by zooming, panning, and clicking on nodes for more information.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    <i class="fas fa-exclamation-triangle me-2"></i> Troubleshooting
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    <p>Common issues and solutions:</p>
+                                    <ul>
+                                        <li><strong>No results:</strong> Try rephrasing your question to be more specific.</li>
+                                        <li><strong>Processing errors:</strong> If document processing fails, try a different file format or a clearer document.</li>
+                                        <li><strong>Slow response:</strong> Large documents may take longer to process. Please be patient.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got It</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay d-none">
+        <div class="loading-content">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 loading-text">Processing your request...</p>
+        </div>
+    </div>
+
+    <!-- Analysis Animation Overlay (Embedded directly in HTML) -->
+    <div id="analysisOverlay" class="analysis-overlay" style="display: none;" data-permanent="true">
+        <div class="analysis-content">
+            <div class="animation-container">
+                <div class="doc-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="scan-line"></div>
+            </div>
+            <div class="processing-steps" id="processingSteps">
+                <!-- Steps will be added dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Analysis Animation Styles (Embedded directly in HTML) */
+        .analysis-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .analysis-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-width: 90%;
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .animation-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 2rem;
+        }
+
+        .doc-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: #007bff;
+            animation: pulse 2s infinite;
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: #28a745;
+            animation: scan 2s infinite;
+            box-shadow: 0 0 10px #28a745;
+            border-radius: 5px;
+        }
+
+        .processing-steps {
+            width: 100%;
+            text-align: left;
+        }
+
+        .step {
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .step.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0;
+            }
+            50% {
+                top: calc(100% - 5px);
+            }
+            100% {
+                top: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- No tour functionality -->
+    <!-- Tippy.js for tooltips -->
+    <script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/analysis-animation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/new-animation.js') }}"></script>
+    <!-- No tour functionality -->
+
+    <!-- Delete Chat Script -->
+    <script>
+        // Define these functions in the global scope so they're available everywhere
+        function showLoadingOverlay(message) {
+            let loadingOverlay = document.getElementById('loadingOverlay');
+            if (!loadingOverlay) {
+                loadingOverlay = document.createElement('div');
+                loadingOverlay.id = 'loadingOverlay';
+                loadingOverlay.className = 'loading-overlay';
+
+                const loadingContent = document.createElement('div');
+                loadingContent.className = 'loading-content';
+
+                const spinner = document.createElement('div');
+                spinner.className = 'spinner-border text-primary';
+                spinner.setAttribute('role', 'status');
+                spinner.style.width = '3rem';
+                spinner.style.height = '3rem';
+
+                const spinnerText = document.createElement('span');
+                spinnerText.className = 'visually-hidden';
+                spinnerText.textContent = 'Loading...';
+
+                const loadingText = document.createElement('p');
+                loadingText.className = 'mt-3 loading-text';
+                loadingText.textContent = message || 'Processing...';
+
+                spinner.appendChild(spinnerText);
+                loadingContent.appendChild(spinner);
+                loadingContent.appendChild(loadingText);
+                loadingOverlay.appendChild(loadingContent);
+
+                document.body.appendChild(loadingOverlay);
+            } else {
+                const loadingText = loadingOverlay.querySelector('.loading-text');
+                if (loadingText && message) {
+                    loadingText.textContent = message;
+                }
+                loadingOverlay.classList.remove('d-none');
+            }
+            return loadingOverlay;
+        }
+
+        function deleteChat(sessionId, button, isCurrent = false) {
+            console.log('Delete chat called for session:', sessionId, 'isCurrent:', isCurrent);
+
+            if (confirm('Are you sure you want to delete this chat session? This will remove all messages and associated documents for this chat only. This action cannot be undone.')) {
+                // Show loading overlay
+                const loadingOverlay = showLoadingOverlay('Deleting chat session... This may take a moment.');
+
+                // Show loading state on button
+                const originalContent = button.innerHTML;
+                button.disabled = true;
+                if (button.classList.contains('btn-sm')) {
+                    button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
+                } else {
+                    button.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Deleting...';
+                }
+
+                // Send delete request
+                fetch('/delete_chat/' + sessionId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Delete successful:', data);
+                    if (isCurrent) {
+                        // If deleting current chat, redirect to home
+                        window.location.href = '/';
+                    } else {
+                        // If deleting another chat, just remove it from the sidebar
+                        const sessionItem = button.closest('.session-item');
+                        if (sessionItem) {
+                            sessionItem.remove();
+                        }
+                        // Hide loading overlay
+                        if (loadingOverlay) {
+                            loadingOverlay.classList.add('d-none');
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting chat:', error);
+                    alert('Error deleting chat: ' + error.message);
+
+                    // Reset button state
+                    button.disabled = false;
+                    button.innerHTML = originalContent;
+
+                    // Hide loading overlay
+                    if (loadingOverlay) {
+                        loadingOverlay.classList.add('d-none');
+                    }
+                });
+            }
+        }
+
+        // Initialize delete buttons when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing delete buttons');
+
+            // Main delete button in header
+            const deleteButton = document.getElementById('delete-chat-btn');
+            if (deleteButton) {
+                console.log('Found main delete button');
+                deleteButton.addEventListener('click', function() {
+                    deleteChat('{{ session_id }}', this, true);
+                });
+            }
+
+            // Delete buttons in sidebar
+            const sidebarDeleteButtons = document.querySelectorAll('.delete-session-btn');
+            console.log('Found sidebar delete buttons:', sidebarDeleteButtons.length);
+
+            sidebarDeleteButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    console.log('Sidebar delete button clicked');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const sessionId = this.getAttribute('data-session-id');
+                    const isCurrent = this.hasAttribute('data-is-current');
+                    console.log('Session ID:', sessionId, 'Is Current:', isCurrent);
+                    deleteChat(sessionId, this, isCurrent);
+                });
+            });
+        });
+    </script>
+    <script>
+        // Auto-scroll to bottom of chat
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Refresh knowledge graph iframe
+            const refreshKnowledgeGraph = () => {
+                // Get all graph iframes
+                const graphIframes = document.querySelectorAll('.graph-container');
+
+                // Refresh each iframe by adding a timestamp to the URL
+                graphIframes.forEach(iframe => {
+                    const currentSrc = iframe.src;
+                    const timestamp = new Date().getTime();
+
+                    // Check if the URL already has a query parameter
+                    if (currentSrc.includes('?')) {
+                        iframe.src = currentSrc.split('?')[0] + '?t=' + timestamp;
+                    } else {
+                        iframe.src = currentSrc + '?t=' + timestamp;
+                    }
+
+                    console.log('Refreshed knowledge graph iframe:', iframe.src);
+                });
+            };
+
+            // Refresh knowledge graph on page load
+            refreshKnowledgeGraph();
+
+            // Check if this is a response to a follow-up question
+            if (window.location.search.includes('follow_up=true') ||
+                (window.lastSubmissionTime && (new Date().getTime() - window.lastSubmissionTime < 10000))) {
+
+                console.log('Follow-up question detected, switching to graph tab');
+
+                // Find the current graph tab button and click it
+                const graphTabButton = document.querySelector('button[data-bs-target="#current-graph"]');
+                if (graphTabButton) {
+                    setTimeout(() => {
+                        graphTabButton.click();
+                        console.log('Switched to graph tab');
+                    }, 500);
+                }
+            }
+
+            // Show file names when selected
+            const fileInput = document.getElementById('file');
+            const selectedFilesChat = document.getElementById('selected-files-chat');
+
+            fileInput.addEventListener('change', function() {
+                // Clear previous selections
+                if (selectedFilesChat) selectedFilesChat.innerHTML = '';
+
+                if (this.files.length > 0) {
+                    // Show count of files
+                    const fileCount = this.files.length;
+
+                    // Create file list for display
+                    if (selectedFilesChat) {
+                        const fileList = document.createElement('ul');
+                        fileList.className = 'list-unstyled small';
+
+                        let totalSize = 0;
+
+                        for (let i = 0; i < this.files.length; i++) {
+                            const file = this.files[i];
+                            totalSize += file.size;
+                            const fileExtension = file.name.split('.').pop().toLowerCase();
+                            let iconClass = 'fa-file';
+
+                            if (['pdf'].includes(fileExtension)) {
+                                iconClass = 'fa-file-pdf';
+                            } else if (['png', 'jpg', 'jpeg'].includes(fileExtension)) {
+                                iconClass = 'fa-file-image';
+                            }
+
+                            const listItem = document.createElement('li');
+                            listItem.className = 'mb-1';
+
+                            // Format file size
+                            const fileSize = formatFileSize(file.size);
+
+                            listItem.innerHTML = `<i class="fas ${iconClass} me-1"></i> ${file.name} <span class="text-muted ms-1">(${fileSize})</span>`;
+                            fileList.appendChild(listItem);
+                        }
+
+                        // Add total size info
+                        if (fileCount > 1) {
+                            const totalSizeInfo = document.createElement('div');
+                            totalSizeInfo.className = 'text-muted small mt-1';
+                            totalSizeInfo.textContent = `Total size: ${formatFileSize(totalSize)}`;
+                            selectedFilesChat.appendChild(totalSizeInfo);
+                        }
+
+                        selectedFilesChat.appendChild(fileList);
+                    }
+                }
+
+                // Helper function to format file size
+                function formatFileSize(bytes) {
+                    if (bytes === 0) return '0 Bytes';
+                    const k = 1024;
+                    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                    const i = Math.floor(Math.log(bytes) / Math.log(k));
+                    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+                }
+            });
+
+            // Auto-resize textarea
+            const textarea = document.querySelector('textarea.auto-resize');
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+
+            // Initialize tooltips
+            tippy('[data-tippy-content]');
+
+            // Apply animation delays to elements with data-index attribute
+            document.querySelectorAll('[data-index]').forEach(element => {
+                const index = parseInt(element.getAttribute('data-index'));
+                element.style.animationDelay = (index * 0.1) + 's';
+            });
+
+            // Add functionality to fullscreen buttons
+            const fullscreenButtons = document.querySelectorAll('.fullscreen-btn');
+            fullscreenButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const iframe = this.closest('.position-relative').querySelector('iframe');
+                    if (iframe) {
+                        // Open the iframe source in a new tab/window
+                        window.open(iframe.src, '_blank');
+                    }
+                });
+            });
+
+            // Mobile sidebar toggle
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const chatSidebar = document.getElementById('chat-sidebar');
+
+            if (sidebarToggle && chatSidebar) {
+                sidebarToggle.addEventListener('click', function() {
+                    chatSidebar.classList.toggle('sidebar-mobile-open');
+
+                    // Change icon based on state
+                    const icon = this.querySelector('i');
+                    if (chatSidebar.classList.contains('sidebar-mobile-open')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                        this.innerHTML = '<i class="fas fa-times"></i> Close Sidebar';
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                        this.innerHTML = '<i class="fas fa-bars"></i> Toggle Sidebar';
+                    }
+                });
+            }
+
+            // Show analysis animation when form is submitted
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                // Check if form is valid
+                if (this.checkValidity()) {
+                    // Prevent default form submission temporarily
+                    e.preventDefault();
+
+                    // Get the submit button
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        // Disable the button to prevent multiple submissions
+                        submitBtn.disabled = true;
+                        // Change the button icon to a spinner
+                        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
+                    }
+
+                    // Get the file input
+                    const fileInput = document.getElementById('file');
+
+                    // Show the appropriate animation based on whether files are being uploaded
+                    const analysisOverlay = document.getElementById('analysisOverlay');
+                    const processingSteps = document.getElementById('processingSteps');
+
+                    // Clear any existing steps
+                    processingSteps.innerHTML = '';
+
+                    // Define steps based on whether files are being uploaded
+                    let steps = [];
+                    if (fileInput.files.length > 0) {
+                        // Document processing steps
+                        steps = [
+                            '<i class="fas fa-file-upload text-primary me-2"></i> Uploading documents...',
+                            '<i class="fas fa-file-alt text-primary me-2"></i> Extracting text content...',
+                            '<i class="fas fa-database text-primary me-2"></i> Creating vector embeddings...',
+                            '<i class="fas fa-brain text-primary me-2"></i> Analyzing document content...',
+                            '<i class="fas fa-search text-primary me-2"></i> Finding relevant information...'
+                        ];
+                        // Change icon to document
+                        document.querySelector('.doc-icon i').className = 'fas fa-file-alt';
+                    } else {
+                        // Query processing steps
+                        steps = [
+                            '<i class="fas fa-question-circle text-primary me-2"></i> Processing your question...',
+                            '<i class="fas fa-search text-primary me-2"></i> Searching for relevant information...',
+                            '<i class="fas fa-brain text-primary me-2"></i> Analyzing context...',
+                            '<i class="fas fa-project-diagram text-primary me-2"></i> Generating knowledge graph...',
+                            '<i class="fas fa-lightbulb text-primary me-2"></i> Formulating response...'
+                        ];
+                        // Change icon to brain
+                        document.querySelector('.doc-icon i').className = 'fas fa-brain';
+                    }
+
+                    // Create step elements
+                    steps.forEach((step, index) => {
+                        const stepElement = document.createElement('div');
+                        stepElement.className = 'step';
+                        stepElement.innerHTML = step;
+                        processingSteps.appendChild(stepElement);
+                    });
+
+                    // Use the new animation function
+                    console.log("Using showNewAnimation function");
+                    window.showNewAnimation('query');
+
+                    // Submit the form after a short delay to allow animation to start
+                    setTimeout(() => {
+                        this.submit();
+                    }, 500);
+
+                    // Store the current timestamp to identify this submission
+                    window.lastSubmissionTime = new Date().getTime();
+
+                    return false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - Document Research & Theme Identification</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container">
+            <h1 class="app-title">Document Analysis Results</h1>
+            <p class="app-subtitle">AI-powered insights from your document</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Main Content -->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Query Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-question-circle me-2"></i> Your Question
+                    </div>
+                    <div class="card-body">
+                        <p class="lead">{{ query }}</p>
+                    </div>
+                </div>
+
+                <!-- Response Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-comment-dots me-2"></i> AI Response
+                    </div>
+                    <div class="card-body">
+                        <div class="response-content">
+                            {{ response | safe }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Themes Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-lightbulb me-2"></i> Identified Themes
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {% for theme in themes %}
+                                <div class="col-md-6 mb-2">
+                                    <div class="theme-card p-3 rounded">
+                                        <i class="fas fa-tag me-2"></i> {{ theme }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extracted Answers Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-2"></i> Extracted Answers
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            {{ table | safe }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Knowledge Graph Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-project-diagram me-2"></i> Knowledge Graph
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="position-relative">
+                            <iframe class="graph-container" src="{{ url_for('static', filename=graph_path) }}"></iframe>
+                            <button class="btn btn-sm btn-primary fullscreen-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="View fullscreen">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex justify-content-between mb-5">
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left me-2"></i> Back to Home
+                    </a>
+                    <form action="{{ url_for('reset') }}" method="POST" onsubmit="return confirm('Are you sure you want to reset? This will delete all uploaded documents and conversation history.');">
+                        <button type="submit" id="reset-btn" class="btn btn-danger">
+                            <i class="fas fa-trash-alt me-2"></i> Reset Application
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-5 py-3 text-center text-muted">
+        <div class="container">
+            <p>Document Research & Theme Identification Chatbot</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
