@@ -67,11 +67,22 @@ The application is configured for easy deployment on Render.com:
 
 5. Render will detect the `render.yaml` file and configure the service automatically
 
-6. Add your `OPENAI_API_KEY` when prompted
+6. Add your environment variables:
+   - Required variables:
+     - `OPENAI_API_KEY`: Your OpenAI API key
+     - `LLM_MODEL`: Set to `gpt-3.5-turbo`
+     - `DATA_FOLDER`: Set to `/data`
+     - `UPLOAD_FOLDER`: Set to `/data/uploads`
+     - `STATIC_FOLDER`: Set to `static`
+     - `FLASK_ENV`: Set to `production`
+     - `FLASK_DEBUG`: Set to `0`
+     - `SECRET_KEY`: A random secure string (Render can generate this automatically)
 
 7. Click "Apply" to deploy
 
 8. Once deployed, access your application at the provided URL
+
+9. Check the build logs if you encounter any issues during deployment
 
 ### 4. Production Configuration
 
@@ -129,6 +140,8 @@ server {
 
 ### 6. Troubleshooting
 
+#### Docker Deployment Issues
+
 1. Check application logs:
    ```
    docker-compose logs -f
@@ -147,6 +160,37 @@ server {
    ```
    docker-compose restart
    ```
+
+#### Render Deployment Issues
+
+1. **Build Failures**:
+   - Check the build logs in the Render dashboard
+   - Common issues include:
+     - Missing system dependencies (fixed by our `build.sh` script)
+     - Package conflicts in requirements.txt
+     - Memory limits during package installation
+
+2. **Application Startup Failures**:
+   - Check if all required environment variables are set
+   - Verify that the disk is properly mounted
+   - Check the application logs for specific error messages
+
+3. **Database or Vector Store Issues**:
+   - The application should automatically create necessary directories
+   - If you see database errors, you may need to manually create the database:
+     - SSH into your Render instance
+     - Navigate to the `/data` directory
+     - Run initialization commands manually
+
+4. **OpenAI API Issues**:
+   - Verify your API key is correct
+   - Check if you have sufficient credits
+   - Ensure the model specified in `LLM_MODEL` is available to your account
+
+5. **Performance Issues**:
+   - Consider scaling up your Render instance
+   - Reduce the number of workers if memory is limited
+   - Monitor CPU and memory usage in the Render dashboard
 
 ## Security Considerations
 

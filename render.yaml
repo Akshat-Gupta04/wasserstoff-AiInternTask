@@ -2,13 +2,15 @@ services:
   - type: web
     name: document-research-chatbot
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: chmod +x build.sh && ./build.sh
     startCommand: gunicorn wsgi:app --workers=4 --threads=2 --timeout=120 --log-level=info
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
       - key: OPENAI_API_KEY
         sync: false
+      - key: LLM_MODEL
+        value: gpt-3.5-turbo
       - key: FLASK_ENV
         value: production
       - key: FLASK_DEBUG
@@ -19,6 +21,8 @@ services:
         value: /data/uploads
       - key: STATIC_FOLDER
         value: static
+      - key: SECRET_KEY
+        generateValue: true
     healthCheckPath: /health
     autoDeploy: true
     disk:
