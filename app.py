@@ -90,6 +90,17 @@ import nltk
 nltk.download('punkt')
 from nltk import bigrams, word_tokenize
 
+# Import EasyOCR (will be used as a fallback when Tesseract is not available)
+# Import it in a try-except block to handle potential import errors
+try:
+    import easyocr
+    EASYOCR_AVAILABLE = True
+    # Initialize the EasyOCR reader (this will be done lazily when needed)
+    easyocr_reader = None
+except ImportError:
+    EASYOCR_AVAILABLE = False
+    easyocr_reader = None
+
 # Custom JSON encoder to handle NumPy types
 class NumpyEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -1113,6 +1124,92 @@ def update_session_title(session_id, title):
         logger.error(f"Error updating title for session {session_id}: {str(e)}")
         raise
 
+# Function to check if Tesseract OCR is available
+def is_tesseract_available():
+    """Check if Tesseract OCR is installed and available in PATH"""
+    try:
+        # Try to get Tesseract version
+        pytesseract.get_tesseract_version()
+        return True
+    except Exception as e:
+        logger.warning(f"Tesseract OCR not available: {str(e)}")
+        return False
+
+# Function to get the best available OCR engine
+def get_ocr_engine():
+    """Get the best available OCR engine
+
+    Returns:
+        str: 'tesseract', 'easyocr', or 'none'
+    """
+    # First, check if Tesseract is available (preferred for speed and accuracy)
+    if is_tesseract_available():
+        return 'tesseract'
+
+    # If Tesseract is not available, check if EasyOCR is available
+    if EASYOCR_AVAILABLE:
+        return 'easyocr'
+
+    # If neither is available, return 'none'
+    return 'none'
+
+# Function to perform OCR using the best available engine
+def perform_ocr(image, engine=None):
+    """Perform OCR on an image using the best available engine
+
+    Args:
+        image: PIL Image object
+        engine: Optional engine to use ('tesseract', 'easyocr', or None for auto-detect)
+
+    Returns:
+        str: Extracted text
+    """
+    global easyocr_reader
+
+    # If no engine specified, auto-detect
+    if engine is None:
+        engine = get_ocr_engine()
+
+    # Use the specified engine
+    if engine == 'tesseract':
+        try:
+            return pytesseract.image_to_string(image)
+        except Exception as e:
+            logger.error(f"Tesseract OCR failed: {str(e)}")
+            # Fall back to EasyOCR if available
+            if EASYOCR_AVAILABLE:
+                engine = 'easyocr'
+            else:
+                return ""
+
+    if engine == 'easyocr':
+        try:
+            # Initialize EasyOCR reader if not already done
+            if easyocr_reader is None:
+                logger.info("Initializing EasyOCR reader (this may take a moment)")
+                easyocr_reader = easyocr.Reader(['en'])
+                logger.info("EasyOCR reader initialized")
+
+            # Convert PIL Image to numpy array if needed
+            if isinstance(image, Image.Image):
+                import numpy as np
+                image_np = np.array(image)
+            else:
+                image_np = image
+
+            # Perform OCR with EasyOCR
+            results = easyocr_reader.readtext(image_np)
+
+            # Extract text from results
+            text = " ".join([result[1] for result in results])
+            return text
+        except Exception as e:
+            logger.error(f"EasyOCR failed: {str(e)}")
+            return ""
+
+    # If no OCR engine is available
+    return ""
+
 # Function to count tokens
 def count_tokens(text, model="gpt-3.5-turbo"):
     """Count the number of tokens in a text string"""
@@ -1340,22 +1437,32 @@ def process_document(file_path, filename, session_id='default'):
                     logger.info(f"Trying OCR on PDF images for {filename}")
                     doc = fitz.open(file_path)
 
-                    for page_num in range(len(doc)):
-                        try:
-                            # Get page as image
-                            pix = doc[page_num].get_pixmap()
-                            img_data = pix.tobytes("png")
-                            img = Image.open(io.BytesIO(img_data))
+                    # Get the best available OCR engine
+                    ocr_engine = get_ocr_engine()
 
-                            # Run OCR
-                            text = pytesseract.image_to_string(img)
-                            if text and len(text.strip()) > 0:
-                                logger.info(f"OCR extracted {len(text)} characters from page {page_num+1}")
-                                texts.append((page_num + 1, text))
-                            else:
-                                logger.warning(f"OCR found no text on page {page_num+1}")
-                        except Exception as page_err:
-                            logger.error(f"OCR error on page {page_num+1}: {str(page_err)}")
+                    if ocr_engine != 'none':
+                        logger.info(f"Using {ocr_engine} for OCR processing")
+                        for page_num in range(len(doc)):
+                            try:
+                                # Get page as image
+                                pix = doc[page_num].get_pixmap()
+                                img_data = pix.tobytes("png")
+                                img = Image.open(io.BytesIO(img_data))
+
+                                # Run OCR using the best available engine
+                                text = perform_ocr(img, engine=ocr_engine)
+                                if text and len(text.strip()) > 0:
+                                    logger.info(f"OCR extracted {len(text)} characters from page {page_num+1} using {ocr_engine}")
+                                    texts.append((page_num + 1, text))
+                                else:
+                                    logger.warning(f"OCR found no text on page {page_num+1} using {ocr_engine}")
+                            except Exception as page_err:
+                                logger.error(f"OCR error on page {page_num+1}: {str(page_err)}")
+                    else:
+                        # If no OCR engine is available, add a note about it
+                        logger.info(f"Adding note about missing OCR capability for {filename}")
+                        ocr_note = f"[OCR processing was skipped for this document because no OCR engine is available. Text extraction was limited to directly embedded text. Install Tesseract OCR or add EasyOCR to your environment for better results.]"
+                        texts.append((1, ocr_note))
                 except Exception as ocr_err:
                     logger.error(f"PDF OCR failed: {str(ocr_err)}")
 
@@ -1368,18 +1475,29 @@ def process_document(file_path, filename, session_id='default'):
                 image = Image.open(file_path)
                 logger.info(f"Image opened: size={image.size}, mode={image.mode}")
 
-                # Convert to RGB if needed
-                if image.mode not in ('RGB', 'L'):
-                    logger.info(f"Converting image from {image.mode} to RGB")
-                    image = image.convert('RGB')
+                # Get the best available OCR engine
+                ocr_engine = get_ocr_engine()
 
-                # Use pytesseract for OCR
-                text = pytesseract.image_to_string(image)
-                if text and len(text.strip()) > 0:
-                    logger.info(f"OCR extracted {len(text)} characters from image")
-                    texts.append((1, text))
+                if ocr_engine != 'none':
+                    logger.info(f"Using {ocr_engine} for OCR processing")
+
+                    # Convert to RGB if needed
+                    if image.mode not in ('RGB', 'L'):
+                        logger.info(f"Converting image from {image.mode} to RGB")
+                        image = image.convert('RGB')
+
+                    # Use the best available OCR engine
+                    text = perform_ocr(image, engine=ocr_engine)
+                    if text and len(text.strip()) > 0:
+                        logger.info(f"OCR extracted {len(text)} characters from image using {ocr_engine}")
+                        texts.append((1, text))
+                    else:
+                        logger.warning(f"OCR found no text in image using {ocr_engine}")
                 else:
-                    logger.warning(f"OCR found no text in image")
+                    # If no OCR engine is available, add a note about it
+                    logger.info(f"Adding note about missing OCR capability for image {filename}")
+                    ocr_note = f"[OCR processing was skipped for this image because no OCR engine is available. Install Tesseract OCR or add EasyOCR to your environment to process image files.]"
+                    texts.append((1, ocr_note))
             except Exception as img_err:
                 logger.error(f"Image processing failed: {str(img_err)}")
 

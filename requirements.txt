@@ -18,6 +18,7 @@ pdfplumber==0.10.2
 pytesseract==0.3.10
 pillow==10.0.1
 pymupdf==1.23.5
+easyocr==1.7.1  # Alternative OCR that doesn't require system dependencies
 
 # Data processing
 numpy==1.24.3

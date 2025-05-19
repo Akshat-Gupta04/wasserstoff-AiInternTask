@@ -16,6 +16,7 @@ A comprehensive Flask-based web application for document analysis, theme identif
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Deployment](#-deployment)
+  - [OCR on Render](#ocr-on-render)
 - [Technologies Used](#-technologies-used)
 - [Project Structure](#-project-structure)
 - [Hybrid Retrieval System](#-hybrid-retrieval-system)
@@ -133,7 +134,10 @@ The application follows a modular architecture with the following components:
 - Python 3.8 or higher
 - pip (Python package manager)
 - OpenAI API key
-- Tesseract OCR (for image processing)
+- One of the following OCR engines (for image and scanned PDF processing):
+  - Tesseract OCR (optional, system installation)
+  - EasyOCR (included in requirements.txt, pure Python alternative)
+  - Note: The application will automatically use the best available OCR engine
 
 ### Setup
 
@@ -282,6 +286,53 @@ The application is configured to store all data in a persistent disk on Render:
   - For additional safety, consider implementing scheduled backups
   - Critical data is isolated in the `/data` directory for easy backup
 
+### OCR on Render
+
+The application now supports two OCR engines:
+
+1. **Tesseract OCR** (system installation)
+   - Not installed by default on Render
+   - Requires system-level installation
+   - Faster and more accurate for many documents
+
+2. **EasyOCR** (pure Python package)
+   - Included in requirements.txt
+   - Works without system dependencies
+   - Automatically used when Tesseract is not available
+   - Slightly slower but works well on Render without modifications
+
+The application will automatically use the best available OCR engine:
+1. First choice: Tesseract OCR (if installed)
+2. Second choice: EasyOCR (if Tesseract is not available)
+3. Fallback: Skip OCR processing (if neither is available)
+
+#### Installing Tesseract on Render (Optional)
+
+If you prefer to use Tesseract OCR on Render for better performance:
+
+1. Use a Docker-based deployment with Tesseract installed in the Dockerfile:
+   ```dockerfile
+   FROM python:3.9-slim
+
+   # Install Tesseract OCR
+   RUN apt-get update && apt-get install -y tesseract-ocr
+
+   # Continue with your normal Dockerfile instructions
+   ```
+
+2. Or add Tesseract installation to your build command (may not work on free tier):
+   ```
+   apt-get update && apt-get install -y tesseract-ocr && pip install -r requirements.txt
+   ```
+
+#### Using EasyOCR on Render (Recommended)
+
+For most deployments, EasyOCR is the simplest solution:
+- No system dependencies required
+- Works out of the box on Render
+- Included in requirements.txt
+- First-time initialization may be slow, but subsequent OCR operations are reasonable
+
 ### Verifying Deployment
 
 - The application includes a `/health` endpoint that checks:
@@ -318,7 +369,7 @@ The application is configured to store all data in a persistent disk on Render:
   - LangChain 0.3.14: Framework for LLM applications
   - OpenAI API: Embeddings and LLM capabilities
   - PyMuPDF & pdfplumber: PDF processing
-  - pytesseract: OCR for images
+  - pytesseract & EasyOCR: Dual OCR engines for images and scanned documents
   - scikit-learn: NMF and TF-IDF for theme identification
   - NetworkX: Graph construction and analysis
   - NLTK: Natural language processing
