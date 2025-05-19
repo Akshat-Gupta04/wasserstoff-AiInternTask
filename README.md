@@ -1,12 +1,12 @@
 # Document Research & Theme Identification Chatbot
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask)
-![Version](https://img.shields.io/badge/version-1.1.0-blue)
+![Version](https://img.shields.io/badge/version-1.2.0-blue)
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
 ![Flask](https://img.shields.io/badge/flask-3.1.0-green)
 ![License](https://img.shields.io/badge/license-MIT-orange)
 
-A comprehensive Flask-based web application for document analysis, theme identification, and knowledge graph visualization. Developed by Akshat Gupta, this application allows users to upload multiple documents, ask questions about their content, and explore the relationships between themes and information through interactive visualizations.
+A comprehensive Flask-based web application for document analysis, theme identification, and knowledge graph visualization. Developed by Akshat Gupta, this application allows users to upload multiple documents, ask questions about their content, and explore the relationships between themes and information through interactive visualizations. The application is optimized for deployment on Render with in-memory document processing and efficient resource usage.
 
 ## 📋 Table of Contents
 
@@ -26,7 +26,7 @@ A comprehensive Flask-based web application for document analysis, theme identif
 ## ✨ Features
 
 - **Multi-Document Processing**: Upload and analyze multiple PDF and image files simultaneously
-- **Advanced Text Extraction**: Combines PyMuPDF, pdfplumber, and OCR for robust text extraction
+- **Advanced Text Extraction**: Combines PyMuPDF, pdfplumber, and Tesseract OCR for robust text extraction
 - **Semantic Search**: Vector embeddings with OpenAI's text-embedding-3-small model
 - **Hybrid Retrieval System**: Natural retrieval of document sections with LLM-enhanced summaries
 - **Theme Identification**: Automatic discovery of key themes using NMF and TF-IDF with LLM refinement
@@ -134,10 +134,9 @@ The application follows a modular architecture with the following components:
 - Python 3.8 or higher
 - pip (Python package manager)
 - OpenAI API key
-- One of the following OCR engines (for image and scanned PDF processing):
-  - Tesseract OCR (optional, system installation)
-  - EasyOCR (included in requirements.txt, pure Python alternative)
-  - Note: The application will automatically use the best available OCR engine
+- Tesseract OCR (optional, for image and scanned PDF processing)
+  - Note: OCR functionality requires Tesseract to be installed on your system
+  - OCR will not work in cloud deployments on Render due to compatibility issues
 
 ### Setup
 
@@ -237,21 +236,17 @@ This application is configured for easy deployment on Render.com and other cloud
    - Name: `document-research-chatbot` (or your preferred name)
    - Environment: `Python 3`
    - Build Command: `pip install -r requirements.txt`
-   - Start Command: `gunicorn wsgi:app --workers=4 --threads=2 --timeout=120`
-   - Select the appropriate instance type (at least 1GB RAM recommended)
+   - Start Command: `gunicorn app:app --bind 0.0.0.0:$PORT --workers=2 --threads=4 --timeout=120`
+   - Select the appropriate instance type (at least 512MB RAM recommended)
 
 4. **Add environment variables**:
    - `OPENAI_API_KEY`: Your OpenAI API key
-   - `FLASK_ENV`: `production`
    - `FLASK_DEBUG`: `0`
+   - `GUNICORN_TIMEOUT`: `120`
+   - `GUNICORN_WORKERS`: `2`
+   - `GUNICORN_THREADS`: `4`
 
-5. **Create a disk**:
-   - In the Render dashboard, go to "Disks"
-   - Create a new disk with at least 10GB
-   - Mount path: `/app/data`
-   - Attach it to your web service
-
-6. **Deploy**:
+5. **Deploy**:
    - Click "Create Web Service"
    - Render will automatically build and deploy your application
 
@@ -288,50 +283,29 @@ The application is configured to store all data in a persistent disk on Render:
 
 ### OCR on Render
 
-The application now supports two OCR engines:
+The application supports OCR using Tesseract:
 
-1. **Tesseract OCR** (system installation)
-   - Not installed by default on Render
-   - Requires system-level installation
-   - Faster and more accurate for many documents
+- **Tesseract OCR** (system installation)
+  - Not compatible with Render's environment
+  - OCR functionality will not work in cloud deployments on Render
+  - Works properly when running the application locally with Tesseract installed
 
-2. **EasyOCR** (pure Python package)
-   - Included in requirements.txt
-   - Works without system dependencies
-   - Automatically used when Tesseract is not available
-   - Slightly slower but works well on Render without modifications
+#### OCR Limitations on Render
 
-The application will automatically use the best available OCR engine:
-1. First choice: Tesseract OCR (if installed)
-2. Second choice: EasyOCR (if Tesseract is not available)
-3. Fallback: Skip OCR processing (if neither is available)
+Due to Render's environment constraints:
 
-#### Installing Tesseract on Render (Optional)
+- OCR functionality is disabled in cloud deployments
+- The application will still process PDFs using PyMuPDF and pdfplumber
+- Text extraction will be limited to directly embedded text in PDFs
+- Image-only PDFs and image files will have limited text extraction capabilities
 
-If you prefer to use Tesseract OCR on Render for better performance:
+#### Using OCR Locally
 
-1. Use a Docker-based deployment with Tesseract installed in the Dockerfile:
-   ```dockerfile
-   FROM python:3.9-slim
-
-   # Install Tesseract OCR
-   RUN apt-get update && apt-get install -y tesseract-ocr
-
-   # Continue with your normal Dockerfile instructions
-   ```
-
-2. Or add Tesseract installation to your build command (may not work on free tier):
-   ```
-   apt-get update && apt-get install -y tesseract-ocr && pip install -r requirements.txt
-   ```
-
-#### Using EasyOCR on Render (Recommended)
-
-For most deployments, EasyOCR is the simplest solution:
-- No system dependencies required
-- Works out of the box on Render
-- Included in requirements.txt
-- First-time initialization may be slow, but subsequent OCR operations are reasonable
+To use OCR functionality:
+- Download the code and run it locally
+- Install Tesseract OCR on your system
+- The application will automatically detect and use Tesseract
+- All OCR features will work properly in local deployments
 
 ### Verifying Deployment
 
@@ -345,19 +319,20 @@ For most deployments, EasyOCR is the simplest solution:
 ### Scaling Considerations
 
 - **Worker Configuration**: The application uses Gunicorn with:
-  - 4 worker processes for handling concurrent requests
-  - 2 threads per worker for improved throughput
+  - 2 worker processes for handling concurrent requests
+  - 4 threads per worker for improved throughput
   - 120-second timeout for long-running operations
 
 - **Memory Usage**:
-  - Each worker requires approximately 250-500MB of RAM
-  - Choose an instance with at least 2GB RAM for production use
+  - Each worker requires approximately 200-250MB of RAM
+  - The application is optimized to work within Render's 512MB memory limit
+  - In-memory document processing helps reduce memory usage
   - The application implements periodic cache clearing to manage memory
 
 - **Storage Requirements**:
-  - Start with 10GB disk and monitor usage
   - Vector databases grow with document count
-  - Consider increasing disk size for large document collections
+  - The application processes documents in memory to reduce storage requirements
+  - Consider increasing resources for large document collections
 
 ## 🛠 Technologies Used
 
@@ -369,7 +344,7 @@ For most deployments, EasyOCR is the simplest solution:
   - LangChain 0.3.14: Framework for LLM applications
   - OpenAI API: Embeddings and LLM capabilities
   - PyMuPDF & pdfplumber: PDF processing
-  - pytesseract & EasyOCR: Dual OCR engines for images and scanned documents
+  - pytesseract: OCR engine for images and scanned documents
   - scikit-learn: NMF and TF-IDF for theme identification
   - NetworkX: Graph construction and analysis
   - NLTK: Natural language processing
