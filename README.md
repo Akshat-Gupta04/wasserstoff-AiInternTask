@@ -8,7 +8,7 @@
 
 A comprehensive Flask-based web application for document analysis, theme identification, and knowledge graph visualization. Developed by Akshat Gupta, this application allows users to upload multiple documents, ask questions about their content, and explore the relationships between themes and information through interactive visualizations. The application is optimized for deployment on Render with in-memory document processing and efficient resource usage.
 
-##  Screenshots and Video demo
+##  Screenshots
 
 ### Homepage
 ![Homepage](results/homepage.png)
