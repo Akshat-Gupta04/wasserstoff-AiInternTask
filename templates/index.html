@@ -233,6 +233,10 @@ Frontend Architecture:
                                         <div class="form-text mb-2">
                                             <i class="fas fa-info-circle me-1 text-primary"></i> <span class="d-none d-md-inline">Select multiple files by holding Ctrl/Cmd while selecting.</span> Supported: PDF, PNG, JPG, JPEG.
                                         </div>
+                                        <div class="alert alert-warning py-2 mt-2 mb-2 small">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>
+                                            <strong>Note:</strong> OCR for images and scanned PDFs works only in local deployments. Cloud deployment on Render does not support Tesseract OCR.
+                                        </div>
                                         <div id="selected-files" class="mt-3 mb-2"></div>
                                     </div>
                                 </div>
@@ -520,6 +524,11 @@ Frontend Architecture:
                     <div class="alert alert-info">
                         <i class="fas fa-info-circle me-2"></i>
                         <strong>Pro Tip:</strong> You can upload multiple documents at once by holding Ctrl/Cmd while selecting files.
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>OCR Notice:</strong> OCR support has been implemented and tested properly, but due to Render's incompatibility with Tesseract OCR, this feature will not work in the cloud deployment. You can download the code and run it locally to use OCR functionality.
                     </div>
 
                     <h5 class="mt-4">Example Questions to Ask:</h5>

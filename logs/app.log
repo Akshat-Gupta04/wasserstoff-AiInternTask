@@ -3001,3 +3001,117 @@
 2025-05-19 19:07:58,189 - document_research_app - WARNING - Collection documents_b7958d4297_275191 not found or could not be reset: Collection documents_b7958d4297_275191 does not exist.
 2025-05-19 19:07:58,190 - document_research_app - WARNING - Collection documents_07b96044-3012-48f2-a4b9-62b6a2275191 not found or could not be reset: Collection documents_07b96044-3012-48f2-a4b9-62b6a2275191 does not exist.
 2025-05-19 19:07:58,191 - document_research_app - INFO - Showing only current session 07b96044-3012-48f2-a4b9-62b6a2275191 in sidebar
+2025-05-19 19:37:32,456 - document_research_app - INFO - Database schema initialized successfully
+2025-05-19 19:37:32,457 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-19 19:37:32,459 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-19 19:37:32,459 - document_research_app - INFO - Starting application in production mode
+2025-05-19 19:37:32,459 - document_research_app - INFO - Data folder: data
+2025-05-19 19:37:32,459 - document_research_app - INFO - Upload folder: uploads
+2025-05-19 19:37:32,459 - document_research_app - INFO - Static folder: static
+2025-05-19 19:37:32,460 - document_research_app - INFO - Host: 0.0.0.0, Port: 8080
+2025-05-19 19:37:36,772 - document_research_app - INFO - Created new session: a2300222-c6da-47b0-b953-593d0ab939a0
+2025-05-19 19:37:36,773 - document_research_app - INFO - Created new isolated session a2300222-c6da-47b0-b953-593d0ab939a0 on page load
+2025-05-19 19:37:36,775 - document_research_app - INFO - Reset session a2300222-c6da-47b0-b953-593d0ab939a0 data: removed 0 documents and 0 messages
+2025-05-19 19:37:36,912 - document_research_app - WARNING - Collection documents_bb5f74d244_b939a0 not found or could not be reset: Collection documents_bb5f74d244_b939a0 does not exist.
+2025-05-19 19:37:36,912 - document_research_app - WARNING - Collection documents_a2300222-c6da-47b0-b953-593d0ab939a0 not found or could not be reset: Collection documents_a2300222-c6da-47b0-b953-593d0ab939a0 does not exist.
+2025-05-19 19:37:36,913 - document_research_app - INFO - Showing only current session a2300222-c6da-47b0-b953-593d0ab939a0 in sidebar
+2025-05-19 19:37:48,527 - document_research_app - INFO - Created new session: 002789b8-1d1a-4662-bbd7-c85fb4ebe296
+2025-05-19 19:37:48,530 - document_research_app - INFO - Created new isolated session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 on page load
+2025-05-19 19:37:48,530 - document_research_app - INFO - Reset session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 data: removed 0 documents and 0 messages
+2025-05-19 19:37:48,542 - document_research_app - WARNING - Collection documents_24a4ee25a9_ebe296 not found or could not be reset: Collection documents_24a4ee25a9_ebe296 does not exist.
+2025-05-19 19:37:48,543 - document_research_app - WARNING - Collection documents_002789b8-1d1a-4662-bbd7-c85fb4ebe296 not found or could not be reset: Collection documents_002789b8-1d1a-4662-bbd7-c85fb4ebe296 does not exist.
+2025-05-19 19:37:48,543 - document_research_app - INFO - Showing only current session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 in sidebar
+2025-05-19 19:37:48,550 - document_research_app - INFO - Saving file: bridge_sensor.pdf (size: 178368 bytes) for session 002789b8-1d1a-4662-bbd7-c85fb4ebe296
+2025-05-19 19:37:48,551 - document_research_app - INFO - Successfully saved file: bridge_sensor.pdf (size: 178368 bytes)
+2025-05-19 19:37:48,551 - document_research_app - INFO - Processing document: bridge_sensor.pdf (path: uploads/002789b8-1d1a-4662-bbd7-c85fb4ebe296/bridge_sensor.pdf) for session 002789b8-1d1a-4662-bbd7-c85fb4ebe296
+2025-05-19 19:37:48,551 - document_research_app - INFO - File size: 0.17 MB
+2025-05-19 19:37:48,551 - document_research_app - INFO - Processing PDF file: bridge_sensor.pdf
+2025-05-19 19:37:48,551 - document_research_app - INFO - Trying PyMuPDF for bridge_sensor.pdf
+2025-05-19 19:37:48,557 - document_research_app - INFO - PyMuPDF opened document with 8 pages
+2025-05-19 19:37:48,569 - document_research_app - INFO - PyMuPDF extracted 2669 characters from page 1
+2025-05-19 19:37:48,570 - document_research_app - INFO - PyMuPDF extracted 1470 characters from page 2
+2025-05-19 19:37:48,571 - document_research_app - INFO - PyMuPDF extracted 1488 characters from page 3
+2025-05-19 19:37:48,571 - document_research_app - INFO - PyMuPDF extracted 1878 characters from page 4
+2025-05-19 19:37:48,572 - document_research_app - INFO - PyMuPDF extracted 1836 characters from page 5
+2025-05-19 19:37:48,572 - document_research_app - INFO - PyMuPDF extracted 1594 characters from page 6
+2025-05-19 19:37:48,573 - document_research_app - INFO - PyMuPDF extracted 2228 characters from page 7
+2025-05-19 19:37:48,573 - document_research_app - INFO - PyMuPDF extracted 528 characters from page 8
+2025-05-19 19:37:48,573 - document_research_app - INFO - Successfully extracted 8 text sections from bridge_sensor.pdf
+2025-05-19 19:37:48,597 - document_research_app - INFO - Created ChromaDB client for path: data/chroma_db/session_24a4ee25a9
+2025-05-19 19:37:48,597 - document_research_app - INFO - Creating new collection documents_24a4ee25a9_ebe296 for session 002789b8-1d1a-4662-bbd7-c85fb4ebe296
+2025-05-19 19:37:48,631 - document_research_app - INFO - ChromaDB collection documents_24a4ee25a9_ebe296 initialized successfully for session 002789b8-1d1a-4662-bbd7-c85fb4ebe296
+2025-05-19 19:37:48,633 - document_research_app - INFO - Created new isolated vector collection for session: 002789b8-1d1a-4662-bbd7-c85fb4ebe296
+2025-05-19 19:37:49,821 - document_research_app - INFO - Session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 used 567 embedding tokens
+2025-05-19 19:37:51,160 - document_research_app - INFO - Session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 used 460 embedding tokens
+2025-05-19 19:37:51,796 - document_research_app - INFO - Session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 used 428 embedding tokens
+2025-05-19 19:37:52,515 - document_research_app - INFO - Session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 used 544 embedding tokens
+2025-05-19 19:37:53,315 - document_research_app - INFO - Session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 used 533 embedding tokens
+2025-05-19 19:37:53,710 - document_research_app - INFO - Session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 used 390 embedding tokens
+2025-05-19 19:37:54,651 - document_research_app - INFO - Session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 used 571 embedding tokens
+2025-05-19 19:37:55,173 - document_research_app - INFO - Session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 used 94 embedding tokens
+2025-05-19 19:37:55,187 - document_research_app - INFO - Created BM25 index with 8 paragraphs
+2025-05-19 19:37:55,187 - document_research_app - INFO - Returning 8 paragraphs and 8 document info items
+2025-05-19 19:37:55,189 - document_research_app - INFO - Successfully processed bridge_sensor.pdf: extracted 8 paragraphs
+2025-05-19 19:37:55,189 - document_research_app - INFO - No cleanup needed for bridge_sensor.pdf as it was processed in memory
+2025-05-19 19:37:55,192 - document_research_app - INFO - Processing query for session 002789b8-1d1a-4662-bbd7-c85fb4ebe296: what is this all about...
+2025-05-19 19:37:55,837 - document_research_app - INFO - Session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 used 5 embedding tokens
+2025-05-19 19:37:55,857 - document_research_app - INFO - Retrieved 8 documents for theme generation in session 002789b8-1d1a-4662-bbd7-c85fb4ebe296
+2025-05-19 19:37:59,157 - document_research_app - INFO - Created LLM-enhanced response for session 002789b8-1d1a-4662-bbd7-c85fb4ebe296
+2025-05-19 19:38:17,636 - document_research_app - INFO - Deleted session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 with 8 documents and 2 messages
+2025-05-19 19:38:17,640 - document_research_app - INFO - Successfully deleted session-specific ChromaDB directory at data/chroma_db/session_24a4ee25a9
+2025-05-19 19:38:17,659 - document_research_app - WARNING - Collection documents_24a4ee25a9_ebe296 not found or could not be deleted: Collection documents_24a4ee25a9_ebe296 does not exist.
+2025-05-19 19:38:17,659 - document_research_app - WARNING - Collection documents_002789b8-1d1a-4662-bbd7-c85fb4ebe296 not found or could not be deleted: Collection documents_002789b8-1d1a-4662-bbd7-c85fb4ebe296 does not exist.
+2025-05-19 19:38:17,659 - document_research_app - INFO - Removed session 002789b8-1d1a-4662-bbd7-c85fb4ebe296 from session_collections dictionary
+2025-05-19 19:38:17,660 - document_research_app - INFO - Successfully deleted session files at uploads/002789b8-1d1a-4662-bbd7-c85fb4ebe296
+2025-05-19 19:38:17,681 - document_research_app - INFO - Created new session: 2730b755-a6a3-4280-a757-79080d2483e9
+2025-05-19 19:38:17,681 - document_research_app - INFO - Created new isolated session 2730b755-a6a3-4280-a757-79080d2483e9 on page load
+2025-05-19 19:38:17,681 - document_research_app - INFO - Reset session 2730b755-a6a3-4280-a757-79080d2483e9 data: removed 0 documents and 0 messages
+2025-05-19 19:38:17,685 - document_research_app - WARNING - Collection documents_69a6d1ef63_2483e9 not found or could not be reset: Collection documents_69a6d1ef63_2483e9 does not exist.
+2025-05-19 19:38:17,686 - document_research_app - WARNING - Collection documents_2730b755-a6a3-4280-a757-79080d2483e9 not found or could not be reset: Collection documents_2730b755-a6a3-4280-a757-79080d2483e9 does not exist.
+2025-05-19 19:38:17,686 - document_research_app - INFO - Showing only current session 2730b755-a6a3-4280-a757-79080d2483e9 in sidebar
+2025-05-19 19:42:56,451 - document_research_app - INFO - Database schema initialized successfully
+2025-05-19 19:42:56,451 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-19 19:42:56,453 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-19 19:42:56,454 - document_research_app - INFO - Starting application in production mode
+2025-05-19 19:42:56,454 - document_research_app - INFO - Data folder: data
+2025-05-19 19:42:56,454 - document_research_app - INFO - Upload folder: uploads
+2025-05-19 19:42:56,454 - document_research_app - INFO - Static folder: static
+2025-05-19 19:42:56,454 - document_research_app - INFO - Host: 0.0.0.0, Port: 3001
+2025-05-19 19:43:41,694 - document_research_app - INFO - Created new session: 2b6895a9-e914-4b7b-b5d1-d89b64326fb2
+2025-05-19 19:43:41,695 - document_research_app - INFO - Created new isolated session 2b6895a9-e914-4b7b-b5d1-d89b64326fb2 on page load
+2025-05-19 19:43:41,696 - document_research_app - INFO - Reset session 2b6895a9-e914-4b7b-b5d1-d89b64326fb2 data: removed 0 documents and 0 messages
+2025-05-19 19:43:41,928 - document_research_app - WARNING - Collection documents_11862cf48c_326fb2 not found or could not be reset: Collection documents_11862cf48c_326fb2 does not exist.
+2025-05-19 19:43:41,929 - document_research_app - WARNING - Collection documents_2b6895a9-e914-4b7b-b5d1-d89b64326fb2 not found or could not be reset: Collection documents_2b6895a9-e914-4b7b-b5d1-d89b64326fb2 does not exist.
+2025-05-19 19:43:41,930 - document_research_app - INFO - Showing only current session 2b6895a9-e914-4b7b-b5d1-d89b64326fb2 in sidebar
+2025-05-19 19:44:33,185 - document_research_app - INFO - Created new session: 381d8472-e104-408b-8806-69be5e1857a5
+2025-05-19 19:44:33,186 - document_research_app - INFO - Created new isolated session 381d8472-e104-408b-8806-69be5e1857a5 on page load
+2025-05-19 19:44:33,186 - document_research_app - INFO - Reset session 381d8472-e104-408b-8806-69be5e1857a5 data: removed 0 documents and 0 messages
+2025-05-19 19:44:33,204 - document_research_app - WARNING - Collection documents_86ef6b1b3b_1857a5 not found or could not be reset: Collection documents_86ef6b1b3b_1857a5 does not exist.
+2025-05-19 19:44:33,204 - document_research_app - WARNING - Collection documents_381d8472-e104-408b-8806-69be5e1857a5 not found or could not be reset: Collection documents_381d8472-e104-408b-8806-69be5e1857a5 does not exist.
+2025-05-19 19:44:33,204 - document_research_app - INFO - Showing only current session 381d8472-e104-408b-8806-69be5e1857a5 in sidebar
+2025-05-19 19:44:59,830 - document_research_app - INFO - Created new session: c0f944a4-efdb-4d79-b5c7-b9384862277c
+2025-05-19 19:44:59,839 - document_research_app - INFO - Created new isolated session c0f944a4-efdb-4d79-b5c7-b9384862277c on page load
+2025-05-19 19:44:59,840 - document_research_app - INFO - Reset session c0f944a4-efdb-4d79-b5c7-b9384862277c data: removed 0 documents and 0 messages
+2025-05-19 19:44:59,854 - document_research_app - WARNING - Collection documents_97c732d694_62277c not found or could not be reset: Collection documents_97c732d694_62277c does not exist.
+2025-05-19 19:44:59,855 - document_research_app - WARNING - Collection documents_c0f944a4-efdb-4d79-b5c7-b9384862277c not found or could not be reset: Collection documents_c0f944a4-efdb-4d79-b5c7-b9384862277c does not exist.
+2025-05-19 19:44:59,855 - document_research_app - INFO - Showing only current session c0f944a4-efdb-4d79-b5c7-b9384862277c in sidebar
+2025-05-19 19:45:16,384 - document_research_app - INFO - Database schema initialized successfully
+2025-05-19 19:45:16,385 - document_research_app - INFO - Created shared SQLite connection to data/documents.db
+2025-05-19 19:45:16,386 - document_research_app - INFO - Scheduled cache clearing every 6 hours
+2025-05-19 19:45:16,387 - document_research_app - INFO - Starting application in production mode
+2025-05-19 19:45:16,387 - document_research_app - INFO - Data folder: data
+2025-05-19 19:45:16,387 - document_research_app - INFO - Upload folder: uploads
+2025-05-19 19:45:16,387 - document_research_app - INFO - Static folder: static
+2025-05-19 19:45:16,387 - document_research_app - INFO - Host: 0.0.0.0, Port: 3001
+2025-05-19 19:45:17,714 - document_research_app - INFO - Created new session: 204a78a6-0b23-489f-86d3-89dfc30d1bb8
+2025-05-19 19:45:17,716 - document_research_app - INFO - Created new isolated session 204a78a6-0b23-489f-86d3-89dfc30d1bb8 on page load
+2025-05-19 19:45:17,718 - document_research_app - INFO - Reset session 204a78a6-0b23-489f-86d3-89dfc30d1bb8 data: removed 0 documents and 0 messages
+2025-05-19 19:45:17,880 - document_research_app - WARNING - Collection documents_5b2645a2ba_0d1bb8 not found or could not be reset: Collection documents_5b2645a2ba_0d1bb8 does not exist.
+2025-05-19 19:45:17,881 - document_research_app - WARNING - Collection documents_204a78a6-0b23-489f-86d3-89dfc30d1bb8 not found or could not be reset: Collection documents_204a78a6-0b23-489f-86d3-89dfc30d1bb8 does not exist.
+2025-05-19 19:45:17,881 - document_research_app - INFO - Showing only current session 204a78a6-0b23-489f-86d3-89dfc30d1bb8 in sidebar
+2025-05-19 19:45:18,860 - document_research_app - INFO - Created new session: 3dd8e1a4-67ca-4ef3-87a1-8566105b33e1
+2025-05-19 19:45:18,871 - document_research_app - INFO - Created new isolated session 3dd8e1a4-67ca-4ef3-87a1-8566105b33e1 on page load
+2025-05-19 19:45:18,874 - document_research_app - INFO - Reset session 3dd8e1a4-67ca-4ef3-87a1-8566105b33e1 data: removed 0 documents and 0 messages
+2025-05-19 19:45:18,933 - document_research_app - WARNING - Collection documents_ca2e261ef6_5b33e1 not found or could not be reset: Collection documents_ca2e261ef6_5b33e1 does not exist.
+2025-05-19 19:45:18,934 - document_research_app - WARNING - Collection documents_3dd8e1a4-67ca-4ef3-87a1-8566105b33e1 not found or could not be reset: Collection documents_3dd8e1a4-67ca-4ef3-87a1-8566105b33e1 does not exist.
+2025-05-19 19:45:18,934 - document_research_app - INFO - Showing only current session 3dd8e1a4-67ca-4ef3-87a1-8566105b33e1 in sidebar

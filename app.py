@@ -55,7 +55,6 @@ Technical Implementation:
 import os
 import sqlite3
 import chromadb
-import easyocr
 import pdfplumber
 import pytesseract
 import shutil
@@ -91,16 +90,14 @@ import nltk
 nltk.download('punkt')
 from nltk import bigrams, word_tokenize
 
-# Import EasyOCR (will be used as a fallback when Tesseract is not available)
-# Import it in a try-except block to handle potential import errors
+# Check if Tesseract is available
+TESSERACT_AVAILABLE = False
 try:
-
-    EASYOCR_AVAILABLE = True
-    # Initialize the EasyOCR reader (this will be done lazily when needed)
-    easyocr_reader = None
-except ImportError:
-    EASYOCR_AVAILABLE = False
-    easyocr_reader = None
+    # Try to get Tesseract version
+    pytesseract.get_tesseract_version()
+    TESSERACT_AVAILABLE = True
+except Exception:
+    TESSERACT_AVAILABLE = False
 
 # Custom JSON encoder to handle NumPy types
 class NumpyEncoder(json.JSONEncoder):
@@ -1141,34 +1138,28 @@ def get_ocr_engine():
     """Get the best available OCR engine
 
     Returns:
-        str: 'tesseract', 'easyocr', or 'none'
+        str: 'tesseract' or 'none'
     """
-    # First, check if Tesseract is available (preferred for speed and accuracy)
-    if is_tesseract_available():
+    # Check if Tesseract is available
+    if TESSERACT_AVAILABLE:
         return 'tesseract'
 
-    # If Tesseract is not available, check if EasyOCR is available
-    if EASYOCR_AVAILABLE:
-        return 'easyocr'
-
-    # If neither is available, return 'none'
+    # If Tesseract is not available, return 'none'
     return 'none'
 
 # Function to perform OCR using the best available engine
 def perform_ocr(image, engine=None, max_retries=0, current_retry=0):
-    """Perform OCR on an image using the best available engine
+    """Perform OCR on an image using Tesseract
 
     Args:
         image: PIL Image object
-        engine: Optional engine to use ('tesseract', 'easyocr', or None for auto-detect)
+        engine: Optional engine to use ('tesseract' or None for auto-detect)
         max_retries: Maximum number of retries if OCR fails
         current_retry: Current retry count (used internally)
 
     Returns:
         str: Extracted text
     """
-    global easyocr_reader
-
     # Safety check to prevent infinite recursion
     if current_retry > max_retries:
         logger.warning(f"Maximum OCR retries ({max_retries}) reached. Returning empty result.")
@@ -1178,130 +1169,13 @@ def perform_ocr(image, engine=None, max_retries=0, current_retry=0):
     if engine is None:
         engine = get_ocr_engine()
 
-    # Use the specified engine
+    # Use Tesseract if available
     if engine == 'tesseract':
         try:
             logger.info("Performing OCR with Tesseract")
             return pytesseract.image_to_string(image)
         except Exception as e:
             logger.error(f"Tesseract OCR failed: {str(e)}")
-            # Fall back to EasyOCR if available and we haven't exceeded max retries
-            if EASYOCR_AVAILABLE and current_retry < max_retries:
-                logger.info("Falling back to EasyOCR")
-                return perform_ocr(image, 'easyocr', max_retries, current_retry + 1)
-            else:
-                return ""
-
-    if engine == 'easyocr':
-        try:
-            # Initialize EasyOCR reader if not already done
-            if easyocr_reader is None:
-                logger.info("Initializing EasyOCR reader (this may take a moment)")
-                try:
-                    # Set a timeout for initialization to prevent hanging
-                    import threading
-                    import time
-
-                    # Flag to track if initialization is complete
-                    init_complete = [False]
-                    init_error = [None]
-
-                    # Function to initialize EasyOCR in a separate thread
-                    def init_easyocr():
-                        try:
-                            # Use global variable instead of nonlocal
-                            global easyocr_reader
-                            easyocr_reader = easyocr.Reader(['en'], gpu=False)  # Explicitly disable GPU to avoid CUDA issues
-                            init_complete[0] = True
-                        except Exception as e:
-                            init_error[0] = e
-
-                    # Start initialization in a separate thread
-                    init_thread = threading.Thread(target=init_easyocr)
-                    init_thread.daemon = True
-                    init_thread.start()
-
-                    # Wait for initialization with timeout
-                    timeout = 60  # 60 seconds timeout
-                    start_time = time.time()
-                    while not init_complete[0] and time.time() - start_time < timeout:
-                        time.sleep(1)
-
-                    # Check if initialization completed
-                    if not init_complete[0]:
-                        if init_error[0]:
-                            raise init_error[0]
-                        else:
-                            raise TimeoutError("EasyOCR initialization timed out")
-
-                    logger.info("EasyOCR reader initialized successfully")
-                except Exception as init_err:
-                    logger.error(f"EasyOCR initialization failed: {str(init_err)}")
-                    return ""
-
-            # Convert PIL Image to numpy array if needed
-            if isinstance(image, Image.Image):
-                import numpy as np
-                image_np = np.array(image)
-            else:
-                image_np = image
-
-            # Set a reasonable size limit to prevent processing extremely large images
-            # that might cause infinite processing or memory issues
-            h, w = image_np.shape[:2]
-            max_dimension = 3000  # Reasonable limit for OCR
-
-            if h > max_dimension or w > max_dimension:
-                logger.warning(f"Image too large for OCR ({w}x{h}). Resizing to max dimension {max_dimension}.")
-                # Resize while maintaining aspect ratio
-                if h > w:
-                    new_h = max_dimension
-                    new_w = int(w * (max_dimension / h))
-                else:
-                    new_w = max_dimension
-                    new_h = int(h * (max_dimension / w))
-
-                # Resize using PIL for better quality
-                pil_img = Image.fromarray(image_np)
-                pil_img = pil_img.resize((new_w, new_h), Image.LANCZOS)
-                image_np = np.array(pil_img)
-
-            # Perform OCR with EasyOCR with a timeout
-            import signal
-
-            class TimeoutException(Exception):
-                pass
-
-            def timeout_handler(signum, frame):
-                raise TimeoutException("OCR processing timed out")
-
-            # Set timeout for OCR operation (30 seconds)
-            signal.signal(signal.SIGALRM, timeout_handler)
-            signal.alarm(30)
-
-            try:
-                logger.info("Performing OCR with EasyOCR")
-                results = easyocr_reader.readtext(image_np)
-                # Reset alarm
-                signal.alarm(0)
-
-                # Extract text from results
-                text = " ".join([result[1] for result in results])
-                return text
-            except TimeoutException:
-                logger.error("EasyOCR processing timed out")
-                return "OCR processing timed out. The image may be too complex."
-            except Exception as ocr_err:
-                # Reset alarm
-                signal.alarm(0)
-                logger.error(f"EasyOCR processing failed: {str(ocr_err)}")
-                return ""
-            finally:
-                # Reset alarm to be safe
-                signal.alarm(0)
-
-        except Exception as e:
-            logger.error(f"EasyOCR failed: {str(e)}")
             return ""
 
     # If no OCR engine is available
@@ -1554,7 +1428,7 @@ def process_document_in_memory(file_data, filename, session_id='default'):
                     else:
                         # If no OCR engine is available, add a note about it
                         logger.info(f"Adding note about missing OCR capability for {filename}")
-                        ocr_note = f"[OCR processing was skipped for this document because no OCR engine is available. Text extraction was limited to directly embedded text. Install Tesseract OCR or add EasyOCR to your environment for better results.]"
+                        ocr_note = f"[OCR processing was skipped for this document because no OCR engine is available. Text extraction was limited to directly embedded text. Install Tesseract OCR for better results.]"
                         texts.append((1, ocr_note))
                 except Exception as ocr_err:
                     logger.error(f"PDF OCR failed: {str(ocr_err)}")
@@ -1619,7 +1493,7 @@ def process_document_in_memory(file_data, filename, session_id='default'):
                 else:
                     # If no OCR engine is available, add a note about it
                     logger.info(f"Adding note about missing OCR capability for image {filename}")
-                    ocr_note = f"[OCR processing was skipped for this image because no OCR engine is available. Install Tesseract OCR or add EasyOCR to your environment to process image files.]"
+                    ocr_note = f"[OCR processing was skipped for this image because no OCR engine is available. Install Tesseract OCR to process image files.]"
                     texts.append((1, ocr_note))
             except Exception as img_err:
                 logger.error(f"Image processing failed: {str(img_err)}")
@@ -1962,7 +1836,7 @@ def process_document(file_path, filename, session_id='default'):
                     else:
                         # If no OCR engine is available, add a note about it
                         logger.info(f"Adding note about missing OCR capability for {filename}")
-                        ocr_note = f"[OCR processing was skipped for this document because no OCR engine is available. Text extraction was limited to directly embedded text. Install Tesseract OCR or add EasyOCR to your environment for better results.]"
+                        ocr_note = f"[OCR processing was skipped for this document because no OCR engine is available. Text extraction was limited to directly embedded text. Install Tesseract OCR for better results.]"
                         texts.append((1, ocr_note))
                 except Exception as ocr_err:
                     logger.error(f"PDF OCR failed: {str(ocr_err)}")
@@ -2027,7 +1901,7 @@ def process_document(file_path, filename, session_id='default'):
                 else:
                     # If no OCR engine is available, add a note about it
                     logger.info(f"Adding note about missing OCR capability for image {filename}")
-                    ocr_note = f"[OCR processing was skipped for this image because no OCR engine is available. Install Tesseract OCR or add EasyOCR to your environment to process image files.]"
+                    ocr_note = f"[OCR processing was skipped for this image because no OCR engine is available. Install Tesseract OCR to process image files.]"
                     texts.append((1, ocr_note))
             except Exception as img_err:
                 logger.error(f"Image processing failed: {str(img_err)}")
