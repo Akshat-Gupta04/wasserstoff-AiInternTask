@@ -55,6 +55,7 @@ Technical Implementation:
 import os
 import sqlite3
 import chromadb
+import easyocr
 import pdfplumber
 import pytesseract
 import shutil
@@ -93,7 +94,7 @@ from nltk import bigrams, word_tokenize
 # Import EasyOCR (will be used as a fallback when Tesseract is not available)
 # Import it in a try-except block to handle potential import errors
 try:
-    import easyocr
+
     EASYOCR_AVAILABLE = True
     # Initialize the EasyOCR reader (this will be done lazily when needed)
     easyocr_reader = None
@@ -1154,17 +1155,24 @@ def get_ocr_engine():
     return 'none'
 
 # Function to perform OCR using the best available engine
-def perform_ocr(image, engine=None):
+def perform_ocr(image, engine=None, max_retries=0, current_retry=0):
     """Perform OCR on an image using the best available engine
 
     Args:
         image: PIL Image object
         engine: Optional engine to use ('tesseract', 'easyocr', or None for auto-detect)
+        max_retries: Maximum number of retries if OCR fails
+        current_retry: Current retry count (used internally)
 
     Returns:
         str: Extracted text
     """
     global easyocr_reader
+
+    # Safety check to prevent infinite recursion
+    if current_retry > max_retries:
+        logger.warning(f"Maximum OCR retries ({max_retries}) reached. Returning empty result.")
+        return ""
 
     # If no engine specified, auto-detect
     if engine is None:
@@ -1173,12 +1181,14 @@ def perform_ocr(image, engine=None):
     # Use the specified engine
     if engine == 'tesseract':
         try:
+            logger.info("Performing OCR with Tesseract")
             return pytesseract.image_to_string(image)
         except Exception as e:
             logger.error(f"Tesseract OCR failed: {str(e)}")
-            # Fall back to EasyOCR if available
-            if EASYOCR_AVAILABLE:
-                engine = 'easyocr'
+            # Fall back to EasyOCR if available and we haven't exceeded max retries
+            if EASYOCR_AVAILABLE and current_retry < max_retries:
+                logger.info("Falling back to EasyOCR")
+                return perform_ocr(image, 'easyocr', max_retries, current_retry + 1)
             else:
                 return ""
 
@@ -1187,8 +1197,47 @@ def perform_ocr(image, engine=None):
             # Initialize EasyOCR reader if not already done
             if easyocr_reader is None:
                 logger.info("Initializing EasyOCR reader (this may take a moment)")
-                easyocr_reader = easyocr.Reader(['en'])
-                logger.info("EasyOCR reader initialized")
+                try:
+                    # Set a timeout for initialization to prevent hanging
+                    import threading
+                    import time
+
+                    # Flag to track if initialization is complete
+                    init_complete = [False]
+                    init_error = [None]
+
+                    # Function to initialize EasyOCR in a separate thread
+                    def init_easyocr():
+                        try:
+                            # Use global variable instead of nonlocal
+                            global easyocr_reader
+                            easyocr_reader = easyocr.Reader(['en'], gpu=False)  # Explicitly disable GPU to avoid CUDA issues
+                            init_complete[0] = True
+                        except Exception as e:
+                            init_error[0] = e
+
+                    # Start initialization in a separate thread
+                    init_thread = threading.Thread(target=init_easyocr)
+                    init_thread.daemon = True
+                    init_thread.start()
+
+                    # Wait for initialization with timeout
+                    timeout = 60  # 60 seconds timeout
+                    start_time = time.time()
+                    while not init_complete[0] and time.time() - start_time < timeout:
+                        time.sleep(1)
+
+                    # Check if initialization completed
+                    if not init_complete[0]:
+                        if init_error[0]:
+                            raise init_error[0]
+                        else:
+                            raise TimeoutError("EasyOCR initialization timed out")
+
+                    logger.info("EasyOCR reader initialized successfully")
+                except Exception as init_err:
+                    logger.error(f"EasyOCR initialization failed: {str(init_err)}")
+                    return ""
 
             # Convert PIL Image to numpy array if needed
             if isinstance(image, Image.Image):
@@ -1197,12 +1246,60 @@ def perform_ocr(image, engine=None):
             else:
                 image_np = image
 
-            # Perform OCR with EasyOCR
-            results = easyocr_reader.readtext(image_np)
+            # Set a reasonable size limit to prevent processing extremely large images
+            # that might cause infinite processing or memory issues
+            h, w = image_np.shape[:2]
+            max_dimension = 3000  # Reasonable limit for OCR
 
-            # Extract text from results
-            text = " ".join([result[1] for result in results])
-            return text
+            if h > max_dimension or w > max_dimension:
+                logger.warning(f"Image too large for OCR ({w}x{h}). Resizing to max dimension {max_dimension}.")
+                # Resize while maintaining aspect ratio
+                if h > w:
+                    new_h = max_dimension
+                    new_w = int(w * (max_dimension / h))
+                else:
+                    new_w = max_dimension
+                    new_h = int(h * (max_dimension / w))
+
+                # Resize using PIL for better quality
+                pil_img = Image.fromarray(image_np)
+                pil_img = pil_img.resize((new_w, new_h), Image.LANCZOS)
+                image_np = np.array(pil_img)
+
+            # Perform OCR with EasyOCR with a timeout
+            import signal
+
+            class TimeoutException(Exception):
+                pass
+
+            def timeout_handler(signum, frame):
+                raise TimeoutException("OCR processing timed out")
+
+            # Set timeout for OCR operation (30 seconds)
+            signal.signal(signal.SIGALRM, timeout_handler)
+            signal.alarm(30)
+
+            try:
+                logger.info("Performing OCR with EasyOCR")
+                results = easyocr_reader.readtext(image_np)
+                # Reset alarm
+                signal.alarm(0)
+
+                # Extract text from results
+                text = " ".join([result[1] for result in results])
+                return text
+            except TimeoutException:
+                logger.error("EasyOCR processing timed out")
+                return "OCR processing timed out. The image may be too complex."
+            except Exception as ocr_err:
+                # Reset alarm
+                signal.alarm(0)
+                logger.error(f"EasyOCR processing failed: {str(ocr_err)}")
+                return ""
+            finally:
+                # Reset alarm to be safe
+                signal.alarm(0)
+
         except Exception as e:
             logger.error(f"EasyOCR failed: {str(e)}")
             return ""
@@ -1323,6 +1420,392 @@ def cleanup_processed_file(file_path, session_id):
     except Exception as e:
         logger.error(f"Error cleaning up file {file_path}: {str(e)}")
         return False
+
+def process_document_in_memory(file_data, filename, session_id='default'):
+    """Process a document with multiple extraction methods for maximum reliability
+    without saving to disk. Processes file data directly from memory.
+
+    Methodology:
+    -----------
+    1. Document Text Extraction:
+       - Uses a multi-layered approach with fallback mechanisms
+       - Primary: PyMuPDF for direct text extraction from PDFs
+       - Secondary: pdfplumber as an alternative PDF text extractor
+       - Tertiary: OCR using pytesseract for image-based or scanned documents
+
+    2. Text Processing:
+       - Splits text into paragraphs for granular analysis
+       - Filters out short or empty paragraphs
+       - Normalizes whitespace and formatting
+    """
+    texts = []
+
+    try:
+        # Check if file data exists
+        if not file_data or len(file_data) == 0:
+            logger.error(f"Empty file data for: {filename}")
+            raise Exception(f"File is empty: {filename}")
+
+        # Get file size
+        file_size = len(file_data)
+        logger.info(f"File size: {file_size / (1024*1024):.2f} MB")
+
+        # Create BytesIO object from file data
+        file_stream = io.BytesIO(file_data)
+
+        # Process based on file type
+        if filename.lower().endswith('.pdf'):
+            logger.info(f"Processing PDF file: {filename}")
+
+            # Method 1: Try PyMuPDF first (most reliable)
+            if not texts:
+                try:
+                    logger.info(f"Trying PyMuPDF for {filename}")
+                    doc = fitz.open(stream=file_stream, filetype="pdf")
+                    logger.info(f"PyMuPDF opened document with {len(doc)} pages")
+
+                    for page_num in range(len(doc)):
+                        try:
+                            page_text = doc[page_num].get_text()
+                            # Add even small amounts of text - we'll filter later if needed
+                            if page_text and len(page_text.strip()) > 0:
+                                logger.info(f"PyMuPDF extracted {len(page_text)} characters from page {page_num+1}")
+                                texts.append((page_num + 1, page_text))
+                            else:
+                                logger.warning(f"PyMuPDF found no text on page {page_num+1}")
+                        except Exception as page_err:
+                            logger.error(f"PyMuPDF error on page {page_num+1}: {str(page_err)}")
+                except Exception as fitz_err:
+                    logger.error(f"PyMuPDF failed: {str(fitz_err)}")
+                    # Reset file stream position for next method
+                    file_stream.seek(0)
+
+            # Method 2: Try pdfplumber if PyMuPDF didn't work
+            if not texts:
+                try:
+                    logger.info(f"Trying pdfplumber for {filename}")
+                    # Reset file stream position
+                    file_stream.seek(0)
+                    with pdfplumber.open(file_stream) as pdf:
+                        logger.info(f"pdfplumber opened document with {len(pdf.pages)} pages")
+
+                        for page_num, page in enumerate(pdf.pages):
+                            try:
+                                text = page.extract_text()
+                                if text and len(text.strip()) > 0:
+                                    logger.info(f"pdfplumber extracted {len(text)} characters from page {page_num+1}")
+                                    texts.append((page_num + 1, text))
+                                else:
+                                    logger.warning(f"pdfplumber found no text on page {page_num+1}")
+                            except Exception as page_err:
+                                logger.error(f"pdfplumber error on page {page_num+1}: {str(page_err)}")
+                except Exception as plumber_err:
+                    logger.error(f"pdfplumber failed: {str(plumber_err)}")
+                    # Reset file stream position for next method
+                    file_stream.seek(0)
+
+            # Method 3: Last resort - try to extract images and run OCR
+            if not texts:
+                try:
+                    logger.info(f"Trying OCR on PDF images for {filename}")
+                    # Reset file stream position
+                    file_stream.seek(0)
+                    doc = fitz.open(stream=file_stream, filetype="pdf")
+
+                    # Get the best available OCR engine
+                    ocr_engine = get_ocr_engine()
+
+                    if ocr_engine != 'none':
+                        logger.info(f"Using {ocr_engine} for OCR processing")
+                        for page_num in range(len(doc)):
+                            try:
+                                # Get page as image
+                                # Use a reasonable DPI to prevent extremely large images
+                                dpi = 150  # Good balance between quality and size
+                                pix = doc[page_num].get_pixmap(dpi=dpi)
+
+                                # Check if the pixmap is too large
+                                if pix.width > 5000 or pix.height > 5000:
+                                    logger.warning(f"Page {page_num+1} too large: {pix.width}x{pix.height}. Using lower DPI.")
+                                    # Try again with lower DPI
+                                    dpi = 72  # Lower DPI for very large pages
+                                    pix = doc[page_num].get_pixmap(dpi=dpi)
+
+                                img_data = pix.tobytes("png")
+                                img = Image.open(io.BytesIO(img_data))
+
+                                logger.info(f"Processing page {page_num+1} image: {img.width}x{img.height}")
+
+                                # Run OCR using the best available engine with timeout protection
+                                text = perform_ocr(img, engine=ocr_engine, max_retries=1)
+
+                                # Check if we got a timeout message
+                                if text and "OCR processing timed out" in text:
+                                    logger.warning(f"OCR timed out on page {page_num+1}")
+                                    # Add the timeout message as text for this page
+                                    texts.append((page_num + 1, f"[OCR processing timed out for page {page_num+1}. The image may be too complex.]"))
+                                elif text and len(text.strip()) > 0:
+                                    logger.info(f"OCR extracted {len(text)} characters from page {page_num+1} using {ocr_engine}")
+                                    texts.append((page_num + 1, text))
+                                else:
+                                    logger.warning(f"OCR found no text on page {page_num+1} using {ocr_engine}")
+                            except Exception as page_err:
+                                logger.error(f"OCR error on page {page_num+1}: {str(page_err)}")
+                    else:
+                        # If no OCR engine is available, add a note about it
+                        logger.info(f"Adding note about missing OCR capability for {filename}")
+                        ocr_note = f"[OCR processing was skipped for this document because no OCR engine is available. Text extraction was limited to directly embedded text. Install Tesseract OCR or add EasyOCR to your environment for better results.]"
+                        texts.append((1, ocr_note))
+                except Exception as ocr_err:
+                    logger.error(f"PDF OCR failed: {str(ocr_err)}")
+
+        elif filename.lower().endswith((".png", ".jpg", ".jpeg")):
+            logger.info(f"Processing image file: {filename}")
+
+            # For images, just try OCR directly
+            try:
+                # Open the image from memory
+                image = Image.open(file_stream)
+                logger.info(f"Image opened: size={image.size}, mode={image.mode}")
+
+                # Check if the image is too large (to prevent memory issues)
+                width, height = image.size
+                max_dimension = 5000  # Reasonable limit for processing
+
+                if width > max_dimension or height > max_dimension:
+                    logger.warning(f"Image too large for processing: {width}x{height}. Resizing for safety.")
+                    # Resize while maintaining aspect ratio
+                    if height > width:
+                        new_height = max_dimension
+                        new_width = int(width * (max_dimension / height))
+                    else:
+                        new_width = max_dimension
+                        new_height = int(height * (max_dimension / width))
+
+                    try:
+                        # Resize using LANCZOS for better quality
+                        image = image.resize((new_width, new_height), Image.LANCZOS)
+                        logger.info(f"Image resized to {new_width}x{new_height}")
+                    except Exception as resize_err:
+                        logger.error(f"Error resizing image: {str(resize_err)}")
+                        # If resize fails, add a note and skip OCR
+                        texts.append((1, f"[Image too large to process: {width}x{height}. OCR skipped to prevent memory issues.]"))
+                        return [], BM25Okapi([[""]]), [{"id": f"{filename}_0_0", "page": 0, "paragraph": 0, "text_preview": "Image too large to process"}]
+
+                # Get the best available OCR engine
+                ocr_engine = get_ocr_engine()
+
+                if ocr_engine != 'none':
+                    logger.info(f"Using {ocr_engine} for OCR processing")
+
+                    # Convert to RGB if needed
+                    if image.mode not in ('RGB', 'L'):
+                        logger.info(f"Converting image from {image.mode} to RGB")
+                        image = image.convert('RGB')
+
+                    # Use the best available OCR engine with timeout protection
+                    text = perform_ocr(image, engine=ocr_engine, max_retries=1)
+
+                    # Check if we got a timeout message
+                    if text and "OCR processing timed out" in text:
+                        logger.warning(f"OCR timed out on image {filename}")
+                        # Add the timeout message as text
+                        texts.append((1, f"[OCR processing timed out for image {filename}. The image may be too complex.]"))
+                    elif text and len(text.strip()) > 0:
+                        logger.info(f"OCR extracted {len(text)} characters from image using {ocr_engine}")
+                        texts.append((1, text))
+                    else:
+                        logger.warning(f"OCR found no text in image using {ocr_engine}")
+                else:
+                    # If no OCR engine is available, add a note about it
+                    logger.info(f"Adding note about missing OCR capability for image {filename}")
+                    ocr_note = f"[OCR processing was skipped for this image because no OCR engine is available. Install Tesseract OCR or add EasyOCR to your environment to process image files.]"
+                    texts.append((1, ocr_note))
+            except Exception as img_err:
+                logger.error(f"Image processing failed: {str(img_err)}")
+
+        else:
+            # For unsupported file types, try a simple text extraction
+            try:
+                logger.info(f"Trying to read {filename} as text file")
+                file_stream.seek(0)
+                text = file_stream.read().decode('utf-8', errors='ignore')
+                if text and len(text.strip()) > 0:
+                    logger.info(f"Read {len(text)} characters from text file")
+                    texts.append((1, text))
+                else:
+                    logger.warning(f"No text found in file")
+            except Exception as txt_err:
+                logger.error(f"Text file reading failed: {str(txt_err)}")
+                logger.error(f"Unsupported file type: {filename}")
+                raise Exception(f"Unsupported file type: {filename}")
+
+    except Exception as e:
+        # Log the full error with traceback
+        logger.error(f"Document processing failed: {str(e)}")
+        traceback.print_exc()
+
+        # Create a dummy paragraph with error information
+        dummy_text = f"[Error processing document '{filename}': {str(e)}]"
+        dummy_paragraphs = [dummy_text]
+        dummy_doc_info = [{
+            "id": f"{filename}_0_0",
+            "page": 0,
+            "paragraph": 0,
+            "text_preview": dummy_text
+        }]
+
+        # Return minimal data to avoid crashing the app
+        logger.info("Returning dummy data after document processing failure")
+        return dummy_paragraphs, BM25Okapi([dummy_text.lower().split()]), dummy_doc_info
+
+    # FALLBACK: If we still have no text, create a dummy paragraph
+    if not texts:
+        logger.warning(f"No text extracted from {filename} using any method, creating dummy text")
+        dummy_text = f"[This document '{filename}' could not be processed for text extraction. " \
+                    f"It may be an image-only PDF, a scanned document without OCR, or contain no extractable text.]"
+        texts.append((1, dummy_text))
+
+        # Log this as a special case
+        logger.info(f"Using dummy text for {filename}")
+
+    # Process extracted text
+    all_paragraphs = []
+    doc_info = []
+
+    try:
+        # Get a database cursor
+        cursor = get_db_cursor()
+
+        # Process each text section
+        for page_num, text in texts:
+            # Split text into paragraphs
+            paragraphs = text.split("\n\n")
+
+            # Filter out very short paragraphs and normalize text
+            filtered_paragraphs = []
+            for para_num, para in enumerate(paragraphs):
+                para = para.strip()
+                # Skip empty or very short paragraphs (less than 20 chars)
+                if para and len(para) >= 20:
+                    # Normalize whitespace
+                    para = ' '.join(para.split())
+                    filtered_paragraphs.append((para_num, para))
+
+            # Process filtered paragraphs
+            for para_num, para in filtered_paragraphs:
+                doc_id = f"{filename}_{page_num}_{para_num}"
+
+                # Get the collection for this session
+                collection = get_session_collection(session_id)
+
+                # Check if it's a dummy collection
+                is_dummy_collection = hasattr(collection, 'is_dummy') and collection.is_dummy
+
+                # Get embedding if not using dummy collection
+                embedding = None
+                try:
+                    # Pass session_id for token tracking
+                    embedding = get_openai_embedding(para, session_id)
+                except Exception as embed_err:
+                    logger.error(f"Error generating embedding: {str(embed_err)}")
+                    # Create a dummy embedding if OpenAI fails
+                    embedding = [0.0] * 1536
+
+                # Add to session-specific ChromaDB collection
+                try:
+                    metadata = {
+                        "doc_id": filename,
+                        "page": page_num,
+                        "paragraph": para_num,
+                        "session_id": session_id
+                    }
+
+                    if is_dummy_collection:
+                        collection.add(
+                            documents=[para],
+                            metadatas=[metadata],
+                            ids=[doc_id]
+                        )
+                    else:
+                        collection.add(
+                            embeddings=[embedding],
+                            documents=[para],
+                            metadatas=[metadata],
+                            ids=[doc_id]
+                        )
+                    logger.debug(f"Added document to vector database: {doc_id}")
+                except Exception as chroma_err:
+                    logger.error(f"Error adding to vector database: {str(chroma_err)}")
+
+                # Add to SQLite database
+                try:
+                    cursor.execute(
+                        "INSERT INTO documents (filename, page, paragraph, text, session_id) VALUES (?, ?, ?, ?, ?)",
+                        (filename, page_num, para_num, para, session_id)
+                    )
+                    commit_db_transaction()
+                    logger.debug(f"Added document to SQL database: {doc_id}")
+                except Exception as sql_err:
+                    logger.error(f"Error adding to SQL database: {str(sql_err)}")
+                    rollback_db_transaction()
+
+                # Add to return values
+                all_paragraphs.append(para)
+                doc_info.append({
+                    "id": doc_id,
+                    "page": page_num,
+                    "paragraph": para_num,
+                    "text_preview": para[:100] + "..." if len(para) > 100 else para
+                })
+
+        # Create BM25 index for search
+        if all_paragraphs:
+            tokenized_paragraphs = [para.lower().split() for para in all_paragraphs]
+            bm25 = BM25Okapi(tokenized_paragraphs)
+            logger.info(f"Created BM25 index with {len(all_paragraphs)} paragraphs")
+        else:
+            # Create a dummy BM25 index if no paragraphs were processed
+            bm25 = BM25Okapi([[""]])
+            logger.warning("Created empty BM25 index")
+
+        # Convert any NumPy types before returning
+        converted_doc_info = convert_numpy_types(doc_info)
+
+        # Return document info for UI display
+        logger.info(f"Returning {len(all_paragraphs)} paragraphs and {len(doc_info)} document info items")
+        return all_paragraphs, bm25, converted_doc_info
+
+    except Exception as process_err:
+        logger.error(f"Text processing failed: {str(process_err)}")
+        traceback.print_exc()
+
+        # Create a minimal result with the extracted text
+        minimal_paragraphs = []
+        minimal_doc_info = []
+
+        # Use the raw text sections as paragraphs
+        for page_num, text in texts:
+            para = text.strip()
+            if para:
+                doc_id = f"{filename}_{page_num}_0"
+                minimal_paragraphs.append(para)
+                minimal_doc_info.append({
+                    "id": doc_id,
+                    "page": page_num,
+                    "paragraph": 0,
+                    "text_preview": para[:100] + "..." if len(para) > 100 else para
+                })
+
+        # Create a BM25 index with whatever we have
+        if minimal_paragraphs:
+            tokenized_paragraphs = [para.lower().split() for para in minimal_paragraphs]
+            minimal_bm25 = BM25Okapi(tokenized_paragraphs)
+        else:
+            minimal_bm25 = BM25Okapi([[""]])
+
+        logger.info(f"Returning minimal result with {len(minimal_paragraphs)} paragraphs after processing error")
+        return minimal_paragraphs, minimal_bm25, minimal_doc_info
 
 def process_document(file_path, filename, session_id='default'):
     """Process a document with multiple extraction methods for maximum reliability
@@ -1445,13 +1928,31 @@ def process_document(file_path, filename, session_id='default'):
                         for page_num in range(len(doc)):
                             try:
                                 # Get page as image
-                                pix = doc[page_num].get_pixmap()
+                                # Use a reasonable DPI to prevent extremely large images
+                                dpi = 150  # Good balance between quality and size
+                                pix = doc[page_num].get_pixmap(dpi=dpi)
+
+                                # Check if the pixmap is too large
+                                if pix.width > 5000 or pix.height > 5000:
+                                    logger.warning(f"Page {page_num+1} too large: {pix.width}x{pix.height}. Using lower DPI.")
+                                    # Try again with lower DPI
+                                    dpi = 72  # Lower DPI for very large pages
+                                    pix = doc[page_num].get_pixmap(dpi=dpi)
+
                                 img_data = pix.tobytes("png")
                                 img = Image.open(io.BytesIO(img_data))
 
-                                # Run OCR using the best available engine
-                                text = perform_ocr(img, engine=ocr_engine)
-                                if text and len(text.strip()) > 0:
+                                logger.info(f"Processing page {page_num+1} image: {img.width}x{img.height}")
+
+                                # Run OCR using the best available engine with timeout protection
+                                text = perform_ocr(img, engine=ocr_engine, max_retries=1)
+
+                                # Check if we got a timeout message
+                                if text and "OCR processing timed out" in text:
+                                    logger.warning(f"OCR timed out on page {page_num+1}")
+                                    # Add the timeout message as text for this page
+                                    texts.append((page_num + 1, f"[OCR processing timed out for page {page_num+1}. The image may be too complex.]"))
+                                elif text and len(text.strip()) > 0:
                                     logger.info(f"OCR extracted {len(text)} characters from page {page_num+1} using {ocr_engine}")
                                     texts.append((page_num + 1, text))
                                 else:
@@ -1475,6 +1976,30 @@ def process_document(file_path, filename, session_id='default'):
                 image = Image.open(file_path)
                 logger.info(f"Image opened: size={image.size}, mode={image.mode}")
 
+                # Check if the image is too large (to prevent memory issues)
+                width, height = image.size
+                max_dimension = 5000  # Reasonable limit for processing
+
+                if width > max_dimension or height > max_dimension:
+                    logger.warning(f"Image too large for processing: {width}x{height}. Resizing for safety.")
+                    # Resize while maintaining aspect ratio
+                    if height > width:
+                        new_height = max_dimension
+                        new_width = int(width * (max_dimension / height))
+                    else:
+                        new_width = max_dimension
+                        new_height = int(height * (max_dimension / width))
+
+                    try:
+                        # Resize using LANCZOS for better quality
+                        image = image.resize((new_width, new_height), Image.LANCZOS)
+                        logger.info(f"Image resized to {new_width}x{new_height}")
+                    except Exception as resize_err:
+                        logger.error(f"Error resizing image: {str(resize_err)}")
+                        # If resize fails, add a note and skip OCR
+                        texts.append((1, f"[Image too large to process: {width}x{height}. OCR skipped to prevent memory issues.]"))
+                        return all_paragraphs, BM25Okapi([[""]]), [{"id": f"{filename}_0_0", "page": 0, "paragraph": 0, "text_preview": "Image too large to process"}]
+
                 # Get the best available OCR engine
                 ocr_engine = get_ocr_engine()
 
@@ -1486,9 +2011,15 @@ def process_document(file_path, filename, session_id='default'):
                         logger.info(f"Converting image from {image.mode} to RGB")
                         image = image.convert('RGB')
 
-                    # Use the best available OCR engine
-                    text = perform_ocr(image, engine=ocr_engine)
-                    if text and len(text.strip()) > 0:
+                    # Use the best available OCR engine with timeout protection
+                    text = perform_ocr(image, engine=ocr_engine, max_retries=1)
+
+                    # Check if we got a timeout message
+                    if text and "OCR processing timed out" in text:
+                        logger.warning(f"OCR timed out on image {filename}")
+                        # Add the timeout message as text
+                        texts.append((1, f"[OCR processing timed out for image {filename}. The image may be too complex.]"))
+                    elif text and len(text.strip()) > 0:
                         logger.info(f"OCR extracted {len(text)} characters from image using {ocr_engine}")
                         texts.append((1, text))
                     else:
@@ -3036,11 +3567,9 @@ def index():
                                 all_doc_info.extend(doc_info)
                                 logger.info(f"Successfully processed {filename}: extracted {len(paragraphs)} paragraphs")
 
-                                # Clean up the file after processing to save space
-                                # Only on Render deployment or if CLEANUP_FILES env var is set
-                                if os.getenv('RENDER') or os.getenv('CLEANUP_FILES') == 'true':
-                                    cleanup_processed_file(file_path, session_id)
-                                    logger.info(f"Cleaned up file {filename} after processing for session {session_id}")
+                                # No need to clean up files since we're processing in memory
+                                # and not saving to disk anymore
+                                logger.info(f"No cleanup needed for {filename} as it was processed in memory")
                             else:
                                 failed_files.append(filename)
                                 error_messages.append(f"No text could be extracted from {filename}")
@@ -3413,23 +3942,13 @@ def analyze_ajax(session_id):
                             # Secure the filename
                             filename = secure_filename(file.filename)
 
-                            # Create session-specific upload directory
-                            session_upload_dir = os.path.join(app.config['UPLOAD_FOLDER'], session_id)
-                            os.makedirs(session_upload_dir, exist_ok=True)
+                            # Read file data into memory
+                            file_data = file.read()
+                            file_size = len(file_data)
 
-                            # Create file path in session-specific directory
-                            file_path = os.path.join(session_upload_dir, filename)
+                            logger.info(f"Processing file in memory: {filename} (size: {file_size} bytes) for session {session_id}")
 
-                            # Log file details
-                            file_size = len(file.read())
-                            file.seek(0)  # Reset file pointer after reading
-
-                            logger.info(f"Saving file: {filename} (size: {file_size} bytes) for session {session_id}")
-
-                            # Save the file
-                            file.save(file_path)
-
-                            # Verify the session still exists after file upload
+                            # Verify the session still exists after file read
                             session_check = get_session(session_id)
                             if not session_check:
                                 logger.error(f"Session {session_id} was lost during file upload")
@@ -3439,20 +3958,15 @@ def analyze_ajax(session_id):
                                     "session_expired": True
                                 })
 
-                            # Check if file was saved correctly
-                            if not os.path.exists(file_path):
-                                raise Exception(f"File was not saved correctly: {filename}")
-
-                            # Check file size
-                            file_size = os.path.getsize(file_path)
+                            # Check if file data is valid
                             if file_size == 0:
                                 raise Exception(f"File is empty: {filename}")
 
-                            logger.info(f"Successfully saved file: {filename} (size: {file_size} bytes)")
+                            logger.info(f"Successfully read file: {filename} (size: {file_size} bytes)")
                             processed_files.append(filename)
 
-                            # Process document with session ID
-                            paragraphs, _, doc_info = process_document(file_path, filename, session_id)
+                            # Process document with session ID directly from memory
+                            paragraphs, _, doc_info = process_document_in_memory(file_data, filename, session_id)
 
                             # Check if any text was extracted
                             if paragraphs:
@@ -3460,11 +3974,9 @@ def analyze_ajax(session_id):
                                 all_doc_info.extend(doc_info)
                                 logger.info(f"Successfully processed {filename}: extracted {len(paragraphs)} paragraphs")
 
-                                # Clean up the file after processing to save space
-                                # Only on Render deployment or if CLEANUP_FILES env var is set
-                                if os.getenv('RENDER') or os.getenv('CLEANUP_FILES') == 'true':
-                                    cleanup_processed_file(file_path, session_id)
-                                    logger.info(f"Cleaned up file {filename} after processing for session {session_id}")
+                                # No need to clean up files since we're processing in memory
+                                # and not saving to disk anymore
+                                logger.info(f"No cleanup needed for {filename} as it was processed in memory")
                             else:
                                 failed_files.append(filename)
                                 error_messages.append(f"No text could be extracted from {filename}")
@@ -3607,23 +4119,17 @@ def chat_ajax(session_id):
 
         if has_new_files:
             try:
-                # Save and process the file
+                # Process the file in memory
                 filename = secure_filename(file.filename)
 
-                # Create session-specific upload directory
-                session_upload_dir = os.path.join(app.config['UPLOAD_FOLDER'], session_id)
-                os.makedirs(session_upload_dir, exist_ok=True)
+                # Read file data into memory
+                file_data = file.read()
+                file_size = len(file_data)
 
-                # Create file path in session-specific directory
-                file_path = os.path.join(session_upload_dir, filename)
-
-                # Save the file
-                file.save(file_path)
+                logger.info(f"Processing file in memory: {filename} (size: {file_size} bytes) for session {session_id}")
                 processed_files.append(filename)
 
-                logger.info(f"Saved file {filename} for session {session_id} in {file_path}")
-
-                # Verify the session still exists after file upload
+                # Verify the session still exists after file read
                 session_check = get_session(session_id)
                 if not session_check:
                     logger.error(f"Session {session_id} was lost during file upload")
@@ -3635,18 +4141,15 @@ def chat_ajax(session_id):
 
                 # Process the document
                 try:
-                    # Process document and get text sections
-                    texts, _, _ = process_document(file_path, filename, session_id)
+                    # Process document and get text sections directly from memory
+                    texts, _, _ = process_document_in_memory(file_data, filename, session_id)
 
                     # Add paragraphs to the list
                     for page_num, text in texts:
                         new_paragraphs.append(text)
 
-                    # Clean up the file after processing to save space
-                    # Only on Render deployment or if CLEANUP_FILES env var is set
-                    if os.getenv('RENDER') or os.getenv('CLEANUP_FILES') == 'true':
-                        cleanup_processed_file(file_path, session_id)
-                        logger.info(f"Cleaned up file {filename} after processing for session {session_id}")
+                    # No cleanup needed since we're processing in memory
+                    logger.info(f"No cleanup needed for {filename} as it was processed in memory")
 
                 except Exception as proc_err:
                     logger.error(f"Error processing document: {str(proc_err)}")

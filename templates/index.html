@@ -207,7 +207,7 @@ Frontend Architecture:
                 <div class="hero-section text-center p-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h2 class="mb-0">Welcome to Document Research & Theme Identification</h2>
-                        <button type="button" class="btn btn-outline-primary" onclick="window.location.reload()">
+                        <button type="button" class="btn btn-outline-primary" onclick="resetAllData()">
                             <i class="fas fa-sync-alt me-2"></i> Reset All Data
                         </button>
                     </div>
@@ -559,6 +559,38 @@ Frontend Architecture:
     <!-- No tour functionality -->
 
     <script>
+        // Function to reset all data
+        function resetAllData() {
+            if (confirm('Are you sure you want to reset all data? This will delete all documents, chat sessions, and other data. This action cannot be undone.')) {
+                // Show loading overlay
+                showLoadingOverlay('Resetting all data... This may take a moment.');
+
+                // Send POST request to reset endpoint
+                fetch('/reset', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // Reload the page after successful reset
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error('Error resetting data:', error);
+                    alert('Error resetting data: ' + error.message);
+                    // Hide loading overlay
+                    const loadingOverlay = document.getElementById('loadingOverlay');
+                    if (loadingOverlay) {
+                        loadingOverlay.classList.add('d-none');
+                    }
+                });
+            }
+        }
+
         // Show welcome modal on first visit
         document.addEventListener('DOMContentLoaded', function() {
             // Check if this is the first visit
