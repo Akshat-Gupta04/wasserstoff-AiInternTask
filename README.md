@@ -1,20 +1,12 @@
 # Document Research & Theme Identification Chatbot
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask)
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
-![Flask](https://img.shields.io/badge/flask-2.0%2B-green)
+![Flask](https://img.shields.io/badge/flask-3.1.0-green)
 ![License](https://img.shields.io/badge/license-MIT-orange)
 
-## Developer
-
-This application was developed by **Akshat Gupta**.
-
-GitHub: [Akshat-Gupta04](https://github.com/Akshat-Gupta04)
-
-Repository: [wasserstoff-AiInternTask](https://github.com/Akshat-Gupta04/wasserstoff-AiInternTask)
-
-A comprehensive Flask-based web application for document analysis, theme identification, and knowledge graph visualization. This application allows users to upload multiple documents, ask questions about their content, and explore the relationships between themes and information through interactive visualizations.
+A comprehensive Flask-based web application for document analysis, theme identification, and knowledge graph visualization. Developed by Akshat Gupta, this application allows users to upload multiple documents, ask questions about their content, and explore the relationships between themes and information through interactive visualizations.
 
 ## 📋 Table of Contents
 
@@ -26,20 +18,24 @@ A comprehensive Flask-based web application for document analysis, theme identif
 - [Deployment](#-deployment)
 - [Technologies Used](#-technologies-used)
 - [Project Structure](#-project-structure)
+- [Hybrid Retrieval System](#-hybrid-retrieval-system)
 - [License](#-license)
+- [Developer](#-developer)
 
 ## ✨ Features
 
 - **Multi-Document Processing**: Upload and analyze multiple PDF and image files simultaneously
 - **Advanced Text Extraction**: Combines PyMuPDF, pdfplumber, and OCR for robust text extraction
 - **Semantic Search**: Vector embeddings with OpenAI's text-embedding-3-small model
-- **Theme Identification**: Automatic discovery of key themes using NMF and TF-IDF
+- **Hybrid Retrieval System**: Natural retrieval of document sections with LLM-enhanced summaries
+- **Theme Identification**: Automatic discovery of key themes using NMF and TF-IDF with LLM refinement
 - **Knowledge Graph Visualization**: Interactive graph showing relationships between documents and themes
 - **Continuous Chat Interface**: Ask follow-up questions while maintaining context
-- **Multiple Chat Sessions**: Create and manage separate research sessions
+- **Multiple Chat Sessions**: Create and manage separate research sessions with complete isolation
 - **Detailed Citations**: Answers include specific document, page, and paragraph citations
 - **Responsive Design**: Works on desktop, tablet, and mobile devices
 - **Processing Animations**: Visual feedback during document analysis and query processing
+- **Session Isolation**: Each chat session has separate vector databases, themes, and document storage
 
 ## 🏗 System Architecture
 
@@ -99,10 +95,15 @@ The application follows a modular architecture with the following components:
    - Weights and normalizes scores for balanced retrieval
    - Ensures both semantic meaning and keyword relevance are considered
 
-3. **Response Generation**:
-   - Uses OpenAI's GPT model to generate comprehensive answers
-   - Provides explicit instructions to cite sources properly
-   - Formats response with citations for traceability
+3. **Hybrid Retrieval System**:
+   - Uses natural retrieval to display raw document sections in the results table
+   - Preserves original document text without LLM processing
+   - Provides proper citations with document name, page number, and paragraph number
+
+4. **LLM-Enhanced Summary**:
+   - Uses OpenAI's GPT model to generate an easy-to-understand summary
+   - Helps users quickly grasp key information from retrieved documents
+   - Clearly separates LLM-enhanced content from raw document sections
 
 ### Theme Identification
 
@@ -110,17 +111,20 @@ The application follows a modular architecture with the following components:
    - Applies TF-IDF vectorization to identify important terms
    - Uses Non-negative Matrix Factorization (NMF) for topic modeling
    - Optimizes number of topics based on coherence scores
+   - Handles both small and large document collections effectively
 
-2. **Theme Refinement**:
-   - Uses LLM to refine raw themes into coherent concepts
-   - Considers query context to ensure themes are relevant
+2. **LLM Theme Refinement**:
+   - Uses LLM to refine raw statistical themes into coherent concepts
+   - Considers query context to ensure themes are relevant to user questions
    - Produces concise, human-readable theme descriptions
+   - Makes complex document relationships more understandable
 
 3. **Knowledge Graph Construction**:
    - Creates a directed graph using NetworkX
    - Represents documents and themes as nodes
    - Establishes weighted edges based on document-theme relationships
    - Marks query-relevant documents with special attributes
+   - Provides interactive filtering and exploration capabilities
 
 ## 🚀 Installation
 
@@ -147,6 +151,7 @@ The application follows a modular architecture with the following components:
 
 3. Install dependencies:
    ```bash
+   pip install Flask==3.1.0 Flask-Cors==5.0.0 python-dotenv==1.0.1 langchain==0.3.14 langchain-community langchain-openai openai gunicorn==20.1.0
    pip install -r requirements.txt
    ```
 
@@ -160,17 +165,22 @@ The application follows a modular architecture with the following components:
    OPENAI_API_KEY=your_api_key_here
    ```
 
-6. Run the application:
+6. Create necessary directories:
    ```bash
-   python app.py
+   mkdir -p uploads data static/graphs
    ```
 
-7. Open your browser and navigate to:
-   ```
-   http://127.0.0.1:5000
+7. Run the application:
+   ```bash
+   python app.py --port 3000
    ```
 
-> **Note**: The application now processes files in memory without saving them to disk, making it more suitable for deployment on platforms with limited storage like Render.
+8. Open your browser and navigate to:
+   ```
+   http://127.0.0.1:3000
+   ```
+
+   Note: The application will automatically select an available port if not specified.
 
 ## 📖 Usage
 
@@ -186,10 +196,11 @@ The application follows a modular architecture with the following components:
 1. Type your question in the input field at the bottom of the chat interface
 2. Click the send button or press Enter to submit your question
 3. View the response, which includes:
-   - A comprehensive answer to your question
-   - Key themes identified in the relevant documents
+   - An LLM-enhanced summary that helps you understand the key information
+   - Key themes identified in the relevant documents with LLM refinement
    - A knowledge graph showing relationships between documents and themes
-   - A table of extracted answers with citations
+   - A table of raw document sections with detailed citations (document name, page, paragraph)
+   - Clear separation between LLM-enhanced content and raw document sections
 
 ### Using the Knowledge Graph
 
@@ -222,19 +233,18 @@ This application is configured for easy deployment on Render.com and other cloud
    - Name: `document-research-chatbot` (or your preferred name)
    - Environment: `Python 3`
    - Build Command: `pip install -r requirements.txt`
-   - Start Command: `gunicorn app:app`
+   - Start Command: `gunicorn wsgi:app --workers=4 --threads=2 --timeout=120`
    - Select the appropriate instance type (at least 1GB RAM recommended)
 
 4. **Add environment variables**:
    - `OPENAI_API_KEY`: Your OpenAI API key
-   - `LLM_MODEL`: `gpt-3.5-turbo`
-   - `EMBEDDING_MODEL`: `text-embedding-3-small`
-   - `SECRET_KEY`: Generate a secure random string
+   - `FLASK_ENV`: `production`
+   - `FLASK_DEBUG`: `0`
 
 5. **Create a disk**:
    - In the Render dashboard, go to "Disks"
    - Create a new disk with at least 10GB
-   - Mount path: `/data`
+   - Mount path: `/app/data`
    - Attach it to your web service
 
 6. **Deploy**:
@@ -252,28 +262,25 @@ This repository includes a `render.yaml` file for Blueprint deployments:
 5. Add your `OPENAI_API_KEY` when prompted
 6. Click "Apply" to deploy
 
-### Memory-Efficient Processing
-
-The application has been optimized for deployment on platforms with limited storage:
-
-- **In-Memory File Processing**: Files are processed directly in memory without being saved to disk
-- **Session Isolation**: Each user session has its own isolated vector database
-- **Efficient Resource Usage**: Minimizes disk I/O operations for better performance
-- **Reduced Storage Requirements**: No need for large persistent storage for uploaded files
-
 ### Data Persistence
 
-The application stores only essential data in a persistent disk on Render:
+The application is configured to store all data in a persistent disk on Render:
 
 - **Disk Configuration**: A 10GB disk is mounted at `/data` to store:
   - SQLite database (`documents.db`)
   - ChromaDB vector database
-  - Generated knowledge graphs
+  - Uploaded documents
+  - Generated graphs
 
 - **Environment Variables**: The application uses these paths:
   - `DATA_FOLDER=/data`: Main data directory
-  - `UPLOAD_FOLDER=/data/uploads`: For temporary processing (not used for storage)
+  - `UPLOAD_FOLDER=/data/uploads`: Document storage
   - `STATIC_FOLDER=static`: Static assets (CSS, JS, etc.)
+
+- **Backup Considerations**:
+  - The persistent disk is backed up according to your Render plan
+  - For additional safety, consider implementing scheduled backups
+  - Critical data is isolated in the `/data` directory for easy backup
 
 ### Verifying Deployment
 
@@ -282,6 +289,7 @@ The application stores only essential data in a persistent disk on Render:
   - Vector database (ChromaDB) status
   - OpenAI API configuration
 - Use this endpoint to monitor the health of your deployment
+- Add this endpoint to your monitoring system for alerts
 
 ### Scaling Considerations
 
@@ -293,57 +301,89 @@ The application stores only essential data in a persistent disk on Render:
 - **Memory Usage**:
   - Each worker requires approximately 250-500MB of RAM
   - Choose an instance with at least 2GB RAM for production use
-  - The application implements efficient memory management for processing large documents
+  - The application implements periodic cache clearing to manage memory
+
+- **Storage Requirements**:
+  - Start with 10GB disk and monitor usage
+  - Vector databases grow with document count
+  - Consider increasing disk size for large document collections
 
 ## 🛠 Technologies Used
 
 - **Backend**:
-  - Flask: Web framework
-  - Gunicorn: WSGI HTTP Server for production
+  - Flask 3.1.0: Web framework
+  - Gunicorn 20.1.0: WSGI HTTP Server for production
   - SQLite: Relational database
   - ChromaDB: Vector database
-  - OpenAI API: Embeddings and LLM
+  - LangChain 0.3.14: Framework for LLM applications
+  - OpenAI API: Embeddings and LLM capabilities
   - PyMuPDF & pdfplumber: PDF processing
   - pytesseract: OCR for images
-  - scikit-learn: NMF and TF-IDF
-  - NetworkX: Graph construction
+  - scikit-learn: NMF and TF-IDF for theme identification
+  - NetworkX: Graph construction and analysis
+  - NLTK: Natural language processing
 
 - **Frontend**:
   - HTML5/CSS3/JavaScript
   - Bootstrap 5: UI framework
-  - Plotly.js: Interactive visualizations
+  - Plotly.js: Interactive knowledge graph visualizations
   - Font Awesome: Icons
-  - Animate.css: Animations
+  - Animate.css: Animations for document processing
+  - AJAX: Asynchronous document processing and chat
 
 ## 📁 Project Structure
 
 ```
 document-research-chatbot/
-├── app.py                  # Main Flask application
+├── app.py                  # Main Flask application with hybrid retrieval system
 ├── wsgi.py                 # WSGI entry point for Gunicorn
 ├── requirements.txt        # Python dependencies
-├── Dockerfile              # Docker configuration for containerized deployment
-├── build.sh                # Build script for deployment
+├── Procfile                # Process file for Heroku/Render
 ├── render.yaml             # Render deployment configuration
-├── .env.example            # Example environment variables
-├── .gitignore              # Git ignore file
+├── runtime.txt             # Python version specification
 ├── README.md               # Project documentation
-├── PRODUCTION.md           # Production deployment guide
+├── .env                    # Environment variables (not in repo)
+├── .gitignore              # Git ignore file
 ├── static/
 │   ├── css/
 │   │   └── style.css       # Custom styles
 │   ├── js/
 │   │   ├── main.js         # Main JavaScript
 │   │   ├── new-animation.js # Processing animations
+│   │   ├── ajax-document-analysis.js # AJAX for document processing
+│   │   ├── ajax-chat.js    # AJAX for chat functionality
 │   │   └── analysis-animation.js # Analysis animations
-│   └── graphs/             # Generated knowledge graphs (not in repo)
-└── templates/
-    ├── index.html          # Home page template
-    └── chat.html           # Chat interface template
+│   └── knowledge_graph_*.html # Generated knowledge graphs
+├── templates/
+│   └── index.html          # Main application template
+├── uploads/                # Session-specific uploaded documents (not in repo)
+└── data/
+    ├── documents.db        # SQLite database for document storage
+    └── chroma_db/          # ChromaDB vector database (session-specific)
 ```
 
-> **Note**: The application now processes files in memory, so there's no need for permanent `uploads/` or `data/` directories in the repository. These directories are created dynamically when needed.
+## 🔄 Hybrid Retrieval System
+
+This application implements a hybrid retrieval approach that combines the best of both natural retrieval and LLM enhancement:
+
+### Natural Retrieval
+- Raw document sections are retrieved directly from the vector database based on semantic similarity
+- Original document text is preserved without LLM processing or summarization
+- Detailed citations show exactly where each section comes from (document name, page, paragraph)
+- Results table displays the actual document content for maximum transparency
+
+### LLM Enhancement
+- Themes are identified using statistical methods (NMF) and refined by LLM for better coherence
+- A generalized LLM-enhanced summary helps users understand the key information
+- Knowledge graph visualization shows document-theme relationships in an intuitive way
+- Clear separation between LLM-enhanced content and raw document sections
+
+This hybrid approach provides both the accuracy and transparency of natural retrieval with the user-friendly understanding that LLM enhancement offers.
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 👨‍💻 Developer
+
+Developed by Akshat Gupta as part of the Wasserstoff AI Intern Task.

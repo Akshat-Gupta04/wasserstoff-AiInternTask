@@ -257,13 +257,59 @@ body {
 }
 
 /* Responsive Styles */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 95%;
+    }
+
+    .app-title {
+        font-size: 2rem;
+    }
+
+    .graph-container {
+        height: 700px;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .app-title {
+        font-size: 1.8rem;
+    }
+
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    .graph-container {
+        height: 600px;
+    }
+
+    .row {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    .col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12,
+    .col-sm, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12,
+    .col-md, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12,
+    .col-lg, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 10px;
     }
 
     .app-title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     .card-body {
@@ -275,7 +321,98 @@ body {
     }
 
     .graph-container {
-        height: 500px;
+        height: 450px;
+    }
+
+    .theme-card {
+        margin-bottom: 10px;
+    }
+
+    .file-upload-section {
+        padding: 15px !important;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+        padding: 0.6rem 0.8rem;
+    }
+
+    .table th, .table td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .response-content {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 8px;
+    }
+
+    .app-title {
+        font-size: 1.4rem;
+    }
+
+    .app-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .card-header {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+
+    .card-body {
+        padding: 0.75rem;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .graph-container {
+        height: 350px;
+    }
+
+    .theme-card {
+        font-size: 0.85rem;
+        padding: 0.75rem !important;
+    }
+
+    .form-control {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.7rem;
+    }
+
+    .table th, .table td {
+        padding: 0.4rem;
+        font-size: 0.8rem;
+    }
+
+    .response-content {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .file-upload-section {
+        padding: 10px !important;
+    }
+
+    .form-text {
+        font-size: 0.75rem;
+    }
+
+    .d-flex {
+        flex-wrap: wrap;
+    }
+
+    .d-flex .btn {
+        margin-bottom: 0.5rem;
     }
 }
 
@@ -937,25 +1074,6 @@ body {
     transform: scale(1.1);
 }
 
-/* Footer Styles */
-.app-footer {
-    background-color: #f8f9fa;
-    border-top: 1px solid #dee2e6;
-    padding: 1rem 0;
-    margin-top: 2rem;
-}
-
-.developer-credit a {
-    color: var(--primary-color);
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-.developer-credit a:hover {
-    color: var(--secondary-color);
-    text-decoration: underline !important;
-}
-
 /* Responsive Design Improvements */
 /* Mobile Sidebar Toggle */
 .mobile-sidebar-toggle {
@@ -973,6 +1091,106 @@ body {
     animation: pulse 2s infinite;
 }
 
+/* Chat Layout */
+.chat-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    grid-template-rows: 1fr;
+    gap: 20px;
+    height: calc(100vh - 150px);
+}
+
+.sidebar {
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chat-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 1rem;
+}
+
+.chat-input {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1rem;
+}
+
+.session-item {
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.session-item:hover {
+    background-color: rgba(67, 97, 238, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.session-item.active {
+    background-color: rgba(67, 97, 238, 0.1);
+    border-left: 3px solid var(--primary-color);
+}
+
+.session-title {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+.sidebar-section {
+    margin-bottom: 2rem;
+}
+
+.sidebar-section h5 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-section h5 i {
+    margin-right: 0.5rem;
+    color: var(--primary-color);
+}
+
+.new-chat-btn {
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-chat-btn i {
+    margin-right: 0.5rem;
+}
+
 @media (max-width: 992px) {
     .mobile-sidebar-toggle {
         display: block;
@@ -986,14 +1204,15 @@ body {
     .sidebar {
         position: fixed;
         top: 70px;
-        left: -250px;
-        width: 250px;
+        left: -280px;
+        width: 280px;
         height: calc(100vh - 70px);
         z-index: 1000;
         background: #f8f9fa;
         transition: left 0.3s ease;
         overflow-y: auto;
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
     }
 
     .sidebar-mobile-open {
@@ -1027,6 +1246,31 @@ body {
     .analysis-content {
         width: 95%;
         padding: 15px;
+    }
+
+    .session-title {
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sidebar {
+        width: 250px;
+        left: -250px;
+    }
+
+    .session-title {
+        max-width: 170px;
+        font-size: 0.9rem;
+    }
+
+    .sidebar-section h5 {
+        font-size: 1rem;
+    }
+
+    .new-chat-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem;
     }
 }
 

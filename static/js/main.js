@@ -35,6 +35,8 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+    // No page reload warning - we want to encourage reloading for a fresh start
+    // The application is designed to reset on reload
     // Initialize tooltips
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -130,8 +132,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
     }
 
-    // Form submission loading state
-    const forms = document.querySelectorAll('form');
+    // Form submission loading state - only for non-AJAX forms (index page)
+    const forms = document.querySelectorAll('form:not(.chat-input form)');
 
     forms.forEach(form => {
         form.addEventListener('submit', function(e) {

@@ -69,7 +69,6 @@ Frontend Architecture:
             border-right: 1px solid #dee2e6;
             overflow-y: auto;
             padding: 1rem;
-            transition: all 0.3s ease;
         }
         .session-item {
             padding: 0.5rem;
@@ -92,9 +91,8 @@ Frontend Architecture:
             opacity: 1;
         }
         .welcome-container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 0 15px;
         }
         .feature-card {
             height: 100%;
@@ -114,76 +112,6 @@ Frontend Architecture:
             padding: 3rem 0;
             border-radius: var(--border-radius);
             margin-bottom: 3rem;
-        }
-
-        /* Improved responsive design */
-        @media (max-width: 1199.98px) {
-            .welcome-container {
-                max-width: 100%;
-            }
-            .hero-section {
-                padding: 2rem 0;
-            }
-        }
-
-        @media (max-width: 991.98px) {
-            .chat-layout {
-                grid-template-columns: 1fr;
-            }
-            .sidebar {
-                position: fixed;
-                top: 70px;
-                left: -250px;
-                height: calc(100vh - 70px);
-                width: 250px;
-                z-index: 1000;
-                box-shadow: none;
-            }
-            .sidebar-mobile-open {
-                left: 0;
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            }
-            .mobile-sidebar-toggle {
-                display: block;
-            }
-            .app-title {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 767.98px) {
-            .hero-section {
-                padding: 1.5rem 0;
-            }
-            .card-body {
-                padding: 1rem;
-            }
-            .feature-icon {
-                font-size: 2rem;
-            }
-            .app-title {
-                font-size: 1.3rem;
-            }
-        }
-
-        @media (max-width: 575.98px) {
-            .app-title {
-                font-size: 1.1rem;
-            }
-            .hero-section {
-                padding: 1rem 0;
-            }
-            .upload-container, .query-container {
-                padding: 0.75rem !important;
-            }
-            .form-control-lg {
-                font-size: 0.9rem;
-                padding: 0.5rem 0.75rem;
-            }
-            .btn-lg {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
         }
     </style>
 </head>
@@ -218,8 +146,8 @@ Frontend Architecture:
 
     <!-- Mobile Sidebar Toggle -->
     <div class="mobile-sidebar-toggle d-lg-none">
-        <button id="sidebar-toggle" class="btn btn-sm btn-primary">
-            <i class="fas fa-bars"></i> Toggle Sidebar
+        <button id="sidebar-toggle" class="btn btn-primary rounded-circle shadow">
+            <i class="fas fa-bars"></i> <span class="d-none d-sm-inline">Menu</span>
         </button>
     </div>
 
@@ -227,20 +155,20 @@ Frontend Architecture:
     <div class="chat-layout">
         <!-- Sidebar -->
         <div class="sidebar" id="chat-sidebar">
-            <a href="{{ url_for('index') }}" class="btn btn-primary btn-block mb-4">
-                <i class="fas fa-plus me-2"></i> New Chat
+            <a href="{{ url_for('index') }}" class="btn btn-primary new-chat-btn mb-4">
+                <i class="fas fa-plus me-2"></i> <span>New Chat</span>
             </a>
 
             <div class="sidebar-section">
                 <h5><i class="fas fa-comments me-2"></i> Your Chats</h5>
                 <div class="session-list">
                     {% for s in all_sessions %}
-                        <div class="session-item {% if s.id == session_id %}active{% endif %}">
+                        <div class="session-item {% if s.id == session_id %}active{% endif %} shadow-sm">
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="{{ url_for('chat', session_id=s.id) }}" class="text-decoration-none text-dark flex-grow-1">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="session-title">{{ s.title }}</div>
-                                        <small class="text-muted">{{ s.last_updated.split(' ')[0] }}</small>
+                                        <small class="text-muted d-none d-sm-inline">{{ s.last_updated.split(' ')[0] }}</small>
                                     </div>
                                 </a>
                                 <button class="btn btn-sm btn-link text-danger delete-session-btn p-0 ms-2"
@@ -252,6 +180,22 @@ Frontend Architecture:
                             </div>
                         </div>
                     {% endfor %}
+                    {% if all_sessions|length == 0 %}
+                        <div class="text-center text-muted py-3">
+                            <i class="fas fa-info-circle mb-2"></i>
+                            <p class="small">No chat sessions yet.<br>Upload documents to start a new chat.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="sidebar-section mt-4">
+                <h5><i class="fas fa-info-circle me-2"></i> About</h5>
+                <div class="card bg-light">
+                    <div class="card-body p-3">
+                        <p class="small mb-2">Document Research & Theme Identification Chatbot</p>
+                        <p class="small mb-0 text-muted">Developed by <a href="https://github.com/Akshat-Gupta04" target="_blank" class="text-decoration-none">Akshat Gupta</a></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -261,7 +205,12 @@ Frontend Architecture:
             <div class="welcome-container">
                 <!-- Hero Section -->
                 <div class="hero-section text-center p-5">
-                    <h2 class="mb-3">Welcome to Document Research & Theme Identification</h2>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="mb-0">Welcome to Document Research & Theme Identification</h2>
+                        <button type="button" class="btn btn-outline-primary" onclick="window.location.reload()">
+                            <i class="fas fa-sync-alt me-2"></i> Reset All Data
+                        </button>
+                    </div>
                     <p class="lead mb-4">Upload documents, ask questions, and discover insights with AI-powered analysis</p>
 
                     <!-- Upload Form -->
@@ -270,11 +219,11 @@ Frontend Architecture:
                             <h4 class="mb-0"><i class="fas fa-file-upload me-2"></i> Upload Documents & Ask Questions</h4>
                         </div>
                         <div class="card-body p-4">
-                            <form method="POST" action="{{ url_for('index', session_id=session_id) }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ url_for('index', session_id=session_id) }}" enctype="multipart/form-data" id="document-upload-form">
                                 <!-- Step 1: Upload Files -->
                                 <div class="mb-4">
                                     <h5 class="mb-3"><span class="badge bg-primary me-2">1</span> Upload Your Documents</h5>
-                                    <div class="upload-container p-3 border rounded">
+                                    <div class="upload-container p-3 border rounded shadow-sm">
                                         <div class="input-group mb-3">
                                             <input type="file" class="form-control form-control-lg" id="file" name="file" accept=".pdf,.png,.jpg,.jpeg" multiple required data-tippy-content="Upload PDF, PNG, JPG, or JPEG files. Hold Ctrl/Cmd to select multiple files.">
                                             <label class="input-group-text" for="file">
@@ -282,7 +231,7 @@ Frontend Architecture:
                                             </label>
                                         </div>
                                         <div class="form-text mb-2">
-                                            <i class="fas fa-info-circle me-1 text-primary"></i> <span class="d-none d-md-inline">Select multiple files by holding Ctrl/Cmd while selecting.</span> Supported formats: PDF, PNG, JPG, JPEG.
+                                            <i class="fas fa-info-circle me-1 text-primary"></i> <span class="d-none d-md-inline">Select multiple files by holding Ctrl/Cmd while selecting.</span> Supported: PDF, PNG, JPG, JPEG.
                                         </div>
                                         <div id="selected-files" class="mt-3 mb-2"></div>
                                     </div>
@@ -291,21 +240,21 @@ Frontend Architecture:
                                 <!-- Step 2: Ask Question -->
                                 <div class="mb-4">
                                     <h5 class="mb-3"><span class="badge bg-primary me-2">2</span> Ask Your Question</h5>
-                                    <div class="query-container p-3 border rounded">
+                                    <div class="query-container p-3 border rounded shadow-sm">
                                         <input type="text" class="form-control form-control-lg" name="query" placeholder="Ask a question about the document..." required data-tippy-content="Ask specific questions for better results. Try 'What are the main themes?' or 'Summarize the key points about [topic]'">
                                         <div class="form-text mt-2">
-                                            <i class="fas fa-lightbulb me-1 text-warning"></i> Try questions like <span class="d-none d-md-inline">"What are the main themes?" or</span> "Summarize the key points about [topic]"
+                                            <i class="fas fa-lightbulb me-1 text-warning"></i> <span class="d-none d-md-inline">Try questions like</span> "What are the main themes?" or "Summarize key points about [topic]"
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Step 3: Submit -->
                                 <div class="text-center mt-4">
-                                    <button type="submit" id="analyze-btn" class="btn btn-primary btn-lg px-5" data-tippy-content="Submit your question and document to analyze">
+                                    <button type="submit" id="analyze-btn" class="btn btn-primary btn-lg px-4 px-md-5 shadow" data-tippy-content="Submit your question and document to analyze">
                                         <i class="fas fa-search me-2"></i> Analyze Documents
                                     </button>
                                     <div class="form-text text-center mt-2">
-                                        <i class="fas fa-info-circle me-1"></i> This will start a new conversation with your documents.
+                                        <i class="fas fa-info-circle me-1"></i> <span class="d-none d-md-inline">This will start a new conversation with your documents.</span>
                                     </div>
                                 </div>
                             </form>
@@ -318,36 +267,36 @@ Frontend Architecture:
                 <!-- Features Section -->
                 <h3 class="text-center mb-4">Key Features</h3>
                 <div class="row g-4 mb-5">
-                    <div class="col-md-4">
-                        <div class="card feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card feature-card animate__animated animate__fadeInUp shadow-sm" style="animation-delay: 0.1s">
                             <div class="card-body text-center">
                                 <div class="feature-icon">
                                     <i class="fas fa-comments"></i>
                                 </div>
-                                <h4>Continuous Chat</h4>
-                                <p>Ask follow-up questions and maintain context throughout your research session.</p>
+                                <h4 class="h5">Continuous Chat</h4>
+                                <p class="small">Ask follow-up questions and maintain context throughout your research session.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.3s">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card feature-card animate__animated animate__fadeInUp shadow-sm" style="animation-delay: 0.3s">
                             <div class="card-body text-center">
                                 <div class="feature-icon">
                                     <i class="fas fa-lightbulb"></i>
                                 </div>
-                                <h4>Theme Identification</h4>
-                                <p>Automatically identify key themes and topics within your documents.</p>
+                                <h4 class="h5">Theme Identification</h4>
+                                <p class="small">Automatically identify key themes and topics within your documents.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.5s">
+                    <div class="col-md-4 col-sm-6 mx-auto">
+                        <div class="card feature-card animate__animated animate__fadeInUp shadow-sm" style="animation-delay: 0.5s">
                             <div class="card-body text-center">
                                 <div class="feature-icon">
                                     <i class="fas fa-project-diagram"></i>
                                 </div>
-                                <h4>Knowledge Graphs</h4>
-                                <p>Visualize connections between documents, themes, and extracted information.</p>
+                                <h4 class="h5">Knowledge Graphs</h4>
+                                <p class="small">Visualize connections between documents, themes, and extracted information.</p>
                             </div>
                         </div>
                     </div>
@@ -355,35 +304,35 @@ Frontend Architecture:
 
                 <!-- How It Works Section -->
                 <h3 class="text-center mb-4">How It Works</h3>
-                <div class="card mb-5">
+                <div class="card mb-5 shadow-sm">
                     <div class="card-body">
                         <div class="row g-3">
-                            <div class="col-6 col-md-3 text-center">
-                                <div class="p-3 animate__animated animate__fadeInRight" style="animation-delay: 0.1s">
-                                    <i class="fas fa-file-upload fa-3x mb-3 text-primary"></i>
-                                    <h5>1. Upload</h5>
-                                    <p class="small">Upload your PDF or image document</p>
+                            <div class="col-md-3 col-6 text-center">
+                                <div class="p-2 p-md-3 animate__animated animate__fadeInRight" style="animation-delay: 0.1s">
+                                    <i class="fas fa-file-upload fa-2x fa-md-3x mb-2 mb-md-3 text-primary"></i>
+                                    <h5 class="h6 h-md-5">1. Upload</h5>
+                                    <p class="small d-none d-sm-block">Upload your PDF or image document</p>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-3 text-center">
-                                <div class="p-3 animate__animated animate__fadeInRight" style="animation-delay: 0.3s">
-                                    <i class="fas fa-question-circle fa-3x mb-3 text-primary"></i>
-                                    <h5>2. Ask</h5>
-                                    <p class="small">Ask a question about the document</p>
+                            <div class="col-md-3 col-6 text-center">
+                                <div class="p-2 p-md-3 animate__animated animate__fadeInRight" style="animation-delay: 0.3s">
+                                    <i class="fas fa-question-circle fa-2x fa-md-3x mb-2 mb-md-3 text-primary"></i>
+                                    <h5 class="h6 h-md-5">2. Ask</h5>
+                                    <p class="small d-none d-sm-block">Ask a question about the document</p>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-3 text-center">
-                                <div class="p-3 animate__animated animate__fadeInRight" style="animation-delay: 0.5s">
-                                    <i class="fas fa-robot fa-3x mb-3 text-primary"></i>
-                                    <h5>3. Analyze</h5>
-                                    <p class="small">AI analyzes the content and finds answers</p>
+                            <div class="col-md-3 col-6 text-center">
+                                <div class="p-2 p-md-3 animate__animated animate__fadeInRight" style="animation-delay: 0.5s">
+                                    <i class="fas fa-robot fa-2x fa-md-3x mb-2 mb-md-3 text-primary"></i>
+                                    <h5 class="h6 h-md-5">3. Analyze</h5>
+                                    <p class="small d-none d-sm-block">AI analyzes the content and finds answers</p>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-3 text-center">
-                                <div class="p-3 animate__animated animate__fadeInRight" style="animation-delay: 0.7s">
-                                    <i class="fas fa-lightbulb fa-3x mb-3 text-primary"></i>
-                                    <h5>4. Discover</h5>
-                                    <p class="small">Explore themes and insights</p>
+                            <div class="col-md-3 col-6 text-center">
+                                <div class="p-2 p-md-3 animate__animated animate__fadeInRight" style="animation-delay: 0.7s">
+                                    <i class="fas fa-lightbulb fa-2x fa-md-3x mb-2 mb-md-3 text-primary"></i>
+                                    <h5 class="h6 h-md-5">4. Discover</h5>
+                                    <p class="small d-none d-sm-block">Explore themes and insights</p>
                                 </div>
                             </div>
                         </div>
@@ -596,7 +545,6 @@ Frontend Architecture:
         </div>
     </div>
 
-   
     <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- No tour functionality -->
@@ -607,6 +555,7 @@ Frontend Architecture:
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/analysis-animation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/new-animation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ajax-document-analysis.js') }}"></script>
     <!-- No tour functionality -->
 
     <script>
@@ -772,72 +721,18 @@ Frontend Architecture:
                 });
             }
 
-            // Document analysis animation
-            const analyzeForm = document.querySelector('form[action*="index"]');
-            if (analyzeForm) {
-                analyzeForm.addEventListener('submit', function(e) {
-                    // Check if form is valid
-                    if (this.checkValidity()) {
-                        // Prevent default form submission temporarily
-                        e.preventDefault();
-
-                        // Get the submit button
-                        const submitBtn = document.getElementById('analyze-btn');
-                        if (submitBtn) {
-                            // Disable the button to prevent multiple submissions
-                            submitBtn.disabled = true;
-                            // Change the button icon to a spinner
-                            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Analyzing...';
-                        }
-
-                        // Get the file input
-                        const fileInput = document.getElementById('file');
-
-                        // Show document processing animation
-                        const analysisOverlay = document.getElementById('analysisOverlay');
-                        const processingSteps = document.getElementById('processingSteps');
-
-                        // Clear any existing steps
-                        processingSteps.innerHTML = '';
-
-                        // Define document processing steps
-                        const steps = [
-                            '<i class="fas fa-file-upload text-primary me-2"></i> Uploading documents...',
-                            '<i class="fas fa-file-alt text-primary me-2"></i> Extracting text content...',
-                            '<i class="fas fa-database text-primary me-2"></i> Creating vector embeddings...',
-                            '<i class="fas fa-brain text-primary me-2"></i> Analyzing document content...',
-                            '<i class="fas fa-search text-primary me-2"></i> Finding relevant information...'
-                        ];
-
-                        // Change icon to document
-                        document.querySelector('.doc-icon i').className = 'fas fa-file-alt';
-
-                        // Create step elements
-                        steps.forEach((step, index) => {
-                            const stepElement = document.createElement('div');
-                            stepElement.className = 'step';
-                            stepElement.innerHTML = step;
-                            processingSteps.appendChild(stepElement);
-                        });
-
-                        // Use the new animation function
-                        console.log("Using showNewAnimation function");
-                        window.showNewAnimation('document');
-
-                        // Submit the form after a short delay to allow animation to start
-                        setTimeout(() => {
-                            this.submit();
-                        }, 500);
-
-                        // Store the current timestamp to identify this submission
-                        window.lastSubmissionTime = new Date().getTime();
-
-                        return false;
-                    }
-                });
-            }
+            // Document analysis animation is now handled by ajax-document-analysis.js
+            // No need for the old code here as it's been replaced with AJAX
 
             // No need to add another tour button as we already have one in the header
+
+            // Show session reset warning modal on first load
+            // Only show it once per session using localStorage
+            if (!localStorage.getItem('sessionWarningShown')) {
+                const sessionResetModal = new bootstrap.Modal(document.getElementById('sessionResetModal'));
+                sessionResetModal.show();
+                localStorage.setItem('sessionWarningShown', 'true');
+            }
         });
     </script>
 
@@ -845,68 +740,31 @@ Frontend Architecture:
     <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
+                <div class="modal-header">
                     <h5 class="modal-title" id="helpModalLabel">Help & Tips</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="accordion" id="helpAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Getting Started
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#helpAccordion">
-                                <div class="accordion-body">
-                                    <p>Welcome to the Document Research & Theme Identification Chatbot! Here's how to get started:</p>
-                                    <ol>
-                                        <li>Upload one or more documents (PDF, images) using the file upload section</li>
-                                        <li>Ask a specific question about the content of your documents</li>
-                                        <li>Review the AI-generated response, which includes extracted answers with citations</li>
-                                        <li>Explore identified themes and the knowledge graph visualization</li>
-                                        <li>Ask follow-up questions to dive deeper into your documents</li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Tips for Better Results
-                                </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#helpAccordion">
-                                <div class="accordion-body">
-                                    <p>To get the most out of the Document Research Chatbot:</p>
-                                    <ul>
-                                        <li>Ask specific, focused questions rather than broad ones</li>
-                                        <li>Upload multiple related documents to enable cross-document analysis</li>
-                                        <li>Use follow-up questions to refine and explore specific aspects</li>
-                                        <li>Check the "Themes" tab to discover key topics in your documents</li>
-                                        <li>Explore the knowledge graph to visualize relationships between concepts</li>
-                                        <li>Review the "Answers" tab to see specific extracts with citations</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Supported File Types
-                                </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#helpAccordion">
-                                <div class="accordion-body">
-                                    <p>The Document Research Chatbot supports the following file types:</p>
-                                    <ul>
-                                        <li><strong>PDF Documents</strong> - Text-based PDFs work best, but the system can also process scanned PDFs using OCR</li>
-                                        <li><strong>Images (JPG, PNG)</strong> - The system will use OCR to extract text from images</li>
-                                    </ul>
-                                    <p class="text-muted"><small>Note: Text extraction quality depends on the clarity and resolution of your documents. Clear, high-resolution documents yield the best results.</small></p>
-                                </div>
-                            </div>
-                        </div>
+                    <h6>Getting Started</h6>
+                    <ol>
+                        <li>Upload one or more documents (PDF, PNG, JPG, JPEG)</li>
+                        <li>Ask a question about the content of your documents</li>
+                        <li>Review the AI's response, extracted answers, themes, and knowledge graph</li>
+                        <li>Continue the conversation with follow-up questions</li>
+                    </ol>
+
+                    <h6>Tips for Better Results</h6>
+                    <ul>
+                        <li>Ask specific questions for more precise answers</li>
+                        <li>Upload multiple related documents to enable cross-document analysis</li>
+                        <li>Use the knowledge graph to explore relationships between concepts</li>
+                        <li>Check the extracted answers table for direct citations from your documents</li>
+                    </ul>
+
+                    <div class="alert alert-warning mt-3">
+                        <h6><i class="fas fa-exclamation-triangle me-2"></i>Important Note About Sessions</h6>
+                        <p>Each time you refresh or reload this page, your current session will be reset and all data will be lost. This ensures complete isolation between sessions and optimal performance.</p>
+                        <p class="mb-0">Make sure to complete your research in a single session before closing or refreshing the page.</p>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -916,6 +774,39 @@ Frontend Architecture:
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Session Reset Information Modal -->
+    <div class="modal fade" id="sessionResetModal" tabindex="-1" aria-labelledby="sessionResetModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" id="sessionResetModalLabel"><i class="fas fa-sync-alt me-2"></i>Session Reset Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>This application is designed to reset completely when you refresh or reload the page.</p>
+                    <p><strong>Refreshing the page will:</strong></p>
+                    <ul>
+                        <li>Create a new clean session</li>
+                        <li>Delete all previously uploaded documents</li>
+                        <li>Clear all chat history</li>
+                        <li>Reset all knowledge graphs and themes</li>
+                    </ul>
+                    <p>This design ensures:</p>
+                    <ul>
+                        <li>Complete isolation between research sessions</li>
+                        <li>Optimal memory usage</li>
+                        <li>Better performance</li>
+                        <li>Clean state for each new research session</li>
+                    </ul>
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb me-2"></i> <strong>Tip:</strong> If you want to start fresh at any time, simply refresh the page!
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">I Understand</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
